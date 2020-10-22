@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4787DE3A25420B46004C5849 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4787DE3925420B46004C5849 /* CollectionViewController.swift */; };
 		4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE81253F721100D1D1AF /* AppDelegate.swift */; };
 		4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE83253F721100D1D1AF /* SceneDelegate.swift */; };
 		4789AE86253F721100D1D1AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE85253F721100D1D1AF /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4787DE3925420B46004C5849 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		4789AE7E253F721100D1D1AF /* MetroMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4789AE81253F721100D1D1AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4789AE83253F721100D1D1AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				4789AE81253F721100D1D1AF /* AppDelegate.swift */,
 				4789AE83253F721100D1D1AF /* SceneDelegate.swift */,
 				4789AE85253F721100D1D1AF /* ViewController.swift */,
+				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
 				4789AE87253F721100D1D1AF /* Main.storyboard */,
 				4789AE8D253F721A00D1D1AF /* Assets.xcassets */,
 				4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */,
@@ -145,6 +148,7 @@
 				4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */,
 				4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */,
 				4789AE8C253F721100D1D1AF /* MetroMatch.xcdatamodeld in Sources */,
+				4787DE3A25420B46004C5849 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +302,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Edward-Pizzurro.MetroMatch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -316,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Edward-Pizzurro.MetroMatch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
