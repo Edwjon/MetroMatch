@@ -17,6 +17,8 @@
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		72B1686625422C6700D53E1F /* LoginBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B1686425422C6700D53E1F /* LoginBackground@2x.png */; };
 		72B1686725422C6700D53E1F /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B1686525422C6700D53E1F /* LoginBackground.png */; };
+		72B1686B254256E100D53E1F /* roundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B1686A254256E100D53E1F /* roundImage.png */; };
+		72D6488025425A8300F4B93D /* profilebackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6487F25425A8300F4B93D /* profilebackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72B1686425422C6700D53E1F /* LoginBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginBackground@2x.png"; path = "../../ImagenesMM/LoginBackground@2x.png"; sourceTree = "<group>"; };
 		72B1686525422C6700D53E1F /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = ../../ImagenesMM/LoginBackground.png; sourceTree = "<group>"; };
+		72B1686A254256E100D53E1F /* roundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundImage.png; path = ../../ImagenesMM/roundImage.png; sourceTree = "<group>"; };
+		72D6487F25425A8300F4B93D /* profilebackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profilebackground.png; path = ../../ImagenesMM/profilebackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				4789AE85253F721100D1D1AF /* ViewController.swift */,
 				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
 				4789AE87253F721100D1D1AF /* Main.storyboard */,
+				72D6487F25425A8300F4B93D /* profilebackground.png */,
+				72B1686A254256E100D53E1F /* roundImage.png */,
 				72B1686525422C6700D53E1F /* LoginBackground.png */,
 				72B1686425422C6700D53E1F /* LoginBackground@2x.png */,
 				4789AE8D253F721A00D1D1AF /* Assets.xcassets */,
@@ -139,9 +145,11 @@
 			files = (
 				72B1686625422C6700D53E1F /* LoginBackground@2x.png in Resources */,
 				72B1686725422C6700D53E1F /* LoginBackground.png in Resources */,
+				72B1686B254256E100D53E1F /* roundImage.png in Resources */,
 				4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */,
 				4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */,
 				4789AE89253F721100D1D1AF /* Main.storyboard in Resources */,
+				72D6488025425A8300F4B93D /* profilebackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
