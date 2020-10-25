@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>136664565595-jcvrgmrt7kt988nab17347is5t7c1g0i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.136664565595-jcvrgmrt7kt988nab17347is5t7c1g0i</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDj4NWQCTBpoA6y67eACPZ80eEFiIsDKzw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>136664565595</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Edward-Pizzurro.MetroMatch</string>
+	<key>PROJECT_ID</key>
+	<string>metromatch-6771a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>metromatch-6771a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:136664565595:ios:5cd61e45a5195e43a5bc7e</string>
+	<key>DATABASE_URL</key>
+	<string>https://metromatch-6771a.firebaseio.com</string>
+</dict>
+</plist>

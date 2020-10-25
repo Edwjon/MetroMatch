@@ -21,6 +21,8 @@
 		4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8D253F721A00D1D1AF /* Assets.xcassets */; };
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
+		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
+		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,10 @@
 		4789AE90253F721A00D1D1AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
+		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +53,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AFE6D3458B9B409E1B57583 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3913CA5671864650AA002261 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */,
+				AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4702A4282544D35900C1CC8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +111,8 @@
 			children = (
 				4789AE80253F721100D1D1AF /* MetroMatch */,
 				4789AE7F253F721100D1D1AF /* Products */,
+				3913CA5671864650AA002261 /* Pods */,
+				1AFE6D3458B9B409E1B57583 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +138,7 @@
 				4789AE92253F721A00D1D1AF /* Info.plist */,
 				4789AE8A253F721100D1D1AF /* MetroMatch.xcdatamodeld */,
 				4702A4242544CB0500C1CC8E /* Extension.swift */,
+				729A96A325450EA4001E3E46 /* GoogleService-Info.plist */,
 			);
 			path = MetroMatch;
 			sourceTree = "<group>";
@@ -122,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4789AE95253F721A00D1D1AF /* Build configuration list for PBXNativeTarget "MetroMatch" */;
 			buildPhases = (
+				97DD8CA68AA7723765E089BB /* [CP] Check Pods Manifest.lock */,
 				4789AE7A253F721100D1D1AF /* Sources */,
 				4789AE7B253F721100D1D1AF /* Frameworks */,
 				4789AE7C253F721100D1D1AF /* Resources */,
+				24C3EF79FEABB457AF6068A2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,12 +204,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */,
+				729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */,
 				4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */,
 				4789AE89253F721100D1D1AF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24C3EF79FEABB457AF6068A2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97DD8CA68AA7723765E089BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MetroMatch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4789AE7A253F721100D1D1AF /* Sources */ = {
@@ -338,6 +411,7 @@
 		};
 		4789AE96253F721A00D1D1AF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -356,6 +430,7 @@
 		};
 		4789AE97253F721A00D1D1AF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
