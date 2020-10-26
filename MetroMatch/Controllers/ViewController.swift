@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
@@ -62,7 +63,22 @@ class ViewController: UIViewController {
     
     
     @IBAction func iniciarSesion(_ sender: Any) {
-        performSegue(withIdentifier: "presentLogin", sender: self)
+        
+        guard let username = usernameTextfield.text, !username.isEmpty,
+              let password = passwordTextfield.text, !password.isEmpty else {
+            print("Faltan campos para completar")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: username, password: password) { authResult, error in
+            guard error == nil else {
+                // show account creation
+                
+                return
+            }
+            print("Se ha inicado sesion  del usuario")
+        }
+        //performSegue(withIdentifier: "presentLogin", sender: self)
 //        let layout = UICollectionViewFlowLayout()
 //        self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }

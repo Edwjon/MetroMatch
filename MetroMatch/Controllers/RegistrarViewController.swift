@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegistrarViewController: UIViewController {
 
@@ -48,10 +49,26 @@ class RegistrarViewController: UIViewController {
     
     
     
+    
+    
     @IBAction func registrar(_ sender: Any) {
         let layout = UICollectionViewFlowLayout()
+        guard let username = usernameTextField.text, !username.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            print("Faltan campos para completar")
+            return
+        }
         
-        performSegue(withIdentifier: "presentRegister", sender: self)
+        Auth.auth().createUser(withEmail: username, password: password) { authResult, error in
+            guard error == nil else {
+                // show account creation
+                
+                return
+            }
+            print("Se ha creado el usuario")
+        }
+        
+        //performSegue(withIdentifier: "presentRegister", sender: self)
         //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }
     

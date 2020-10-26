@@ -1,0 +1,6 @@
+framework module Pods_MetroMatch {
+  umbrella header "Pods-MetroMatch-umbrella.h"
+
+  export *
+  module * { export * }
+}
