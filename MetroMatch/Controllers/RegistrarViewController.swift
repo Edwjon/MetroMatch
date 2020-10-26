@@ -66,6 +66,7 @@ class RegistrarViewController: UIViewController {
                 return
             }
             print("Se ha creado el usuario")
+            self.performSegue(withIdentifier: "presentRegister", sender: self)
         }
         
         //performSegue(withIdentifier: "presentRegister", sender: self)

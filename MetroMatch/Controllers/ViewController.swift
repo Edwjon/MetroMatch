@@ -77,6 +77,7 @@ class ViewController: UIViewController {
                 return
             }
             print("Se ha inicado sesion  del usuario")
+            self.performSegue(withIdentifier: "presentLogin", sender: self)
         }
         //performSegue(withIdentifier: "presentLogin", sender: self)
 //        let layout = UICollectionViewFlowLayout()
