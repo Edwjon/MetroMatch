@@ -26,14 +26,42 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameTextfield.placeholder = "Ingresa tu username"
-        usernameTextfield.backgroundColor = .gray
-        
-        metrMatchLabel.textColor = .black
-        registrarButton.backgroundColor = .orange
-        
+        setupIntertace()
         
         constrains()
+    }
+    
+    
+    
+    func setupIntertace() {
+        //UserName TExtField
+        usernameTextfield.placeholder = "Ingresa tu username"
+        usernameTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextfield.layer.masksToBounds = true
+        usernameTextfield.layer.cornerRadius = 12
+        
+        //Password TExtfield
+        passwordTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextfield.layer.masksToBounds = true
+        passwordTextfield.layer.cornerRadius = 12
+        
+        //Etiqueta MetroMatch
+        let customFont = UIFont(name: "LobsterTwo-Italic", size: UIFont.labelFontSize)
+        metrMatchLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        metrMatchLabel.textColor = .white
+        
+        //Boton Iniciar Sesión
+        iniciarSesionButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        iniciarSesionButton.layer.masksToBounds = true
+        iniciarSesionButton.layer.cornerRadius = 12
+        let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
+        let colorDerechaNaranja = UIColor(red: 0.998, green: 0.417, blue: 0.298, alpha: 1)
+        iniciarSesionButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
+        
+        //Boton registrar
+        registrarButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registrarButton.tintColor = .white
+        
     }
     
     
@@ -66,7 +94,11 @@ class ViewController: UIViewController {
         
         guard let username = usernameTextfield.text, !username.isEmpty,
               let password = passwordTextfield.text, !password.isEmpty else {
-            print("Faltan campos para completar")
+                
+                let alert = UIAlertController(title: "Error", message: "Campos inválidos. Por favor ingrese datos correctos en los campos de texto", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                
             return
         }
         
@@ -74,22 +106,36 @@ class ViewController: UIViewController {
             guard error == nil else {
                 // show account creation
                 
+                let alert = UIAlertController(title: "Error", message: "Usuario o contraseña inválidos. Por favor ingrese un usuario válido", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                
                 return
             }
-            print("Se ha inicado sesion  del usuario")
+            print("Se ha inicado sesion del usuario")
             self.performSegue(withIdentifier: "presentLogin", sender: self)
         }
-        //performSegue(withIdentifier: "presentLogin", sender: self)
-//        let layout = UICollectionViewFlowLayout()
-//        self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
+        
     }
     
     
     @IBAction func registrar(_ sender: Any) {
         performSegue(withIdentifier: "presentRegistrar", sender: self)
-        //self.present(RegistrarViewController(), animated: true, completion: nil)
     }
-    
-    
 
+}
+
+
+extension UIView {
+    
+    func setGradientBackground(colorOne: UIColor, colorTwo: UIColor) {
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [colorOne.cgColor, colorTwo.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
 }

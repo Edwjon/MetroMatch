@@ -112,16 +112,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-//        addSubview(imagenPerfil)
-//        imagenPerfil.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 30, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
-//
-//        addSubview(nombreUsuario)
-//        nombreUsuario.anchor(nil, left: imagenPerfil.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 20, widthConstant: frame.width - 30 - 50 - 30 - 10, heightConstant: 35)
-//        nombreUsuario.centerYAnchor.constraint(equalTo: imagenPerfil.centerYAnchor, constant: 0).isActive = true
-//
-//        addSubview(viewCuadrada)
-//        viewCuadrada.anchor(imagenPerfil.bottomAnchor, left: imagenPerfil.leftAnchor, bottom: nil, right: nombreUsuario.rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 400)
-        
         addSubview(viewArriba)
         viewArriba.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 50)
         

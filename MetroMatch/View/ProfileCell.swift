@@ -16,6 +16,12 @@ class ProfileCell: UITableViewCell {
         return label
     }()
     
+    let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     let descripcion: UITextView = {
         let tv = UITextView()
         tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
@@ -24,51 +30,6 @@ class ProfileCell: UITableViewCell {
         return tv
     }()
     
-    let separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
-    let misHobbies: UILabel = {
-        let label = UILabel()
-        label.text = "Mis hobbies"
-        return label
-    }()
-    
-    let hobbies: UITextView = {
-        let tv = UITextView()
-        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
-        tv.isEditable = false
-        tv.isUserInteractionEnabled = false
-        return tv
-    }()
-    
-    let separatorLine2: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
-    let buscando: UILabel = {
-        let label = UILabel()
-        label.text = "Que estoy buscando"
-        return label
-    }()
-    
-    let queBusco: UITextView = {
-        let tv = UITextView()
-        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
-        tv.isEditable = false
-        tv.isUserInteractionEnabled = false
-        return tv
-    }()
-    
-    let separatorLine3: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "cell")
@@ -82,10 +43,42 @@ class ProfileCell: UITableViewCell {
         addSubview(descripcion)
         descripcion.anchor(separatorLine.topAnchor, left: separatorLine.leftAnchor, bottom: nil, right: separatorLine.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)
         
-        //--------------------------------------------------------------------------------
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+class ProfileCell2: UITableViewCell {
+    
+    let misHobbies: UILabel = {
+        let label = UILabel()
+        label.text = "Mis hobbies"
+        return label
+    }()
+    
+    let separatorLine2: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    let hobbies: UITextView = {
+        let tv = UITextView()
+        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
+        tv.isEditable = false
+        tv.isUserInteractionEnabled = false
+        return tv
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: "cell2")
         
         addSubview(misHobbies)
-        misHobbies.anchor(descripcion.bottomAnchor, left: descripcion.leftAnchor, bottom: nil, right: nil, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 50)
+        misHobbies.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 50)
         
         addSubview(separatorLine2)
         separatorLine2.anchor(misHobbies.bottomAnchor, left: misHobbies.leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 1)
@@ -93,10 +86,42 @@ class ProfileCell: UITableViewCell {
         addSubview(hobbies)
         hobbies.anchor(separatorLine2.topAnchor, left: separatorLine2.leftAnchor, bottom: nil, right: separatorLine2.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)
         
-        //---------------------------------------------------------------------------------
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
+class ProfileCell3: UITableViewCell {
+    
+    let buscando: UILabel = {
+        let label = UILabel()
+        label.text = "Que estoy buscando"
+        return label
+    }()
+    
+    let separatorLine3: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    let queBusco: UITextView = {
+        let tv = UITextView()
+        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
+        tv.isEditable = false
+        tv.isUserInteractionEnabled = false
+        return tv
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: "cell3")
         
         addSubview(buscando)
-        buscando.anchor(hobbies.bottomAnchor, left: hobbies.leftAnchor, bottom: nil, right: nil, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 50)
+        buscando.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 250, heightConstant: 50)
         
         addSubview(separatorLine3)
         separatorLine3.anchor(buscando.bottomAnchor, left: buscando.leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 1)
@@ -109,5 +134,4 @@ class ProfileCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -22,9 +22,35 @@ class RegistrarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupInterface()
         constrains()
+    }
+    
+    
+    func setupInterface() {
+        //UserName TExtField
+        usernameTextField.placeholder = "Ingresa tu username"
+        usernameTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextField.layer.masksToBounds = true
+        usernameTextField.layer.cornerRadius = 12
         
-        registroLabel.textColor = .black
+        //Password TExtfield
+        passwordTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextField.layer.masksToBounds = true
+        passwordTextField.layer.cornerRadius = 12
+        
+        //Etiqueta MetroMatch
+        let customFont = UIFont(name: "LobsterTwo-Italic", size: UIFont.labelFontSize)
+        registroLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registroLabel.textColor = .white
+        
+        //Boton Iniciar Sesión
+        registrarButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registrarButton.layer.masksToBounds = true
+        registrarButton.layer.cornerRadius = 12
+        let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
+        let colorDerechaNaranja = UIColor(red: 0.998, green: 0.417, blue: 0.298, alpha: 1)
+        registrarButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
     }
     
 
