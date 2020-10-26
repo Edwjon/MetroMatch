@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 let posts: [Post] = [
     Post(imagenPerfil: UIImage(named: "mia") ?? UIImage(), nombre: "Mia Milano", imagenPrincipal: UIImage(named: "george") ?? UIImage(), username: "@miamilano", descripcion: "Me parece muy inteligente y guapo!!!", comentarios: ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]),
@@ -22,6 +24,20 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 //        toolbar.translatesAutoresizingMaskIntoConstraints = false
 //        return toolbar
 //    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let authListener = Auth.auth().addStateDidChangeListener { (auth, user) in
+              
+            if user != nil {
+                print("El usuario ha sido autenticado")
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Su usuario no ha podido ser autenticado", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+            
+            }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
