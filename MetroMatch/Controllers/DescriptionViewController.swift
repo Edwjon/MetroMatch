@@ -18,6 +18,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Edit Profile"
 
         tableView.delegate = self
         tableView.dataSource = self
