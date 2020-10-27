@@ -26,10 +26,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 //    }()
     
     override func viewWillAppear(_ animated: Bool) {
+        //Se chequea que haya un usuario logueado
         let authListener = Auth.auth().addStateDidChangeListener { (auth, user) in
               
             if user != nil {
-                print("El usuario ha sido autenticado")
+                //obtendo el id y el email del usuario actual si se encuentra
+                let currentUser = Auth.auth().currentUser
+                if let currentUser = user {
+                  // The user's ID, unique to the Firebase project.
+                  // Do NOT use this value to authenticate with your backend server,
+                  // if you have one. Use getTokenWithCompletion:completion: instead.
+                  let uid = currentUser.uid
+                  let email = currentUser.email
+                print("El usuario \(String(describing: uid)) ha sido autenticado")
+                  // ...
+                }
             } else {
                 let alert = UIAlertController(title: "Error", message: "Su usuario no ha podido ser autenticado", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

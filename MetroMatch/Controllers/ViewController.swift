@@ -120,7 +120,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func registrar(_ sender: Any) {
-        performSegue(withIdentifier: "presentRegistrar", sender: self)
+        //performSegue(withIdentifier: "presentRegistrar", sender: self)
+        performSegue(withIdentifier: "testingProfile", sender: self)
     }
 
 }

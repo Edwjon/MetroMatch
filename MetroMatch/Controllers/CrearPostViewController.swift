@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class CrearPostViewController: UIViewController {
 
@@ -16,6 +18,21 @@ class CrearPostViewController: UIViewController {
     @IBOutlet var descripcionTextView: UITextView!
     @IBOutlet var publicarBoton: UIButton!
     @IBOutlet var vista: UIView!
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let authListener = Auth.auth().addStateDidChangeListener { (auth, user) in
+              
+            if user != nil {
+                print("El usuario ha sido autenticado")
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Su usuario no ha podido ser autenticado", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+            
+            }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

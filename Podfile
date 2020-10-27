@@ -8,5 +8,7 @@ target 'MetroMatch' do
   # Pods for MetroMatch
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 
 end
