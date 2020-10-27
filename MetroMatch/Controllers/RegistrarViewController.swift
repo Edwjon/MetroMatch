@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+
 
 class RegistrarViewController: UIViewController {
 
@@ -26,7 +28,7 @@ class RegistrarViewController: UIViewController {
         constrains()
     }
     
-    
+    let db = Firestore.firestore()
     func setupInterface() {
         //UserName TExtField
         usernameTextField.placeholder = "Ingresa tu username"
@@ -91,9 +93,22 @@ class RegistrarViewController: UIViewController {
                 
                 return
             }
+            self.db.collection("users").document((authResult?.user.uid)!).setData([
+                "email": username
+            ]){ err in
+                if let err = err {
+                    print("No se creo el usuario")
+                } else {
+                    print("Se creo el usuario")
+                }
+            }
             print("Se ha creado el usuario")
             self.performSegue(withIdentifier: "presentRegister", sender: self)
         }
+        
+        
+        
+        
         
         //performSegue(withIdentifier: "presentRegister", sender: self)
         //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
