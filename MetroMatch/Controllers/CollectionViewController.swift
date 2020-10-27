@@ -16,20 +16,15 @@ let posts: [Post] = [
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let reuseIdentifier = "Cell"
-    
-//    let toolBar: UIToolbar = {
-//        let toolbar = UIToolbar()
-//        toolbar.translatesAutoresizingMaskIntoConstraints = false
-//        return toolbar
-//    }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Posts"
+        collectionView.backgroundColor = .white
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-//        collectionView.addSubview(toolBar)
-//        toolBar.anchor(nil, left: collectionView.leftAnchor, bottom: collectionView.bottomAnchor, right: collectionView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40)
     }
 
 

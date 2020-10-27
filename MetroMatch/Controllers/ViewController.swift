@@ -113,7 +113,8 @@ class ViewController: UIViewController {
                 return
             }
             print("Se ha inicado sesion del usuario")
-            self.performSegue(withIdentifier: "presentLogin", sender: self)
+            //self.performSegue(withIdentifier: "presentLogin", sender: self)
+            self.crearTabBar()
         }
         
     }
@@ -138,4 +139,45 @@ extension UIView {
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
         layer.insertSublayer(gradientLayer, at: 0)
     }
+}
+
+
+extension UIViewController {
+    
+    func crearTabBar() {
+        let tabBarVC = UITabBarController()
+        
+        let layout = UICollectionViewFlowLayout()
+        let vc1 = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: layout))
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc2 : CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
+        
+        let vc3 : DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        
+        vc1.title = "Posts"
+        vc2.title = "Crear"
+        vc3.title = "Perfil"
+        
+        tabBarVC.setViewControllers([vc1,vc2,vc3], animated: true)
+        
+        
+        guard let items = tabBarVC.tabBar.items else {return}
+        
+        let image1 = UIImage(named: "posts")
+        let image2 = UIImage(named: "crear")
+        
+        let image3 = UIImage(named: "edit")
+        let images = [image1, image2, image3]
+        
+        
+        for x in 0..<items.count {
+            items[x].image = images[x]
+        }
+        
+        
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true, completion: nil)
+    }
+    
 }

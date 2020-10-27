@@ -20,12 +20,14 @@ class CrearPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Crear Post"
+        
         setupInterface()
     }
     
     func setupInterface() {
-        let customFont = UIFont(name: "LobsterTwo-Bold", size: UIFont.labelFontSize)
-        crearPostLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        guard let customFont = UIFont(name: "LobsterTwo-Bold", size: UIFont.labelFontSize) else {return}
+        crearPostLabel.font = UIFontMetrics.default.scaledFont(for: customFont)
         crearPostLabel.textColor = .black
         
         usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
@@ -35,7 +37,7 @@ class CrearPostViewController: UIViewController {
         imagenPerfil.layer.cornerRadius = 12
         imagenPerfil.contentMode = .scaleToFill
         
-        publicarBoton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        publicarBoton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont)
         publicarBoton.layer.masksToBounds = true
         publicarBoton.tintColor = .white
         publicarBoton.layer.cornerRadius = 12
