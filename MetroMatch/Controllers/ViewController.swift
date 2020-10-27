@@ -165,7 +165,7 @@ extension UIViewController {
         guard let items = tabBarVC.tabBar.items else {return}
         
         let image1 = UIImage(named: "posts")
-        let image2 = UIImage(named: "crear")
+        let image2 = UIImage(named: "")
         
         let image3 = UIImage(named: "edit")
         let images = [image1, image2, image3]

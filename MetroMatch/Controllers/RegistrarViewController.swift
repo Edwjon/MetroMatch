@@ -103,7 +103,8 @@ class RegistrarViewController: UIViewController {
                 }
             }
             print("Se ha creado el usuario")
-            self.performSegue(withIdentifier: "presentRegister", sender: self)
+            //self.performSegue(withIdentifier: "presentRegister", sender: self)
+            self.crearTabBar()
         }
         
         
