@@ -330,6 +330,7 @@
                     <connections>
                         <outlet property="profileBackgroundImage" destination="EK5-Tk-lhh" id="Onw-ln-Dh8"/>
                         <outlet property="profileImage" destination="6wo-5C-f2v" id="nqc-Of-qWI"/>
+                        <outlet property="profileName" destination="3BU-nx-k8Q" id="JGs-BI-Qtp"/>
                         <outlet property="tableView" destination="Zvh-af-uIL" id="D1k-qX-Uzo"/>
                     </connections>
                 </viewController>

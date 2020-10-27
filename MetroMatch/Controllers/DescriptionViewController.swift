@@ -22,6 +22,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet var tableView: UITableView!
     
+    @IBOutlet weak var profileName: UILabel!
+    
     override func viewWillAppear(_ animated: Bool) {
         let authListener = Auth.auth().addStateDidChangeListener { [self] (auth, user) in
               
@@ -36,12 +38,15 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
                     
                     userData.getDocument { (document, error) in
                         if let document = document, document.exists {
-                            let dataDescription = document.data()//.map(String.init(describing:)) ?? "nil"
+                            let dataDescription = document.data()!// Es importante colocar el signo de exclamacion porque si no lo convierte en opcional
                             print("Document data: \(String(describing: dataDescription))")
-                            let name = dataDescription?["firstName"]
-                            let lastName = dataDescription?["lastName"]
-                            print("El nombre es \(String(describing: name))")
-                            print("El apellido es \(String(describing: lastName))")
+                            let name = dataDescription["firstName"] as? String ?? ""
+                            let lastName = dataDescription["lastName"] as? String ?? ""
+                            let aboutMe = document.data()!["aboutMe"] as? [String:Any]
+                            let story = aboutMe?["story"]
+                            
+                            print("about me11 \(story)")
+                            profileName.text = "\(String(describing: name)) \(String(describing: lastName))"
                         } else {
                             print("Document does not exist")
                         }
@@ -49,6 +54,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
                     
                     
                     print("El usuario \(String(describing: uid)) ha sido autenticado")
+                    
                     
                     
                   // ...
