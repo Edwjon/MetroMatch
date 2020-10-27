@@ -6,7 +6,8 @@ target 'MetroMatch' do
   use_frameworks!
 
   # Pods for MetroMatch
+  pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
-
+  pod 'Firebase/Firestore'
 end
