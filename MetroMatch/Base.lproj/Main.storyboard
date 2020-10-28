@@ -149,28 +149,27 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Edwjon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQn-Dg-wo0">
-                                        <rect key="frame" x="17" y="227" width="290" height="32"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-Fd-9eH">
+                                        <rect key="frame" x="17" y="225" width="290" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="290" id="NSJ-I7-Ki7"/>
-                                            <constraint firstAttribute="height" constant="32" id="SB4-8A-Ihj"/>
+                                            <constraint firstAttribute="width" constant="290" id="8eX-FF-uQE"/>
+                                            <constraint firstAttribute="height" constant="34" id="KQe-3c-c3V"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="hQn-Dg-wo0" firstAttribute="top" secondItem="2Ox-aR-A2d" secondAttribute="bottom" constant="10" id="1DY-Cf-LkW"/>
-                                    <constraint firstItem="hQn-Dg-wo0" firstAttribute="centerX" secondItem="ESV-nM-bO4" secondAttribute="centerX" id="HbT-Ft-nLP"/>
+                                    <constraint firstItem="ke3-Fd-9eH" firstAttribute="top" secondItem="2Ox-aR-A2d" secondAttribute="bottom" constant="8" id="An8-AT-RlO"/>
                                     <constraint firstItem="2Ox-aR-A2d" firstAttribute="top" secondItem="ESV-nM-bO4" secondAttribute="top" id="M2K-jn-k14"/>
                                     <constraint firstItem="f1k-Ui-0Zw" firstAttribute="centerX" secondItem="ESV-nM-bO4" secondAttribute="centerX" id="MYl-fI-JSs"/>
                                     <constraint firstAttribute="trailing" secondItem="2Ox-aR-A2d" secondAttribute="trailing" constant="8" id="T7m-qy-4zw"/>
+                                    <constraint firstItem="f1k-Ui-0Zw" firstAttribute="top" secondItem="ke3-Fd-9eH" secondAttribute="bottom" constant="8" id="YaR-xT-a2z"/>
                                     <constraint firstItem="2Ox-aR-A2d" firstAttribute="leading" secondItem="ESV-nM-bO4" secondAttribute="leading" id="cta-8t-J12"/>
                                     <constraint firstAttribute="width" constant="324" id="dfR-92-wAS"/>
-                                    <constraint firstItem="f1k-Ui-0Zw" firstAttribute="top" secondItem="hQn-Dg-wo0" secondAttribute="bottom" constant="8" id="iRR-rr-alF"/>
                                     <constraint firstAttribute="height" constant="426" id="o0l-S2-ytE"/>
+                                    <constraint firstItem="ke3-Fd-9eH" firstAttribute="centerX" secondItem="ESV-nM-bO4" secondAttribute="centerX" id="rPB-wn-zxk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
@@ -205,7 +204,7 @@
                         <outlet property="descripcionTextView" destination="f1k-Ui-0Zw" id="LQA-me-o83"/>
                         <outlet property="imagenPerfil" destination="2Ox-aR-A2d" id="ogo-Z0-UAy"/>
                         <outlet property="publicarBoton" destination="UEC-xD-nlU" id="snV-LR-Rx2"/>
-                        <outlet property="usuarioLabel" destination="hQn-Dg-wo0" id="vFn-uD-Nqb"/>
+                        <outlet property="usernameTextField" destination="ke3-Fd-9eH" id="gKq-2w-yCO"/>
                         <outlet property="vista" destination="ESV-nM-bO4" id="vSE-gB-Pph"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="publicarSegue" modalPresentationStyle="fullScreen" id="LLE-Xd-Ca5"/>
                     </connections>

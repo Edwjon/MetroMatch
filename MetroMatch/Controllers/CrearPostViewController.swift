@@ -12,7 +12,7 @@ class CrearPostViewController: UIViewController {
 
     @IBOutlet var crearPostLabel: UILabel!
     @IBOutlet var imagenPerfil: UIImageView!
-    @IBOutlet var usuarioLabel: UILabel!
+    @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var descripcionTextView: UITextView!
     @IBOutlet var publicarBoton: UIButton!
     @IBOutlet var vista: UIView!
@@ -20,7 +20,7 @@ class CrearPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Crear Post"
+        title = "Crear"
         
         setupInterface()
     }
@@ -30,8 +30,8 @@ class CrearPostViewController: UIViewController {
         crearPostLabel.font = UIFontMetrics.default.scaledFont(for: customFont)
         crearPostLabel.textColor = .black
         
-        usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
-        usuarioLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        //usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        //usuarioLabel.font = UIFont.boldSystemFont(ofSize: 18)
         
         imagenPerfil.image = UIImage(named: "mia")
         imagenPerfil.layer.cornerRadius = 12
@@ -54,7 +54,8 @@ class CrearPostViewController: UIViewController {
     }
     
     @IBAction func publicar(_ sender: Any) {
-        performSegue(withIdentifier: "publicarSegue", sender: self)
+        self.crearTabBar()
+        //performSegue(withIdentifier: "publicarSegue", sender: self)
     }
     
 

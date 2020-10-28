@@ -97,7 +97,7 @@ class RegistrarViewController: UIViewController {
                 "email": username
             ]){ err in
                 if let err = err {
-                    print("No se creo el usuario")
+                    print("No se creo el usuario: ", err)
                 } else {
                     print("Se creo el usuario")
                 }
