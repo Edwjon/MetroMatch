@@ -127,7 +127,17 @@ class RegistrarViewController: UIViewController {
                 return
             }
             self.db.collection("users").document((authResult?.user.uid)!).setData([
-                "email": email
+                "firstName": nombre,
+                "lastName": apellido,
+                "email": email,
+                "aboutMe": [],
+                "id": authResult?.user.uid ?? "",
+                "matches": [],
+                "notification": [],
+                "phone": "+587393086",
+                "posts": [],
+                "profilePic": "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/DefaultProfilePic.png?alt=media&token=035b79bd-bf5b-45e0-9f36-2b5e46ad1f03",
+                "username": username
             ]){ err in
                 if let err = err {
                     print("No se creo el usuario: ", err)
@@ -135,7 +145,6 @@ class RegistrarViewController: UIViewController {
                     print("Se creo el usuario")
                 }
             }
-            print("Se ha creado el usuario")
             //self.performSegue(withIdentifier: "presentRegister", sender: self)
             self.crearTabBar()
         }
