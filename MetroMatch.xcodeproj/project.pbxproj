@@ -29,6 +29,7 @@
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
+		BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */; };
 		BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */; };
 		BB949303254A2F3F00EBBD14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB949302254A2F3F00EBBD14 /* User.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
+		BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DescriptionController+handlers.swift"; sourceTree = "<group>"; };
 		BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserController.swift; sourceTree = "<group>"; };
 		BB949302254A2F3F00EBBD14 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				479C4A232544D80800CFD0BD /* DescriptionViewController.swift */,
 				471C25362547416800C33E26 /* CrearPostViewController.swift */,
 				BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */,
+				BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
 				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,
 				4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */,

@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class DescriptionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet var profileBackgroundImage: UIImageView!
     
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet var updateButton: UIButton!
     @IBOutlet var profileImage: UIImageView!
-    
+    var user = User();
+    let db = Firestore.firestore()
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -32,7 +37,23 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.separatorStyle = .none
         tableView.rowHeight = 170
         
-        setupInterface()
+        let userId = Auth.auth().currentUser
+        if let userId = userId {
+            db.collection("users").document(userId.uid).getDocument{(userLogged, err) in
+                if let userLogged = userLogged, userLogged.exists{
+                    self.user.firstName = userLogged.data()!["firstName"] as? String
+                    self.user.lastName = userLogged.data()!["lastName"] as? String
+                    self.user.profilePic = userLogged.data()!["profilePic"] as? String
+                    print(self.user.firstName)
+                    self.setupInterface()
+                } else {
+                    print("El usuario no existe")
+                }
+            }
+        } else {
+            print("Usuario no loggeado")
+        }
+        
     }
     
     
@@ -40,6 +61,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
         profileImage.contentMode = .scaleToFill
+        profileImage.downloaded(from: user.profilePic!)
+        NameLabel.text = user.firstName! + " " + user.lastName!
     }
 
     
@@ -71,5 +94,6 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func update(_ sender: Any) {
     }
+    
     
 }

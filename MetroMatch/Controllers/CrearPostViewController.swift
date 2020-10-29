@@ -19,11 +19,12 @@ class CrearPostViewController: UIViewController {
     @IBOutlet var descripcionTextView: UITextView!
     @IBOutlet var publicarBoton: UIButton!
     @IBOutlet var vista: UIView!
-    
+    var labelText: String!
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Crear"
         setupInterface()
+        self.usernameTextField.text = self.labelText
     }
     let db = Firestore.firestore()
     
@@ -31,6 +32,12 @@ class CrearPostViewController: UIViewController {
         let number = 0 + arc4random_uniform(100 - 0 + 1)
         return Int(number)
     }
+    
+    func didUserPressTheCellWith( text: String)
+        {
+        
+        usernameTextField.text = text
+        }
     
     func setupInterface() {
         guard let customFont = UIFont(name: "LobsterTwo-Bold", size: UIFont.labelFontSize) else {return}
@@ -62,6 +69,7 @@ class CrearPostViewController: UIViewController {
     
     @IBAction func publicar(_ sender: Any) {
         var crushID = ""
+        var profilePic = ""
         guard let username = usernameTextField.text, !username.isEmpty,
               let description = descripcionTextView.text, !description.isEmpty
         else{
@@ -76,6 +84,7 @@ class CrearPostViewController: UIViewController {
                 print("Se obtuvo un resultado")
                 for document in result!.documents {
                     crushID = document.documentID
+                    profilePic = (document["profilePic"] as? String)!
                 }
                 let compatibility = self.randomCompatibility()
                 print(compatibility)
@@ -88,6 +97,7 @@ class CrearPostViewController: UIViewController {
                         "crushID": crushID,
                         "description": description,
                         "id": "",
+                        "profilePic": profilePic
                     ]
                     var ref: DocumentReference? = nil
                     ref = self.db.collection("posts").addDocument(data: postData){ err in
@@ -114,6 +124,7 @@ class CrearPostViewController: UIViewController {
         self.crearTabBar()
         //performSegue(withIdentifier: "publicarSegue", sender: self)
     }
+    
     
     @IBAction func openSelectUser(_ sender: Any) {
         let selectUserController = SelectUserController()

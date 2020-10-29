@@ -33,6 +33,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         fetchUsers()
         
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
         collectionView.allowsSelection = false
         
     }
@@ -41,7 +46,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.db.collection("users").document(crushId).getDocument{(result, err) in
                     
                     if let result = result, result.exists{
-                        self.usernameString = (result["username"] as? String)!
+                        self.usernameString = (result.data()!["username"] as? String)!
                     } else {
                         print("El usuario no existe")
                     }
