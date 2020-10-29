@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class CrearPostViewController: UIViewController {
 
+    @IBOutlet weak var selectUserHandler: UIButton!
     @IBOutlet var crearPostLabel: UILabel!
     @IBOutlet var imagenPerfil: UIImageView!
     @IBOutlet var usernameTextField: UITextField!
@@ -21,9 +22,7 @@ class CrearPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Crear"
-        
         setupInterface()
     }
     let db = Firestore.firestore()
@@ -116,5 +115,9 @@ class CrearPostViewController: UIViewController {
         //performSegue(withIdentifier: "publicarSegue", sender: self)
     }
     
-
+    @IBAction func openSelectUser(_ sender: Any) {
+        let selectUserController = SelectUserController()
+        let navController = UINavigationController(rootViewController: selectUserController)
+        present(navController, animated: true, completion: nil)
+    }
 }

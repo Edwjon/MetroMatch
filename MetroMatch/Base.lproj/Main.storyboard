@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cy0-Rw-LVQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -37,7 +37,7 @@
                                 <rect key="frame" x="56.253274143933822" y="475" width="300" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ingresa tu email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FiZ-jr-C0G">
                                 <rect key="frame" x="56.253274143943599" y="431" width="299.99999999999989" height="34"/>
@@ -159,6 +159,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kms-8O-q26">
+                                        <rect key="frame" x="276" y="231" width="21" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="book.closed" catalog="system"/>
+                                        <connections>
+                                            <action selector="openSelectUser:" destination="cy0-Rw-LVQ" eventType="touchUpInside" id="twa-cm-tQj"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -205,6 +213,7 @@
                         <outlet property="descripcionTextView" destination="f1k-Ui-0Zw" id="LQA-me-o83"/>
                         <outlet property="imagenPerfil" destination="2Ox-aR-A2d" id="ogo-Z0-UAy"/>
                         <outlet property="publicarBoton" destination="UEC-xD-nlU" id="snV-LR-Rx2"/>
+                        <outlet property="selectUserHandler" destination="Kms-8O-q26" id="ClY-VT-yAv"/>
                         <outlet property="usernameTextField" destination="ke3-Fd-9eH" id="gKq-2w-yCO"/>
                         <outlet property="vista" destination="ESV-nM-bO4" id="vSE-gB-Pph"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="publicarSegue" modalPresentationStyle="fullScreen" id="LLE-Xd-Ca5"/>
@@ -339,10 +348,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8Fn-nY-ZES"/>
+        <segue reference="LLE-Xd-Ca5"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LoginBackground.png" width="187.5" height="406"/>
+        <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="profilebackground.png" width="375" height="234"/>
         <image name="stevenn" width="512" height="512"/>
         <systemColor name="opaqueSeparatorColor">
