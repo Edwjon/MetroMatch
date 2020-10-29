@@ -144,13 +144,12 @@
                                             <constraint firstAttribute="width" constant="290" id="DK6-Hh-qOd"/>
                                             <constraint firstAttribute="height" constant="132" id="Lpd-Tk-3IS"/>
                                         </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-Fd-9eH">
-                                        <rect key="frame" x="17" y="225" width="290" height="34"/>
+                                        <rect key="frame" x="0.0" y="225" width="290" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="290" id="8eX-FF-uQE"/>
                                             <constraint firstAttribute="height" constant="34" id="KQe-3c-c3V"/>
@@ -158,6 +157,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehH-7H-OY9">
+                                        <rect key="frame" x="292" y="230" width="29" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="29" id="iX3-SL-LKz"/>
+                                            <constraint firstAttribute="height" constant="23" id="qcf-4t-R6m"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" backgroundImage="book.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="openSelectUser:" destination="cy0-Rw-LVQ" eventType="touchUpInside" id="Gcq-kv-3kt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -168,8 +179,10 @@
                                     <constraint firstItem="f1k-Ui-0Zw" firstAttribute="top" secondItem="ke3-Fd-9eH" secondAttribute="bottom" constant="8" id="YaR-xT-a2z"/>
                                     <constraint firstItem="2Ox-aR-A2d" firstAttribute="leading" secondItem="ESV-nM-bO4" secondAttribute="leading" id="cta-8t-J12"/>
                                     <constraint firstAttribute="width" constant="324" id="dfR-92-wAS"/>
+                                    <constraint firstItem="ehH-7H-OY9" firstAttribute="leading" secondItem="ke3-Fd-9eH" secondAttribute="trailing" constant="2" id="ePH-Ds-xjl"/>
+                                    <constraint firstItem="ehH-7H-OY9" firstAttribute="top" secondItem="2Ox-aR-A2d" secondAttribute="bottom" constant="12.5" id="ijf-bW-Cfj"/>
                                     <constraint firstAttribute="height" constant="426" id="o0l-S2-ytE"/>
-                                    <constraint firstItem="ke3-Fd-9eH" firstAttribute="centerX" secondItem="ESV-nM-bO4" secondAttribute="centerX" id="rPB-wn-zxk"/>
+                                    <constraint firstItem="ke3-Fd-9eH" firstAttribute="centerX" secondItem="ESV-nM-bO4" secondAttribute="centerX" constant="-17" id="rPB-wn-zxk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
@@ -204,6 +217,7 @@
                         <outlet property="descripcionTextView" destination="f1k-Ui-0Zw" id="LQA-me-o83"/>
                         <outlet property="imagenPerfil" destination="2Ox-aR-A2d" id="ogo-Z0-UAy"/>
                         <outlet property="publicarBoton" destination="UEC-xD-nlU" id="snV-LR-Rx2"/>
+                        <outlet property="selectUserHandler" destination="ehH-7H-OY9" id="UiX-vA-T6B"/>
                         <outlet property="usernameTextField" destination="ke3-Fd-9eH" id="gKq-2w-yCO"/>
                         <outlet property="vista" destination="ESV-nM-bO4" id="vSE-gB-Pph"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="publicarSegue" modalPresentationStyle="fullScreen" id="LLE-Xd-Ca5"/>
@@ -276,25 +290,40 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0N-uC-brG">
+                                <rect key="frame" x="186" y="832" width="42" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="0oa-3q-ICM"/>
+                                    <constraint firstAttribute="width" constant="42" id="cOn-7P-1mN"/>
+                                </constraints>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="logIn:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="deh-SZ-jh7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7v8-wJ-SnW" secondAttribute="trailing" id="19d-27-J6b"/>
+                            <constraint firstItem="X0N-uC-brG" firstAttribute="top" secondItem="7v8-wJ-SnW" secondAttribute="bottom" constant="-64" id="DlH-Ot-F9C"/>
                             <constraint firstAttribute="bottom" secondItem="7v8-wJ-SnW" secondAttribute="bottom" id="Fep-Au-ScH"/>
                             <constraint firstItem="7v8-wJ-SnW" firstAttribute="leading" secondItem="B0G-79-vHb" secondAttribute="leading" id="eJ5-UK-mDE"/>
                             <constraint firstItem="7v8-wJ-SnW" firstAttribute="top" secondItem="B0G-79-vHb" secondAttribute="top" id="o5P-Lo-VeB"/>
+                            <constraint firstItem="X0N-uC-brG" firstAttribute="centerX" secondItem="7v8-wJ-SnW" secondAttribute="centerX" id="oS6-ss-E4O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iDz-6Y-dS3"/>
                     </view>
                     <connections>
                         <outlet property="apellidoTextField" destination="eyk-Nj-aQV" id="1KS-Tu-toV"/>
                         <outlet property="emailTextField" destination="MGf-cg-Sc7" id="bkp-AP-kn4"/>
+                        <outlet property="loginButton" destination="X0N-uC-brG" id="rFB-1g-pSe"/>
                         <outlet property="nombreTextField" destination="ELv-2k-ubh" id="kQN-jc-Rb3"/>
                         <outlet property="passwordTextField" destination="Xaw-uw-sTe" id="VVo-Tf-gnk"/>
                         <outlet property="registrarButton" destination="802-jf-1pW" id="Qgk-iJ-cj3"/>
                         <outlet property="registroLabel" destination="vBd-Yl-DfM" id="B8X-50-J7M"/>
                         <outlet property="usernameTextField" destination="X8T-Re-QO8" id="aNx-K2-9zf"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentRegister" modalPresentationStyle="overFullScreen" id="8Fn-nY-ZES"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backLogin" modalPresentationStyle="fullScreen" id="0uW-z2-aL7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahY-oP-747" sceneMemberID="firstResponder"/>
@@ -330,19 +359,30 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1R-N3-LI9">
+                                <rect key="frame" x="321" y="316" width="73" height="30"/>
+                                <state key="normal" title="Update"/>
+                                <connections>
+                                    <action selector="update:" destination="fhe-9I-fph" eventType="touchUpInside" id="neo-sq-wAW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tm-EJ-FlJ" firstAttribute="trailing" secondItem="Zvh-af-uIL" secondAttribute="trailing" constant="5" id="2X8-I7-0As"/>
                             <constraint firstItem="3BU-nx-k8Q" firstAttribute="leading" secondItem="fcb-cA-780" secondAttribute="leadingMargin" id="Dn7-CF-LQc"/>
+                            <constraint firstItem="I1R-N3-LI9" firstAttribute="top" secondItem="EK5-Tk-lhh" secondAttribute="bottom" constant="82" id="Dra-LT-Xym"/>
+                            <constraint firstItem="6Tm-EJ-FlJ" firstAttribute="trailing" secondItem="I1R-N3-LI9" secondAttribute="trailing" constant="20" id="GYu-Ft-G0y"/>
                             <constraint firstItem="Zvh-af-uIL" firstAttribute="top" secondItem="3BU-nx-k8Q" secondAttribute="bottom" constant="15" id="GZY-S1-rSy"/>
                             <constraint firstItem="3BU-nx-k8Q" firstAttribute="centerX" secondItem="Zvh-af-uIL" secondAttribute="centerX" id="In8-uX-UKw"/>
                             <constraint firstItem="6wo-5C-f2v" firstAttribute="centerX" secondItem="EK5-Tk-lhh" secondAttribute="centerX" id="KLb-IX-0Uf"/>
                             <constraint firstItem="EK5-Tk-lhh" firstAttribute="top" secondItem="fcb-cA-780" secondAttribute="top" id="Nx8-Ag-TFK"/>
                             <constraint firstItem="3BU-nx-k8Q" firstAttribute="top" secondItem="6wo-5C-f2v" secondAttribute="bottom" constant="15" id="Nzz-Iv-zLh"/>
+                            <constraint firstItem="I1R-N3-LI9" firstAttribute="leading" secondItem="6wo-5C-f2v" secondAttribute="trailing" constant="16.5" id="OrV-3F-gPQ"/>
                             <constraint firstItem="Zvh-af-uIL" firstAttribute="leading" secondItem="6Tm-EJ-FlJ" secondAttribute="leading" constant="5" id="QAq-mn-EmS"/>
                             <constraint firstItem="3BU-nx-k8Q" firstAttribute="centerX" secondItem="6wo-5C-f2v" secondAttribute="centerX" id="V8r-cB-daC"/>
                             <constraint firstItem="6wo-5C-f2v" firstAttribute="top" secondItem="6Tm-EJ-FlJ" secondAttribute="top" constant="100" id="fb7-Px-QzF"/>
+                            <constraint firstItem="3BU-nx-k8Q" firstAttribute="top" secondItem="I1R-N3-LI9" secondAttribute="bottom" constant="8" id="i9S-aB-RZR"/>
                             <constraint firstItem="6Tm-EJ-FlJ" firstAttribute="bottom" secondItem="Zvh-af-uIL" secondAttribute="bottom" id="ybT-vA-zUV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tm-EJ-FlJ"/>
@@ -351,6 +391,7 @@
                         <outlet property="profileBackgroundImage" destination="EK5-Tk-lhh" id="Onw-ln-Dh8"/>
                         <outlet property="profileImage" destination="6wo-5C-f2v" id="nqc-Of-qWI"/>
                         <outlet property="tableView" destination="Zvh-af-uIL" id="D1k-qX-Uzo"/>
+                        <outlet property="updateButton" destination="I1R-N3-LI9" id="dZG-7u-0Rt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZx-xL-1xE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -359,10 +400,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8Fn-nY-ZES"/>
+        <segue reference="LLE-Xd-Ca5"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LoginBackground.png" width="187.5" height="406"/>
+        <image name="book.circle.fill" catalog="system" width="128" height="121"/>
         <image name="profilebackground.png" width="375" height="234"/>
         <image name="stevenn" width="512" height="512"/>
     </resources>

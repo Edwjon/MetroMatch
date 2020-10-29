@@ -22,6 +22,7 @@ class RegistrarViewController: UIViewController {
     @IBOutlet var apellidoTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
     
+    @IBOutlet var loginButton: UIButton!
     
     
     @IBOutlet var registrarButton: UIButton!
@@ -71,6 +72,9 @@ class RegistrarViewController: UIViewController {
         emailTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
         emailTextField.layer.masksToBounds = true
         emailTextField.layer.cornerRadius = 12
+        
+        loginButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        loginButton.tintColor = .white
     }
     
 
@@ -157,6 +161,10 @@ class RegistrarViewController: UIViewController {
         //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }
     
-
+    
+    @IBAction func logIn(_ sender: Any) {
+        performSegue(withIdentifier: "backLogin", sender: self)
+    }
+    
     
 }

@@ -12,6 +12,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet var profileBackgroundImage: UIImageView!
     
+    @IBOutlet var updateButton: UIButton!
     @IBOutlet var profileImage: UIImageView!
     
     @IBOutlet var tableView: UITableView!
@@ -20,6 +21,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         title = "Edit Profile"
+        tableView.allowsSelection = false
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -65,5 +67,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
 
         return UITableViewCell()
     }
-
+    
+    
+    @IBAction func update(_ sender: Any) {
+    }
+    
 }

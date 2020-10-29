@@ -22,6 +22,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     let db = Firestore.firestore()
     var usernameString = "@Testing"
     var posts = [Post]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +32,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         fetchUsers()
+        
+        collectionView.allowsSelection = false
         
     }
     
