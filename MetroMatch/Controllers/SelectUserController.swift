@@ -38,13 +38,6 @@ class SelectUserController: UITableViewController {
                         self.tableView.reloadData()
                     }
                 }
-//                print(users?.documents[0].data())
-//                if let dictionary = users?.documents as? [String: Any]{
-//                    let usersArray = User()
-//                    usersArray.setValuesForKeys(dictionary)
-//                    self.users.append(usersArray)
-//
-//                }
                 print("testing")
                 print(self.users)
             }

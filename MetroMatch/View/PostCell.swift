@@ -86,6 +86,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     let descripcion: UITextView = {
         let tv = UITextView()
+        tv.textColor = .black
         tv.isEditable = false
         tv.backgroundColor = .clear
         //tv.layer.cornerRadius = 10
@@ -158,7 +159,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         
-        cell.textLabel?.text = posts[indexPath.item].comentarios[indexPath.item]
+//        cell.textLabel?.text = posts[indexPath.item].comentarios[indexPath.item]
         return cell
     }
     
