@@ -246,6 +246,19 @@
                                     <action selector="MatchButton:" destination="snG-PC-uNR" eventType="touchUpInside" id="FZJ-No-RCP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BA-Qv-RTx">
+                                <rect key="frame" x="167" y="380" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="UndoMatch"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fef-X0-33a">
+                                <rect key="frame" x="167" y="380" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="UndoMatch"/>
+                                <connections>
+                                    <action selector="UndoMatch:" destination="snG-PC-uNR" eventType="touchUpInside" id="Zh9-k2-BAd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aZR-Ot-3RJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -442,6 +455,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="nlc-5D-cXj"/>
         <segue reference="t99-ne-fNV"/>
     </inferredMetricsTieBreakers>
     <resources>

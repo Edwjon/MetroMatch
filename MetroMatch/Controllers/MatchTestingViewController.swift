@@ -65,6 +65,23 @@ func matchMaker(postId:String){
     
 }
 
+func undoMatch (matchID:String) {
+    
+    let post = db.collection("matches").document(matchID)
+
+            db.collection("matches").document(matchID).updateData([
+                "state": 0
+            ]){err in
+                if let err = err {
+                    print("No se pudo deshacer tu match", err)
+                } else {
+                    print("Haz roto un corazon satisfactoriamente")
+                }
+            }
+            
+        }
+    
+
 class MatchTestingViewController: UIViewController {
     
     
@@ -82,6 +99,9 @@ class MatchTestingViewController: UIViewController {
         
     }
     
+    @IBAction func UndoMatch(_ sender: Any) {
+        undoMatch(matchID: "2zvfy4QZxArfFPJREnzO")
+    }
     
     
     /*
