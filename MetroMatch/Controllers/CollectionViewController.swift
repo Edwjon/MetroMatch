@@ -114,6 +114,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                 
                                 post.creatorProfilePic = documentCreator["profilePic"] as? String
                                 post.usernameCreator = documentCreator["username"] as? String
+                                print("FOTO DE PERFIL DEL CREADOR")
                                 print(post.usernameCreator, post.creatorProfilePic)
                             } else {
                                 print("El documento no existe")
@@ -164,9 +165,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //print(self.posts)
         //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
         cell.nombreUsuario.text = posts[indexPath.item].username
-       cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
+        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
+        //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
+        
         
         
        // cell.tableView.numberOfRows(inSection: posts[indexPath.item].comments.count)

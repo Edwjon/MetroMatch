@@ -13,7 +13,7 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+//Thread 1: "FIRESTORE INTERNAL ASSERTION FAILED: Invalid document reference. Document references must have an even number of segments, but users has 1"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
