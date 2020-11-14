@@ -20,9 +20,16 @@ class CrearPostViewController: UIViewController {
     @IBOutlet var publicarBoton: UIButton!
     @IBOutlet var vista: UIView!
     var labelText: String!
+    
+    @IBOutlet var anonimoSwitch: UISwitch!
+    @IBOutlet var anonimoLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Crear"
+        //title = "Crear"
+        
+        anonimoLabel.text = "Público"
         setupInterface()
         self.usernameTextField.text = self.labelText
     }
@@ -121,7 +128,7 @@ class CrearPostViewController: UIViewController {
                 }
             }
         }
-        self.crearTabBar()
+        //self.crearTabBar()
         //performSegue(withIdentifier: "publicarSegue", sender: self)
     }
     
@@ -131,4 +138,13 @@ class CrearPostViewController: UIViewController {
         let navController = UINavigationController(rootViewController: selectUserController)
         present(navController, animated: true, completion: nil)
     }
+    
+    @IBAction func cambioSwitch(_ sender: Any) {
+        if !anonimoSwitch.isOn {
+            anonimoLabel.text = "Anónimo"
+        } else {
+            anonimoLabel.text = "Público"
+        }
+    }
+    
 }

@@ -94,28 +94,30 @@ class ViewController: UIViewController {
         
         guard let username = usernameTextfield.text, !username.isEmpty,
               let password = passwordTextfield.text, !password.isEmpty else {
-                
+
                 let alert = UIAlertController(title: "Error", message: "Campos inválidos. Por favor ingrese datos correctos en los campos de texto", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-                
+
             return
         }
-        
+
         Auth.auth().signIn(withEmail: username, password: password) { authResult, error in
             guard error == nil else {
                 // show account creation
-                
+
                 let alert = UIAlertController(title: "Error", message: "Usuario o contraseña inválidos. Por favor ingrese un usuario válido", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-                
+
                 return
             }
             print("Se ha inicado sesion del usuario")
-            //self.performSegue(withIdentifier: "presentLogin", sender: self)
-            self.crearTabBar()
+            self.performSegue(withIdentifier: "tabBarLogin", sender: self)
+            //self.crearTabBar()
         }
+        
+        //self.crearTabBar()
         
     }
     
@@ -147,33 +149,42 @@ extension UIViewController {
     func crearTabBar() {
         let tabBarVC = UITabBarController()
         
+        
         let layout = UICollectionViewFlowLayout()
         let vc1 = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: layout))
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc2 : CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
+        let v2: CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
+        let vc2 = UINavigationController(rootViewController: v2)
         
-        let vc3 : DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        let v3: NotificacionesViewController = mainStoryboard.instantiateViewController(withIdentifier: "notificaciones") as! NotificacionesViewController
+        let vc3 = UINavigationController(rootViewController: v3)
+        
+        let v4: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        let vc4 = UINavigationController(rootViewController: v4)
+        
+        
         
         vc1.title = "Posts"
         vc2.title = "Crear"
-        vc3.title = "Perfil"
+        vc3.title = "Notificaciones"
+        vc4.title = "Perfil"
         
-        tabBarVC.setViewControllers([vc1,vc2,vc3], animated: true)
+        tabBarVC.setViewControllers([vc1,vc2,vc3, vc4], animated: true)
+        
+//        guard let items = tabBarVC.tabBar.items else {return}
+//
+//        let image1 = UIImage(named: "posts")
+//        let image2 = UIImage(named: "")
+//        let image3 = UIImage(named: "edit")
+//
+//
+        //let images = [image1, image2, image3]
         
         
-        guard let items = tabBarVC.tabBar.items else {return}
-        
-        let image1 = UIImage(named: "posts")
-        let image2 = UIImage(named: "")
-        
-        let image3 = UIImage(named: "edit")
-        let images = [image1, image2, image3]
-        
-        
-        for x in 0..<items.count {
-            items[x].image = images[x]
-        }
+//        for x in 0..<items.count {
+//            items[x].image = images[x]
+//        }
         
         
         tabBarVC.modalPresentationStyle = .fullScreen
