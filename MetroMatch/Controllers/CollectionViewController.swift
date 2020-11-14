@@ -42,6 +42,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
     }
     
+    
     func getUsername(crushId: String){
                 self.db.collection("users").document(crushId).getDocument{(result, err) in
                     
@@ -72,7 +73,28 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                      post.compatibility = documentPost["compatibility"] as? Int
                      post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
                      post.profilePic = documentPost["profilePic"] as? String
-                    post.username = self.usernameString
+                    
+                    //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
+                    db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            post.username = document["username"] as? String
+                            post.creatorProfilePic = document["profilePic"] as? String
+                            print("Document data: \(document["username"])")
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                    
+//                    { (user, err)
+//                        if let err = err {
+//                            print("Ha ocurrido un error")
+//                            post.username = self.usernameString
+//                        } else {
+//                            post.username = user["username"]
+//                            print("Agregando el username real \($user["username"])")
+//                        }
+//                    }
+                    
                     
                     self.posts.append(post)
                 }
@@ -88,6 +110,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     func fetchPosts(){
+        print("FETCHING POSTS")
         db.collection("posts").getDocuments(){(posts, err) in
             if let err = err {
                 print("Fetching failed", err)
@@ -98,7 +121,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     let post = Post()
                     user.id = documentPost["crushID"] as? String
                     creator.id = documentPost["creatorID"] as? String
-                    
+                    print("VERIFICANDO CRUSH ID")
+                    print(user.id)
+                    print("VERIFICANDO CREATOR ID")
+                    print(creator.id)
                     
                     self.db.collection("users").document((user.id)!).getDocument{ (documentUser, err) in
                     if let documentUser = documentUser, documentUser.exists {
@@ -166,7 +192,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
         cell.nombreUsuario.text = posts[indexPath.item].username
         cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
-        //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
+        cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
         
