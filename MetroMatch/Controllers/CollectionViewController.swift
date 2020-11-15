@@ -31,8 +31,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        //fetchUsers()
-        myPosts(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
+        fetchUsers()
+        //myPosts(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
         
         
         DispatchQueue.global(qos: .userInitiated).async {
