@@ -12,18 +12,35 @@ import FirebaseAuth
 
 class DescriptionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var editable = false
+    
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet var profileBackgroundImage: UIImageView!
     
-    @IBOutlet weak var editButton: UIButton!
     @IBOutlet var updateButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet var profileImage: UIImageView!
     var user = User();
     let db = Firestore.firestore()
     @IBOutlet var tableView: UITableView!
     
+    var descripcion = ""
+    var hobbies = ""
+    var queHago = ""
+    
+    var idUsuario = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Se puede editar ya que se entró desde el own perfil
+        if editable {
+            updateButton.isHidden = false
+            editButton.isHidden = false
+        } else {
+            updateButton.isHidden = true
+            editButton.isHidden = true
+        }
         
         title = "Edit Profile"
         tableView.allowsSelection = false
@@ -75,25 +92,42 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileCell
+            
+            //Aqui se setean los textos. Ejemplo:
+            //cell.descripcion.text = "Lo que sea"
+            //descripcion = "Algo"
+            
             return cell
         }
         
         if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! ProfileCell2
+            
+            //Aqui se setean los textos. Ejemplo:
+            //cell.hobbies.text = "Lo que sea"
+            //hobbies = "Algo"
+            
             return cell
         }
         
         if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell3", for: indexPath) as! ProfileCell3
+            
+            //Aqui se setean los textos. Ejemplo:
+            //cell.queBusco.text = "Lo que sea"
+            //queHago = "Algp"
+            
             return cell
         }
 
         return UITableViewCell()
     }
     
-    
     @IBAction func update(_ sender: Any) {
+        //Usas lo que tenga el usuario en el momento
+        //Usas las variales descripcion, hobbies, queHago
     }
+    
     
     
 }

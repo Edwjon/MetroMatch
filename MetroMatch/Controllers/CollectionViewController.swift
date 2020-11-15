@@ -28,9 +28,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
-
         
-        title = "Posts"
+        //title = "Posts"
         collectionView.backgroundColor = .white
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -50,6 +49,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         setupTabBar()
         
     }
+    
+    
     
     @objc func funcionMensajes() {
         print("qlq")
@@ -109,7 +110,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                      post.profilePic = documentPost["profilePic"] as? String
                     
                     //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
-                    db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
+                    self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
                             post.username = document["username"] as? String
                             post.creatorProfilePic = document["profilePic"] as? String
@@ -272,6 +273,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
+        cell.boton.isHidden = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
+        cell.imagenPerfil.addGestureRecognizer(tapGesture)
         
         
         
@@ -279,6 +284,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //cell.tableView.cellForRow(at: indexPath)?.textLabel = posts[indexPath.item].comentarios[indexPath.item]
         
         return cell
+    }
+    
+    @objc func goProfile() {
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        dvc.editable = false
+        dvc.idUsuario = 0
+        self.present(dvc, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

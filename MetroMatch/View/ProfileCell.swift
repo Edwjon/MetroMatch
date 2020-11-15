@@ -22,7 +22,7 @@ class ProfileCell: UITableViewCell {
         return view
     }()
     
-    let descripcion: UITextView = {
+    var descripcion: UITextView = {
         let tv = UITextView()
         tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false
@@ -66,7 +66,7 @@ class ProfileCell2: UITableViewCell {
         return view
     }()
     
-    let hobbies: UITextView = {
+    var hobbies: UITextView = {
         let tv = UITextView()
         tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false
@@ -109,7 +109,7 @@ class ProfileCell3: UITableViewCell {
         return view
     }()
     
-    let queBusco: UITextView = {
+    var queBusco: UITextView = {
         let tv = UITextView()
         tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false

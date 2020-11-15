@@ -29,6 +29,7 @@
 		4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8D253F721A00D1D1AF /* Assets.xcassets */; };
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
+		47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */; };
 		72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72919701254E3EC70097D56F /* MatchTestingViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
@@ -62,6 +63,7 @@
 		4789AE90253F721A00D1D1AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionView.swift; sourceTree = "<group>"; };
 		72919701254E3EC70097D56F /* MatchTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTestingViewController.swift; sourceTree = "<group>"; };
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 				4789AE85253F721100D1D1AF /* ViewController.swift */,
 				4702A4262544D12600C1CC8E /* RegistrarViewController.swift */,
 				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
+				47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */,
 				479C4A232544D80800CFD0BD /* DescriptionViewController.swift */,
 				471C25362547416800C33E26 /* CrearPostViewController.swift */,
 				BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */,
@@ -319,6 +322,7 @@
 				4702A4252544CB0500C1CC8E /* Extension.swift in Sources */,
 				471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */,
 				4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */,
+				47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */,
 				72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */,
 				4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */,
 				4789AE8C253F721100D1D1AF /* MetroMatch.xcdatamodeld in Sources */,
