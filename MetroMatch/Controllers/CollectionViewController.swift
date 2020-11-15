@@ -23,8 +23,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var usernameString = "@Testing"
     var posts = [Post]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
+
         
         title = "Posts"
         collectionView.backgroundColor = .white
@@ -32,25 +36,55 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         fetchUsers()
+        fetchPosts()
         
         DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
+        
         collectionView.allowsSelection = false
+        
+        setupTabBar()
         
     }
     
+    @objc func funcionMensajes() {
+        print("qlq")
+    }
+    
+    
+    func setupTabBar(){
+        guard let tabbar = self.tabBarController?.tabBar else { return }
+        
+        let colorIzquierda = UIColor(red: 0.977, green: 0.454, blue: 0.683, alpha: 1)
+        let colorDerecha = UIColor(red: 0.970, green: 0.459, blue: 0.461, alpha: 1)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = tabbar.bounds
+        gradientLayer.colors = [colorIzquierda.cgColor, colorDerecha.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
+        tabbar.layer.insertSublayer(gradientLayer, at: 0)
+        
+        tabbar.layer.cornerRadius = 30
+        tabbar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tabbar.layer.masksToBounds = true
+        view.setGradientBackground(colorOne: colorIzquierda, colorTwo: colorDerecha)
+
+    }
+    
+    
     func getUsername(crushId: String){
-                self.db.collection("users").document(crushId).getDocument{(result, err) in
-                    
-                    if let result = result, result.exists{
-                        self.usernameString = (result.data()!["username"] as? String)!
-                    } else {
-                        print("El usuario no existe")
-                    }
-                }
+        self.db.collection("users").document(crushId).getDocument{(result, err) in
+            
+            if let result = result, result.exists{
+                self.usernameString = (result.data()!["username"] as? String)!
+            } else {
+                print("El usuario no existe")
+            }
+        }
     }
     
     func fetchUsers(){
@@ -146,25 +180,24 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         return 1
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+                
         return posts.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
+        
+        cell.nombreUsuario.text = posts[indexPath.item].username
+        
         //print(self.posts)
         //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
+        
         cell.nombreUsuario.text = posts[indexPath.item].username
-       cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
+        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
         
@@ -172,8 +205,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
        // cell.tableView.numberOfRows(inSection: posts[indexPath.item].comments.count)
         //cell.tableView.cellForRow(at: indexPath)?.textLabel = posts[indexPath.item].comentarios[indexPath.item]
         
-
-    
         return cell
     }
     

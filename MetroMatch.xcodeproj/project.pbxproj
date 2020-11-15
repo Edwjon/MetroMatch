@@ -11,6 +11,8 @@
 		4702A4252544CB0500C1CC8E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702A4242544CB0500C1CC8E /* Extension.swift */; };
 		4702A4272544D12600C1CC8E /* RegistrarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702A4262544D12600C1CC8E /* RegistrarViewController.swift */; };
 		4702A42C2544D39700C1CC8E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702A42B2544D39700C1CC8E /* Post.swift */; };
+		4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719DE5125544FFF008FC6F5 /* MyProfile.swift */; };
+		4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */; };
 		471C25312546F3EA00C33E26 /* LobsterTwo-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252C2546F3E800C33E26 /* LobsterTwo-Italic.ttf */; };
 		471C25322546F3EA00C33E26 /* LobsterTwo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252D2546F3E900C33E26 /* LobsterTwo-Bold.ttf */; };
 		471C25332546F3EA00C33E26 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252E2546F3E900C33E26 /* Lobster-Regular.ttf */; };
@@ -39,6 +41,8 @@
 		4702A4242544CB0500C1CC8E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		4702A4262544D12600C1CC8E /* RegistrarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrarViewController.swift; sourceTree = "<group>"; };
 		4702A42B2544D39700C1CC8E /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		4719DE5125544FFF008FC6F5 /* MyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfile.swift; sourceTree = "<group>"; };
+		4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificacionesViewController.swift; sourceTree = "<group>"; };
 		471C252C2546F3E800C33E26 /* LobsterTwo-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Italic.ttf"; sourceTree = "<group>"; };
 		471C252D2546F3E900C33E26 /* LobsterTwo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Bold.ttf"; sourceTree = "<group>"; };
 		471C252E2546F3E900C33E26 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				471C25362547416800C33E26 /* CrearPostViewController.swift */,
 				BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */,
 				BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */,
+				4719DE5125544FFF008FC6F5 /* MyProfile.swift */,
+				4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 			files = (
 				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
 				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
+				4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,
 				4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */,
 				4702A4272544D12600C1CC8E /* RegistrarViewController.swift in Sources */,
@@ -308,6 +315,7 @@
 				BB949303254A2F3F00EBBD14 /* User.swift in Sources */,
 				4702A4252544CB0500C1CC8E /* Extension.swift in Sources */,
 				471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */,
+				4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */,
 				4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */,
 				4789AE8C253F721100D1D1AF /* MetroMatch.xcdatamodeld in Sources */,
 				4702A42C2544D39700C1CC8E /* Post.swift in Sources */,

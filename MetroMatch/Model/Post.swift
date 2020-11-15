@@ -19,3 +19,7 @@ class Post: NSObject {
     public var usernameCreator: String?
     public var creatorProfilePic: String?
 }
+
+class Notification: NSObject {
+    //public var 
+}
