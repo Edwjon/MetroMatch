@@ -36,7 +36,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         fetchUsers()
-        fetchPosts()
+        //myPosts(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
+        
         
         DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.main.async {
@@ -106,7 +107,28 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                      post.compatibility = documentPost["compatibility"] as? Int
                      post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
                      post.profilePic = documentPost["profilePic"] as? String
-                    post.username = self.usernameString
+                    
+                    //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
+                    db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            post.username = document["username"] as? String
+                            post.creatorProfilePic = document["profilePic"] as? String
+                            print("Document data: \(document["username"])")
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                    
+//                    { (user, err)
+//                        if let err = err {
+//                            print("Ha ocurrido un error")
+//                            post.username = self.usernameString
+//                        } else {
+//                            post.username = user["username"]
+//                            print("Agregando el username real \($user["username"])")
+//                        }
+//                    }
+                    
                     
                     self.posts.append(post)
                 }
@@ -121,7 +143,52 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
     }
     
+    
+    
+    //FUNCION PARA TRAERSE LOS POSTS DE UN USUARIO EN PARTICULAR
+    func myPosts(userIdentifier:String) {
+        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
+        db.collection("posts").whereField("creatorID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentPosts, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for post in documentPosts!.documents {
+                        print("llego la data")
+                        print("\(post.documentID) => \(post.data())")
+                        
+                        let myPost = Post()
+                        myPost.profilePic = post["profilePic"] as! String
+                        myPost.descripcion = post["description"] as? String
+                        myPost.compatibility = post["compatibility"] as? Int
+                        myPost.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                        myPost.username = "Yo"
+                        myPost.creatorProfilePic = ""
+                        self.posts.append(myPost)
+                    }
+                    var index = 0
+                    while index < 5 {
+                        print("viendo si en verdad se guardaron en posts ")
+                        print(self.posts[index].username)
+                        print(self.posts[index].profilePic)
+                        print(self.posts[index].descripcion)
+                        print(self.posts[index].comments)
+                        print(self.posts[index].creatorProfilePic)
+                        index = index + 1
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
+    }
+    //FIN DE LA FUNCION QUE TRAE LOS POST SEGUN EL USUARIO
+    
     func fetchPosts(){
+        print("FETCHING POSTS")
         db.collection("posts").getDocuments(){(posts, err) in
             if let err = err {
                 print("Fetching failed", err)
@@ -132,7 +199,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     let post = Post()
                     user.id = documentPost["crushID"] as? String
                     creator.id = documentPost["creatorID"] as? String
-                    
+                    print("VERIFICANDO CRUSH ID")
+                    print(user.id)
+                    print("VERIFICANDO CREATOR ID")
+                    print(creator.id)
                     
                     self.db.collection("users").document((user.id)!).getDocument{ (documentUser, err) in
                     if let documentUser = documentUser, documentUser.exists {
@@ -148,6 +218,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                 
                                 post.creatorProfilePic = documentCreator["profilePic"] as? String
                                 post.usernameCreator = documentCreator["username"] as? String
+                                print("FOTO DE PERFIL DEL CREADOR")
                                 print(post.usernameCreator, post.creatorProfilePic)
                             } else {
                                 print("El documento no existe")
@@ -197,9 +268,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
         
         cell.nombreUsuario.text = posts[indexPath.item].username
-        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic!)
+        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
+        cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
+        
         
         
        // cell.tableView.numberOfRows(inSection: posts[indexPath.item].comments.count)
