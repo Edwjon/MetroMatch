@@ -111,8 +111,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
                     db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
-                            post.username = document["username"] as? String
+                            post.usernameCreator = document["username"] as? String
                             post.creatorProfilePic = document["profilePic"] as? String
+                            print("Document data: \(document["username"])")
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                    
+                    db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            post.username = document["username"] as? String
                             print("Document data: \(document["username"])")
                         } else {
                             print("Document does not exist")
@@ -270,6 +279,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.nombreUsuario.text = posts[indexPath.item].username
         cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
+        cell.nombreUsuario.text = posts[indexPath.item].usernameCreator
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
         
