@@ -18,6 +18,8 @@ class Post: NSObject {
     public var compatibility: Int?
     public var usernameCreator: String?
     public var creatorProfilePic: String?
+    public var id: String?
+    public var matched: Bool?
 }
 
 class Notification: NSObject {

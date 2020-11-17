@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
     
@@ -29,6 +31,10 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
     //3: Mentions
     
     var selectedMenu = 1
+    let reuseIdentifier = "Cell"
+    let db = Firestore.firestore()
+    var posts = [Post]()
+    var user = User()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +42,51 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId2")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId3")
+        
+        user = Auth.auth().addStateDidChangeListener { (auth, users) in
+            print(users)
+        } as! User
+    
+    }
+    
+    func myPosts(userIdentifier:String) {
+        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
+        db.collection("posts").whereField("creatorID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentPosts, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for post in documentPosts!.documents {
+                        print("llego la data")
+                        print("\(post.documentID) => \(post.data())")
+                        
+                        let myPost = Post()
+                        myPost.profilePic = post["profilePic"] as! String
+                        myPost.descripcion = post["description"] as? String
+                        myPost.compatibility = post["compatibility"] as? Int
+                        myPost.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                        myPost.username = "Yo"
+                        myPost.creatorProfilePic = ""
+                        self.posts.append(myPost)
+                    }
+                    var index = 0
+                    while index < 5 {
+                        print("viendo si en verdad se guardaron en posts ")
+                        print(self.posts[index].username)
+                        print(self.posts[index].profilePic)
+                        print(self.posts[index].descripcion)
+                        print(self.posts[index].comments)
+                        print(self.posts[index].creatorProfilePic)
+                        index = index + 1
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
     }
 
     // MARK: - Table view data source
@@ -68,7 +119,7 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellId3", for: indexPath)
             cell.backgroundColor = .yellow
-            cell.textLabel?.text = "Mentions"
+            cell.textLabel?.text = "Menciones"
             return cell
         }
     }

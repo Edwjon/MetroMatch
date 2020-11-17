@@ -66,7 +66,6 @@ func matchMaker(postId:String){
 }
 
 func undoMatch (matchID:String) {
-    
     let post = db.collection("matches").document(matchID)
 
             db.collection("matches").document(matchID).updateData([
