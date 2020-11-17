@@ -32,6 +32,9 @@ class CrearPostViewController: UIViewController {
         anonimoLabel.text = "Público"
         setupInterface()
         self.usernameTextField.text = self.labelText
+        
+        anonimoLabel.isHidden = true
+        anonimoSwitch.isHidden = true
     }
     let db = Firestore.firestore()
     

@@ -427,6 +427,13 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
                 cell.usuarioLabel.text = userMentions[indexPath.item].username
                 cell.descripcion.text = userMentions[indexPath.item].descripcion
+                
+                if !(userMentions[indexPath.item].matched!) {
+                    cell.boton.setTitle("Unmatch", for: .normal)
+                } else {
+                    cell.boton.setTitle("Match", for: .normal)
+                }
+                
                 cell.boton.isHidden = false
                 
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))

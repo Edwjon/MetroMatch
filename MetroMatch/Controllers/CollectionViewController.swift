@@ -120,7 +120,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         }
                     }
                     
-                    db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
+                    self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
                             post.username = document["username"] as? String
                             print("Document data: \(document["username"])")

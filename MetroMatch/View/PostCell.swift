@@ -112,10 +112,13 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     var boton: UIButton = {
         let boton = UIButton(type: .system)
-        boton.titleLabel?.text = "Match"
-        boton.tintColor = .black
-        boton.backgroundColor = .cyan
-        boton.backgroundColor = .cyan
+        //boton.titleLabel?.text = "Match"
+        //boton.tintColor = .black
+        boton.setTitleColor(.white, for: .normal)
+        boton.setTitle("Match", for: .normal)
+        boton.backgroundColor = .systemPink
+        boton.layer.cornerRadius = 5
+        boton.layer.masksToBounds = true
         return boton
     }()
     
