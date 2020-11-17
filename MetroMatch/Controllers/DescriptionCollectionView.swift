@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 
 class HeaderView: UICollectionViewCell {
@@ -49,6 +51,7 @@ class HeaderView: UICollectionViewCell {
         boton.backgroundColor = .purple
         return boton
     }()
+    
     
     var updateButton: UIButton = {
         let boton = UIButton(type: .custom)
@@ -135,6 +138,11 @@ class Matches: UICollectionViewCell{
 class DescriptionCollectionView: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var selectedMenu = 1
+    let db = Firestore.firestore()
+    var userPosts = [Post]()
+    var userMentions = [Post]()
+    var loggedUser = User()
+    var myMatches = [Match]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +151,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
         collectionView!.register(Matches.self, forCellWithReuseIdentifier: "matchesCell")
-        collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "mentionsCell")
+        collectionView!.register(PostCell.self, forCellWithReuseIdentifier: "mentionsCell")
         
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
             
@@ -154,7 +162,193 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         }
             
         collectionView.allowsSelection = false
+        
+        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            self.myPosts(userIdentifier: user!.uid)
+            self.myMentions(userIdentifier: user!.uid)
+            self.fetchMyMatches(userIdentifier: user!.uid)
+            self.db.collection("users").document((user!.uid)).getDocument{(documentCreator, err) in
+                    if let documentCreator = documentCreator, documentCreator.exists{
+                        self.loggedUser.firstName = documentCreator["firstName"] as? String
+                        self.loggedUser.lastName = documentCreator["lastName"] as? String
+                        self.loggedUser.profilePic = documentCreator["profilePic"] as? String
+                    } else {
+                        print("El documento no existe")
+                    }
+                }
+        }
             
+    }
+    
+    func fetchMyMatches(userIdentifier:String) {
+        db.collection("matches").whereField("crushID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentMatches, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for match in documentMatches!.documents {
+                        print("llego la data")
+                        let myMatch = Match()
+                        let crush = User()
+                        crush.id = match["thirstyID"] as? String
+                        
+                        self.db.collection("users").document((crush.id)!).getDocument{ (documentUser, err) in
+                        if let documentUser = documentUser, documentUser.exists {
+                            myMatch.crushUsername = documentUser["username"] as? String
+                            myMatch.crushProfilePic = documentUser["profilePic"] as? String
+                        } else {
+                            print("El documento no existe")
+                        }
+                        }
+                        myMatch.id = match["id"] as? String
+                        myMatch.postID = match["postID"] as? String
+                        myMatch.state = match["state"] as? Int
+                        self.myMatches.append(myMatch)
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
+        
+        db.collection("matches").whereField("thirstyID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentMatches, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for match in documentMatches!.documents {
+                        print("llego la data")
+                        let myMatch = Match()
+                        let crush = User()
+                        crush.id = match["crushID"] as? String
+                        
+                        self.db.collection("users").document((crush.id)!).getDocument{ (documentUser, err) in
+                        if let documentUser = documentUser, documentUser.exists {
+                            myMatch.crushUsername = documentUser["username"] as? String
+                            myMatch.crushProfilePic = documentUser["profilePic"] as? String
+                        } else {
+                            print("El documento no existe")
+                        }
+                        }
+                        myMatch.id = match["id"] as? String
+                        myMatch.postID = match["postID"] as? String
+                        myMatch.state = match["state"] as? Int
+                        self.myMatches.append(myMatch)
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
+    }
+    
+    func myMentions(userIdentifier:String) {
+        db.collection("posts").whereField("crushID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentPosts, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for post in documentPosts!.documents {
+                        print("llego la data")
+                        print("\(post.documentID) => \(post.data())")
+                        let myPost = Post()
+                        let user = User()
+                        let creator = User()
+                        user.id = post["crushID"] as? String
+                        creator.id = post["creatorID"] as? String
+                        
+                        self.db.collection("users").document((user.id)!).getDocument{ (documentUser, err) in
+                        if let documentUser = documentUser, documentUser.exists {
+                            myPost.username = documentUser["username"] as? String
+                            myPost.profilePic = documentUser["profilePic"] as? String
+                        } else {
+                            print("El documento no existe")
+                        }
+                        }
+                        
+                        self.db.collection("users").document((creator.id)!).getDocument{(documentCreator, err) in
+                                if let documentCreator = documentCreator, documentCreator.exists{
+                                    
+                                    myPost.creatorProfilePic = documentCreator["profilePic"] as? String
+                                    myPost.usernameCreator = documentCreator["username"] as? String
+                                } else {
+                                    print("El documento no existe")
+                                }
+                            }
+                        myPost.profilePic = post["profilePic"] as? String
+                        myPost.descripcion = post["description"] as? String
+                        myPost.id = post["id"] as? String
+                        myPost.matched = post["matched"] as? Bool
+                        myPost.compatibility = post["compatibility"] as? Int
+                        myPost.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                        self.userMentions.append(myPost)
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
+    }
+    
+    func myPosts(userIdentifier:String) {
+        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
+        db.collection("posts").whereField("creatorID", isEqualTo: userIdentifier)
+            .getDocuments() { (documentPosts, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for post in documentPosts!.documents {
+                        print("llego la data")
+                        print("\(post.documentID) => \(post.data())")
+                        let myPost = Post()
+                        let user = User()
+                        let creator = User()
+                        user.id = post["crushID"] as? String
+                        creator.id = post["creatorID"] as? String
+                        
+                        self.db.collection("users").document((user.id)!).getDocument{ (documentUser, err) in
+                        if let documentUser = documentUser, documentUser.exists {
+                            myPost.username = documentUser["username"] as? String
+                            myPost.profilePic = documentUser["profilePic"] as? String
+                        } else {
+                            print("El documento no existe")
+                        }
+                        }
+                        
+                        self.db.collection("users").document((creator.id)!).getDocument{(documentCreator, err) in
+                                if let documentCreator = documentCreator, documentCreator.exists{
+                                    
+                                    myPost.creatorProfilePic = documentCreator["profilePic"] as? String
+                                    myPost.usernameCreator = documentCreator["username"] as? String
+                                } else {
+                                    print("El documento no existe")
+                                }
+                            }
+                        myPost.profilePic = post["profilePic"] as? String
+                        myPost.descripcion = post["description"] as? String
+                        myPost.id = post["id"] as? String
+                        myPost.matched = post["matched"] as? Bool
+                        myPost.compatibility = post["compatibility"] as? Int
+                        myPost.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                        self.userPosts.append(myPost)
+                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
     }
         
         
@@ -170,42 +364,229 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section:Int) -> Int {
-                    
-        return 5
+        if selectedMenu == 1 {
+            return userPosts.count
+        } else if selectedMenu == 2 {
+            return myMatches.count
+        } else if selectedMenu == 3 {
+            return userMentions.count
+        } else {
+           return 0
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
         if selectedMenu == 1 {
+            if (userMentions.count == 0){
+                print("No tienes Posts")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
+                return cell
+            } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as! PostCell
             
-            cell.nombreUsuario.text = "Hola"
-            cell.imagenGrande.downloaded(from: "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
-            cell.imagenPerfil.downloaded(from: "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
-            cell.usuarioLabel.text = "HOla"
-            cell.descripcion.text = "Descripcion"
+            cell.nombreUsuario.text = userPosts[indexPath.item].usernameCreator
+            cell.imagenGrande.downloaded(from: userPosts[indexPath.item].profilePic ?? "")
+            cell.imagenPerfil.downloaded(from:userPosts[indexPath.item].creatorProfilePic ?? "")
+            cell.usuarioLabel.text = userPosts[indexPath.item].username
+            cell.descripcion.text = userPosts[indexPath.item].descripcion
             cell.boton.isHidden = true
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
             cell.imagenPerfil.addGestureRecognizer(tapGesture)
                 
             return cell
-        
+            }
         } else if selectedMenu == 2 {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-            cell.backgroundColor = .red
-            return cell
+            if (userMentions.count == 0){
+                print("No tienes Matches")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
+                return cell
+            } else if (myMatches[indexPath.item].state == 0){
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
+                cell.backgroundColor = .red
+                cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
+                cell.usuarioLabel.text = myMatches[indexPath.item].crushUsername
+                return cell
+            }
         
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath)
-            cell.backgroundColor = .yellow
-                
+            if (userMentions.count == 0){
+                print("No tienes Menciones")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
+                return cell
+            } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
+            
+            cell.nombreUsuario.text = userMentions[indexPath.item].usernameCreator
+            cell.imagenGrande.downloaded(from: userMentions[indexPath.item].creatorProfilePic ?? "")
+            cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
+            cell.usuarioLabel.text = userMentions[indexPath.item].username
+            cell.descripcion.text = userMentions[indexPath.item].descripcion
+            cell.boton.isHidden = false
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
+            cell.imagenPerfil.addGestureRecognizer(tapGesture)
+            
+            
+            let tapGestureMatch = CustomTapGestureRecognizer(target: self, action: #selector(doMatch(sender:)))
+            tapGestureMatch.postId = userMentions[indexPath.item].id
+            tapGestureMatch.matched = (userMentions[indexPath.item].matched!) as Bool
+            cell.boton.addGestureRecognizer(tapGestureMatch)
             return cell
+            }
         }
         
     }
+    
+    class CustomTapGestureRecognizer: UITapGestureRecognizer {
+        var postId: String?
+        var matched: Bool?
+    }
+    @objc func doMatch(sender: CustomTapGestureRecognizer){
+        if(sender.matched!){
+            print("undoMatch")
+            undoMatch(postId: sender.postId ?? "")
+        } else {
+            print("doMatch")
+            matchMaker(postId: sender.postId ?? "")
+            DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func matchMaker(postId:String){
+       var thirsty:String = ""
+       var crush: String = ""
         
+        self.db.collection("posts").document(postId ?? "").updateData([
+                    "matched": true
+                ]){err in
+                    if let err = err {
+                        print("No se actualizo el post", err)
+                    } else {
+                        print("Se actualizo el post")
+                    }
+                }
+        
+        db.collection("matches").whereField("postID", isEqualTo: postId)
+            .getDocuments() { (matches, err) in
+                if let err = err {
+                    let post = self.db.collection("posts").document(postId)
+                    
+                    post.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                            //print("Document data: \(dataDescription)")
+                             thirsty = (document.data()!["creatorID"] as? String)!
+                            print("thirsty \(thirsty)")
+                             crush = (document.data()!["crushID"] as? String)!
+                            print("crush \(crush)")
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                    
+                    print("crush222 \(crush)")
+                    
+                    let myData: [String: Any] = [
+                        "id": "",
+                        "postID": postId,
+                        "state": 1,
+                        "thirstyID": thirsty,
+                        "crushID": crush
+                    ]
+                    print(myData)
+                    var ref: DocumentReference? = nil
+                    
+                    ref = self.db.collection("matches").addDocument(data: myData){ err in
+                        if let err = err {
+                            print("No se creo el match", err)
+                        } else {
+                            self.db.collection("matches").document(ref!.documentID).updateData([
+                                "id": ref!.documentID,
+                                "crushID": crush,
+                                "thirstyID": thirsty
+                            ]){err in
+                                if let err = err {
+                                    print("Match Fallido", err)
+                                } else {
+                                    print("Haz hecho match!!")
+                                }
+                            }
+                            
+                        }
+                    }
+                } else {
+                    for match in matches!.documents {
+                        let matchId = match.data()["id"] as? String
+
+                        self.db.collection("matches").document(matchId ?? "").updateData([
+                                    "state": 1
+                                ]){err in
+                                    if let err = err {
+                                        print("No se pudo deshacer tu match", err)
+                                    } else {
+                                        print("Se volvio a hacer match")
+                                    }
+                                }
+                    }
+                }
+        }
+        
+        
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func undoMatch (postId:String) {
+        self.db.collection("posts").document(postId ?? "").updateData([
+                    "matched": false
+                ]){err in
+                    if let err = err {
+                        print("No se actualizo el post", err)
+                    } else {
+                        print("Se actualizo el post")
+                    }
+                }
+        self.db.collection("matches").whereField("postID", isEqualTo: postId)
+            .getDocuments() { (matches, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for match in matches!.documents {
+                        let matchId = match.data()["id"] as? String
+
+                        self.db.collection("matches").document(matchId ?? "").updateData([
+                                    "state": 0
+                                ]){err in
+                                    if let err = err {
+                                        print("No se pudo deshacer tu match", err)
+                                    } else {
+                                        print("Haz roto un corazon satisfactoriamente")
+                                    }
+                                }
+                    }
+                }
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
     @objc func goProfile() {
             
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -228,7 +609,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         }
         
         if selectedMenu == 3 {
-            size = CGSize(width: collectionView.frame.width, height: 200)
+            size = CGSize(width: collectionView.frame.width, height: 500)
         }
         
         collectionView.reloadData()
@@ -244,6 +625,8 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         header.matchesButton.addTarget(self, action: #selector(matches), for: .touchUpInside)
         header.mentionsButton.addTarget(self, action: #selector(mentions), for: .touchUpInside)
         header.updateButton.addTarget(self, action: #selector(goProfile), for: .touchUpInside)
+        header.imagenPerfil.downloaded(from: self.loggedUser.profilePic ?? "")
+        header.userLabel.text = (self.loggedUser.firstName ?? "Nombre") + " " + (self.loggedUser.lastName ?? "Apellido")
         return header
     }
     
