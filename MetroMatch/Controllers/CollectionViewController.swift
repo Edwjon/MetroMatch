@@ -315,7 +315,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 //
 //        return CGSize(width: view.frame.width, height: estimatedFrame.height + 66)
         
-        let size = CGSize(width: collectionView.frame.width, height: 500)
+        let size = CGSize(width: collectionView.frame.width, height: 450)
         return size
     }
     

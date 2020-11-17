@@ -15,7 +15,7 @@ class HeaderView: UICollectionViewCell {
     
     var imagenPerfil: UIImageView = {
         let imagen = UIImageView()
-        imagen.backgroundColor = .cyan
+        //imagen.backgroundColor = .cyan
         imagen.translatesAutoresizingMaskIntoConstraints = false
         imagen.layer.cornerRadius = imagen.frame.width / 2
         imagen.clipsToBounds = true
@@ -24,31 +24,32 @@ class HeaderView: UICollectionViewCell {
     
     var userLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .yellow
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
     var postButton: UIButton = {
         let boton = UIButton(type: .system)
-        boton.titleLabel?.text = "Posts"
-        boton.titleLabel?.textColor = .white
+        boton.setTitle("My Posts", for: .normal)
+        boton.setTitleColor(.white, for: .normal)
         boton.backgroundColor = .systemPink
         return boton
     }()
     
     var matchesButton: UIButton = {
         let boton = UIButton(type: .system)
-        boton.titleLabel?.text = "Matches"
-        boton.titleLabel?.textColor = .white
-        boton.backgroundColor = .green
+        boton.setTitle("Matches", for: .normal)
+        boton.setTitleColor(.white, for: .normal)
+        boton.backgroundColor = .systemPink
         return boton
     }()
     
     var mentionsButton: UIButton = {
         let boton = UIButton(type: .system)
-        boton.titleLabel?.text = "Mentions"
-        boton.titleLabel?.textColor = .white
-        boton.backgroundColor = .purple
+        boton.setTitle("Mentions", for: .normal)
+        boton.setTitleColor(.white, for: .normal)
+        boton.backgroundColor = .systemPink
         return boton
     }()
     
@@ -57,7 +58,7 @@ class HeaderView: UICollectionViewCell {
         let boton = UIButton(type: .custom)
         boton.titleLabel?.text = "Update"
         boton.titleLabel?.textColor = .white
-        boton.backgroundColor = .orange
+        //boton.backgroundColor = .orange
         return boton
     }()
     
@@ -97,7 +98,7 @@ class Matches: UICollectionViewCell{
     
     var imagenUsuario: UIImageView = {
         let imagen = UIImageView()
-        imagen.backgroundColor = .cyan
+        //imagen.backgroundColor = .cyan
         imagen.layer.cornerRadius = imagen.frame.width / 2
         imagen.clipsToBounds = true
         return imagen
@@ -105,7 +106,7 @@ class Matches: UICollectionViewCell{
     
     var usuarioLabel: UILabel = {
         let label = UILabel()
-        label.text = "@Edwjon"
+        //label.text = "@Edwjon"
         return label
     }()
     
@@ -407,7 +408,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-                cell.backgroundColor = .red
+                //cell.backgroundColor = .red
                 cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
                 cell.usuarioLabel.text = myMatches[indexPath.item].crushUsername
                 return cell
@@ -419,24 +420,25 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
                 return cell
             } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
-            
-            cell.nombreUsuario.text = userMentions[indexPath.item].usernameCreator
-            cell.imagenGrande.downloaded(from: userMentions[indexPath.item].creatorProfilePic ?? "")
-            cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
-            cell.usuarioLabel.text = userMentions[indexPath.item].username
-            cell.descripcion.text = userMentions[indexPath.item].descripcion
-            cell.boton.isHidden = false
-            
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
-            cell.imagenPerfil.addGestureRecognizer(tapGesture)
-            
-            
-            let tapGestureMatch = CustomTapGestureRecognizer(target: self, action: #selector(doMatch(sender:)))
-            tapGestureMatch.postId = userMentions[indexPath.item].id
-            tapGestureMatch.matched = (userMentions[indexPath.item].matched!) as Bool
-            cell.boton.addGestureRecognizer(tapGestureMatch)
-            return cell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
+                
+                cell.nombreUsuario.text = userMentions[indexPath.item].usernameCreator
+                cell.imagenGrande.downloaded(from: userMentions[indexPath.item].creatorProfilePic ?? "")
+                cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
+                cell.usuarioLabel.text = userMentions[indexPath.item].username
+                cell.descripcion.text = userMentions[indexPath.item].descripcion
+                cell.boton.isHidden = false
+                
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
+                cell.imagenPerfil.addGestureRecognizer(tapGesture)
+                
+                
+                let tapGestureMatch = CustomTapGestureRecognizer(target: self, action: #selector(doMatch(sender:)))
+                tapGestureMatch.postId = userMentions[indexPath.item].id
+                tapGestureMatch.matched = (userMentions[indexPath.item].matched!) as Bool
+                tapGestureMatch.index = indexPath.item
+                cell.boton.addGestureRecognizer(tapGestureMatch)
+                return cell
             }
         }
         
@@ -445,19 +447,25 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     class CustomTapGestureRecognizer: UITapGestureRecognizer {
         var postId: String?
         var matched: Bool?
+        var index: Int?
     }
+    
     @objc func doMatch(sender: CustomTapGestureRecognizer){
         if(sender.matched!){
             print("undoMatch")
             undoMatch(postId: sender.postId ?? "")
+            self.userMentions[sender.index ?? 0].matched = false
+            self.collectionView.reloadData()
         } else {
             print("doMatch")
             matchMaker(postId: sender.postId ?? "")
-            DispatchQueue.global(qos: .userInitiated).async {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
+            self.userMentions[sender.index ?? 0].matched = true
+//            DispatchQueue.global(qos: .userInitiated).async {
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//            }
+            self.collectionView.reloadData()
         }
     }
     
@@ -598,14 +606,14 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        var size = CGSize(width: collectionView.frame.width, height: 200)
+        var size = CGSize()
         
         if selectedMenu == 1 {
-            size = CGSize(width: collectionView.frame.width, height: 500)
+            size = CGSize(width: collectionView.frame.width, height: 450)
         }
         
         if selectedMenu == 2 {
-            size = CGSize(width: collectionView.frame.width, height: 60)
+            size = CGSize(width: collectionView.frame.width, height: 100)
         }
         
         if selectedMenu == 3 {
