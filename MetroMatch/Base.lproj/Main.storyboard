@@ -660,7 +660,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Udd-l9-Ej8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3750.7246376811595" y="-715.17857142857144"/>
+            <point key="canvasLocation" x="4380" y="-642"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
