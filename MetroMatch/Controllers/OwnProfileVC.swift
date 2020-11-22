@@ -18,11 +18,13 @@ class OwnProfileVC: UIViewController {
     @IBOutlet var hobbiesTextView: UITextView!
     @IBOutlet var quienSoyTextView: UITextView!
     
+    @IBOutlet var updateButton: UIButton!
     @IBOutlet var queBuscoTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         hobbiesTextView.backgroundColor = .orange
+        hobbiesTextView.layer.masksToBounds = true
         queBuscoTextView.backgroundColor = .orange
         quienSoyTextView.backgroundColor = .orange
         
@@ -37,6 +39,11 @@ class OwnProfileVC: UIViewController {
     
     @IBAction func cambiarPicAction(_ sender: Any) {
     }
+    
+    @IBAction func updateAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 
 }
