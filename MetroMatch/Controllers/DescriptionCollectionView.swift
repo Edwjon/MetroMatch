@@ -57,8 +57,9 @@ class HeaderView: UICollectionViewCell {
     var updateButton: UIButton = {
         let boton = UIButton(type: .custom)
         boton.titleLabel?.text = "Update"
-        boton.titleLabel?.textColor = .white
-        //boton.backgroundColor = .orange
+        boton.setTitle("Update", for: .normal)
+        boton.setTitleColor(.white, for: .normal)
+        boton.backgroundColor = .orange
         return boton
     }()
     
@@ -100,20 +101,22 @@ class Matches: UICollectionViewCell{
         let imagen = UIImageView()
         //imagen.backgroundColor = .cyan
         imagen.layer.cornerRadius = imagen.frame.width / 2
-        imagen.clipsToBounds = true
+        imagen.layer.masksToBounds = true
         return imagen
     }()
     
-    var usuarioLabel: UILabel = {
-        let label = UILabel()
+    var usuarioLabel: UITextView = {
+        let tv = UITextView()
+        tv.backgroundColor = .cyan
         //label.text = "@Edwjon"
-        return label
+        return tv
     }()
     
-    var matchLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Hiciste Match"
-        return label
+    var matchLabel: UITextView = {
+        let tv = UITextView()
+        tv.backgroundColor = .orange
+        tv.text = "Hiciste Match"
+        return tv
     }()
     
     override init(frame: CGRect) {
@@ -123,10 +126,10 @@ class Matches: UICollectionViewCell{
         imagenUsuario.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
         addSubview(usuarioLabel)
-        usuarioLabel.anchor(imagenUsuario.topAnchor, left: imagenUsuario.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 20)
+        usuarioLabel.anchor(imagenUsuario.topAnchor, left: imagenUsuario.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 30)
         
         addSubview(matchLabel)
-        matchLabel.anchor(usuarioLabel.bottomAnchor, left: imagenUsuario.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 6, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 20)
+        matchLabel.anchor(usuarioLabel.bottomAnchor, left: imagenUsuario.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 6, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 30)
     }
     
     required init?(coder: NSCoder) {
@@ -398,23 +401,28 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 
             return cell
             }
-        } else if selectedMenu == 2 {
-            if (userMentions.count == 0){
-                print("No tienes Matches")
+        }
+        
+        else if selectedMenu == 2 {
+            
+//            if (userMentions.count == 0){
+//                print("No tienes Matches")
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
+//                return cell
+//            } else if (myMatches[indexPath.item].state == 0){
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
+//                return cell
+//            } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-                return cell
-            } else if (myMatches[indexPath.item].state == 0){
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-                //cell.backgroundColor = .red
+                cell.backgroundColor = .red
                 cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
                 cell.usuarioLabel.text = myMatches[indexPath.item].crushUsername
                 return cell
-            }
+            //}
         
-        } else {
+        }
+        
+        else {
             if (userMentions.count == 0){
                 print("No tienes Menciones")
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
@@ -605,31 +613,25 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     @objc func goProfile() {
             
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
-        dvc.editable = false
-        dvc.idUsuario = 0
+        let dvc: OwnProfileVC = mainStoryboard.instantiateViewController(withIdentifier: "ownProfile") as! OwnProfileVC
+        //dvc.editable = false
+        //dvc.idUsuario = 0
         self.present(dvc, animated: true, completion: nil)
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        var size = CGSize()
-        
         if selectedMenu == 1 {
-            size = CGSize(width: collectionView.frame.width, height: 450)
+            return CGSize(width: collectionView.frame.width, height: 450)
         }
         
-        if selectedMenu == 2 {
-            size = CGSize(width: collectionView.frame.width, height: 100)
+        else if selectedMenu == 2 {
+            return CGSize(width: collectionView.frame.width, height: 100)
         }
         
-        if selectedMenu == 3 {
-            size = CGSize(width: collectionView.frame.width, height: 500)
+        else {
+            return CGSize(width: collectionView.frame.width, height: 450)
         }
-        
-        collectionView.reloadData()
-        
-        return size
     }
     
     

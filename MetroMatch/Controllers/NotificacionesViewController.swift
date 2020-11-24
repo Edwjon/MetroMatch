@@ -7,58 +7,72 @@
 
 import UIKit
 
-class NotificacionesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+class NotificationCell: UICollectionViewCell {
+    
+    var imagen: UIImageView = {
+        let imagen = UIImageView()
+        imagen.backgroundColor = .orange
+        return imagen
+    }()
+    
+    var mensaje: UITextView = {
+        let tv = UITextView()
+        tv.text = "Ok amigo comi estas"
+        //label.numberOfLines = 0
+        tv.backgroundColor = .purple
+        tv.isUserInteractionEnabled = false
+        return tv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(imagen)
+        imagen.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
+        
+        addSubview(mensaje)
+        mensaje.anchor(topAnchor, left: imagen.rightAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 12, rightConstant: 12, widthConstant: 0, heightConstant: 0)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+class NotificacionesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet var notificacionesButton: UIButton!
-    
-    @IBOutlet var mencionesButton: UIButton!
-    @IBOutlet var tableView: UITableView!
-    
-    private var selectedMenu: Bool?
+    @IBOutlet var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        selectedMenu = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId2")
+        
+        collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: "cellId")
+        notificacionesButton.isUserInteractionEnabled = false
     }
-    
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if selectedMenu == true {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-            cell.backgroundColor = .red
-            cell.textLabel?.text = "Notificaciones"
-            return cell
-        
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId2", for: indexPath)
-            cell.backgroundColor = .blue
-            cell.textLabel?.text = "Menciones"
-            return cell
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! NotificationCell
+        cell.backgroundColor = .cyan
+        return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.width, height: 74)
+    }
     
     
     @IBAction func notificaciones(_ sender: Any) {
-        selectedMenu = true
-        tableView.reloadData()
+        //tableView.reloadData()
     }
-    
-    @IBAction func menciones(_ sender: Any) {
-        selectedMenu = false
-        tableView.reloadData()
-    }
-    
-    
-    
-    
 }
