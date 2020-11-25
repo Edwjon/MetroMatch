@@ -27,6 +27,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Logged in or not
+        //let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_in")
+        
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let vc = ViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            present(vc, animated: false, completion: nil)
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
         
         //title = "Posts"

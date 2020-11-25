@@ -22,6 +22,10 @@ class OwnProfileVC: UIViewController {
     @IBOutlet var queBuscoTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profilePic.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPic))
+        profilePic.addGestureRecognizer(tapGesture)
 
         hobbiesTextView.backgroundColor = .orange
         hobbiesTextView.layer.masksToBounds = true
@@ -36,6 +40,10 @@ class OwnProfileVC: UIViewController {
         profilePic.layer.masksToBounds = true
     }
     
+    @objc func didTapPic() {
+        alertSheet()
+    }
+    
     
     @IBAction func cambiarPicAction(_ sender: Any) {
     }
@@ -45,5 +53,45 @@ class OwnProfileVC: UIViewController {
     }
     
     
+}
 
+
+extension OwnProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
+    func alertSheet() {
+        
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "Como te gustaría escoger tu foto de perfil?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { [weak self] _ in
+            
+            self?.choosePhoto()
+            
+        }))
+        
+        present(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    func choosePhoto() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {return}
+        
+        self.profilePic.image = selectedImage
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
