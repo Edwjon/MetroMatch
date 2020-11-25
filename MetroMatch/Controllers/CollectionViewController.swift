@@ -27,6 +27,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let vc = ViewController()
+            
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
         
         //title = "Posts"
@@ -273,11 +278,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         
         cell.nombreUsuario.text = posts[indexPath.item].username
-        
-        //print(self.posts)
-        //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
-        
-        cell.nombreUsuario.text = posts[indexPath.item].username
         cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
         cell.nombreUsuario.text = posts[indexPath.item].usernameCreator
@@ -285,8 +285,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.descripcion.text = posts[indexPath.item].descripcion
         cell.boton.isHidden = true
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
-        cell.imagenPerfil.addGestureRecognizer(tapGesture)
+        
+        let tapGestureMatch = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
+        tapGestureMatch.username = posts[indexPath.item].usernameCreator
+        cell.imagenPerfil.addGestureRecognizer(tapGestureMatch)
         
         
         
@@ -296,13 +298,32 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         return cell
     }
     
-    @objc func goProfile() {
+    class CustomTapGestureRecognizer: UITapGestureRecognizer {
+        var username: String?
+    }
+    
+    @objc func goProfile(sender: CustomTapGestureRecognizer) {
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
-        dvc.editable = false
-        dvc.idUsuario = 0
-        self.present(dvc, animated: true, completion: nil)
+        db.collection("users").whereField("username", isEqualTo:sender.username)
+            .getDocuments() { (users, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for user in users!.documents {
+                        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+                        dvc.editable = false
+                        dvc.idUsuario = user.documentID ?? "No hay usuario"
+                        self.present(dvc, animated: true, completion: nil)
+                    }
+                }
+        }
+        
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+//        dvc.editable = false
+//        dvc.idUsuario = sender.username ?? "No hay usuario"
+//        self.present(dvc, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

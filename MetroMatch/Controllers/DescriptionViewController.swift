@@ -28,10 +28,15 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     var hobbies = ""
     var queHago = ""
     
-    var idUsuario = 0
+    var idUsuario = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("hola")
+        print("hola")
+        print(idUsuario)
+        
         
         //Se puede editar ya que se entró desde el own perfil
         if editable {

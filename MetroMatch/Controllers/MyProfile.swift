@@ -152,7 +152,7 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
         dvc.editable = true
-        dvc.idUsuario = 0
+        dvc.idUsuario = ""
         self.present(dvc, animated: true, completion: nil)
     }
     
