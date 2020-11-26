@@ -38,6 +38,25 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         print(idUsuario)
         
         
+        
+//        let docRef = db.collection("users").document(idUsuario ?? "")
+//
+//        docRef.getDocument { (userDoc, error) in
+//            if let userDoc = userDoc, userDoc.exists {
+//                let userData = userDoc.data().map(String.init(describing:)) ?? "nil"
+//                self.user.username = userDoc.data()["username"] as? String
+//                self.user.firstName = userDoc.data()["firstName"] as? String
+//                self.user.lastName = userDoc.data()["lastName"] as? String
+//                self.user.profilePic = userDoc.data()["profilePic"] as? String
+//                print("the user is \(self.user)")
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
+        
+        
+        
+        
         //Se puede editar ya que se entró desde el own perfil
         if editable {
             updateButton.isHidden = false
@@ -59,23 +78,18 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.separatorStyle = .none
         tableView.rowHeight = 170
         
-        let userId = Auth.auth().currentUser
-        if let userId = userId {
-            db.collection("users").document(userId.uid).getDocument{(userLogged, err) in
-                if let userLogged = userLogged, userLogged.exists{
-                    self.user.firstName = userLogged.data()!["firstName"] as? String
-                    self.user.lastName = userLogged.data()!["lastName"] as? String
-                    self.user.profilePic = userLogged.data()!["profilePic"] as? String
-                    print(self.user.firstName)
-                    self.setupInterface()
-                } else {
-                    print("El usuario no existe")
-                }
+        self.db.collection("users").document(idUsuario).getDocument { [self] (document, error) in
+            if let document = document, document.exists {
+                self.user.username = document["username"] as? String
+                self.user.firstName = document["firstName"] as? String
+                self.user.lastName = document["lastName"] as? String
+                self.user.profilePic = document["profilePic"] as? String
+                self.setupInterface()
+            } else {
+                print("Document does not exist")
             }
-        } else {
-            print("Usuario no loggeado")
         }
-        
+          
     }
     
     
@@ -83,6 +97,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = profileImage.frame.width / 2
         profileImage.contentMode = .scaleToFill
+        print("Testing user")
+        print(self.user.firstName)
         profileImage.downloaded(from: user.profilePic!)
         NameLabel.text = user.firstName! + " " + user.lastName!
     }

@@ -288,9 +288,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.boton.isHidden = true
         
         
-        let tapGestureMatch = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
-        tapGestureMatch.username = posts[indexPath.item].usernameCreator
-        cell.imagenPerfil.addGestureRecognizer(tapGestureMatch)
+        let tapGestureCreator = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
+        tapGestureCreator.username = posts[indexPath.item].usernameCreator
+        cell.imagenPerfil.addGestureRecognizer(tapGestureCreator)
+        cell.nombreUsuario.addGestureRecognizer(tapGestureCreator)
+        
+        let tapGestureCrush = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
+        tapGestureCrush.username = posts[indexPath.item].username
+        cell.usuarioLabel.addGestureRecognizer(tapGestureCrush)
+        cell.imagenGrande.addGestureRecognizer(tapGestureCrush)
         
         
         
@@ -341,8 +347,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let size = CGSize(width: collectionView.frame.width, height: 450)
         return size
     }
-    
-    
     
     
 
