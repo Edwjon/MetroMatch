@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KjL-Wf-Kx9">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="BYZ-38-t0r" customClass="ViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,8 +78,6 @@
                         <outlet property="passwordTextfield" destination="uwy-aQ-Kfl" id="RkV-Pe-Soy"/>
                         <outlet property="registrarButton" destination="SJ6-HU-FTx" id="66v-Go-2To"/>
                         <outlet property="usernameTextfield" destination="FiZ-jr-C0G" id="jpK-EB-V7Z"/>
-                        <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentLogin" modalPresentationStyle="overFullScreen" id="t99-ne-fNV"/>
-                        <segue destination="VZd-EZ-fAj" kind="presentation" identifier="presentRegistrar" modalPresentationStyle="overFullScreen" id="nlc-5D-cXj"/>
                         <segue destination="KjL-Wf-Kx9" kind="presentation" identifier="tabBarLogin" modalPresentationStyle="fullScreen" id="e0x-0G-28D"/>
                     </connections>
                 </viewController>
@@ -114,7 +112,24 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhE-sn-tZD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-714"/>
+            <point key="canvasLocation" x="1416" y="-715"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="33h-AF-k8h">
+            <objects>
+                <navigationController id="PZo-4D-pIs" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="posts" id="Isr-9E-Xd5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0f1-sn-tAS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="yiW-YR-2Bh" kind="relationship" relationship="rootViewController" id="lcm-VL-wPz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HDp-rU-OgV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="570" y="-715"/>
         </scene>
         <!--Add Post-->
         <scene sceneID="LPt-1Z-nRG">
@@ -268,17 +283,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="yiW-YR-2Bh" kind="relationship" relationship="viewControllers" id="mjG-ry-rA6"/>
-                        <segue destination="cy0-Rw-LVQ" kind="relationship" relationship="viewControllers" id="wol-PP-MN5"/>
-                        <segue destination="Xny-JY-MBy" kind="relationship" relationship="viewControllers" id="DmK-BU-BKK"/>
-                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="viewControllers" id="AOh-fR-Qu5"/>
+                        <segue destination="PZo-4D-pIs" kind="relationship" relationship="viewControllers" id="ghF-ts-N0z"/>
+                        <segue destination="cy0-Rw-LVQ" kind="relationship" relationship="viewControllers" id="6wN-mF-F0O"/>
+                        <segue destination="Xny-JY-MBy" kind="relationship" relationship="viewControllers" id="aat-Kc-OMx"/>
+                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="viewControllers" id="5eu-Fb-9Om"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPQ-xl-PwU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2509" y="84"/>
+            <point key="canvasLocation" x="1926" y="84"/>
         </scene>
         <!--Match Testing View Controller-->
         <scene sceneID="8Z0-xf-9T4">
@@ -500,7 +516,7 @@
         <!--Registrar View Controller-->
         <scene sceneID="u9X-dx-jXd">
             <objects>
-                <viewController id="VZd-EZ-fAj" customClass="RegistrarViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="register" id="VZd-EZ-fAj" customClass="RegistrarViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B0G-79-vHb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -575,6 +591,19 @@
                                     <action selector="logIn:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="deh-SZ-jh7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-BS-hYB">
+                                <rect key="frame" x="105" y="704" width="200.00000000000017" height="40.000000000000114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.9732836788" green="0.69261431809999996" blue="0.25132474519999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Hacer encuesta">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="surveyAction:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="bov-Zg-t7M"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -595,15 +624,14 @@
                         <outlet property="passwordTextField" destination="Xaw-uw-sTe" id="VVo-Tf-gnk"/>
                         <outlet property="registrarButton" destination="802-jf-1pW" id="Qgk-iJ-cj3"/>
                         <outlet property="registroLabel" destination="vBd-Yl-DfM" id="B8X-50-J7M"/>
+                        <outlet property="surveyButton" destination="5iE-BS-hYB" id="aIC-8U-Nay"/>
                         <outlet property="usernameTextField" destination="X8T-Re-QO8" id="aNx-K2-9zf"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentRegister" modalPresentationStyle="overFullScreen" id="8Fn-nY-ZES"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backLogin" modalPresentationStyle="fullScreen" id="0uW-z2-aL7"/>
-                        <segue destination="KjL-Wf-Kx9" kind="presentation" identifier="tabBarRegistrar" modalPresentationStyle="fullScreen" id="LaB-vR-5qF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahY-oP-747" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287" y="143"/>
+            <point key="canvasLocation" x="-230" y="131"/>
         </scene>
         <!--Item-->
         <scene sceneID="KrL-lC-80D">
@@ -891,8 +919,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="e0x-0G-28D"/>
-        <segue reference="mjG-ry-rA6"/>
+        <segue reference="8Fn-nY-ZES"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LoginBackground.png" width="187.5" height="406"/>

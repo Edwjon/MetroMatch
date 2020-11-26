@@ -31,13 +31,21 @@ class OwnProfileVC: UIViewController {
         hobbiesTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
         quienSoyTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
         queBuscoTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
-        profilePic.backgroundColor = .orange
+        
+        profilePic.isUserInteractionEnabled = true
         profilePic.layer.cornerRadius = profilePic.frame.width / 2
         profilePic.layer.masksToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imagePicker))
+        profilePic.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func imagePicker() {
+        presentPhotoActionSheet()
     }
     
     
     @IBAction func cambiarPicAction(_ sender: Any) {
+        presentPhotoActionSheet()
     }
     
     @IBAction func updateAction(_ sender: Any) {
@@ -46,4 +54,40 @@ class OwnProfileVC: UIViewController {
     
     
 
+}
+
+extension OwnProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        
+        let actionSheet = UIAlertController(title: "Profile Picture", message: "Selecciona tu imagen de perfil por favor", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Subir Foto", style: .default, handler: { [weak self] _ in
+            
+            self?.presentPhotoLibrary()
+        }))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func presentPhotoLibrary() {
+        let vc = UIImagePickerController()
+        vc.allowsEditing = true
+        vc.delegate = self
+        vc.sourceType = .photoLibrary
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        self.profilePic.image = imageSelected
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }

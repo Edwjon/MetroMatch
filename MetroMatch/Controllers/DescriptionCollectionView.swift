@@ -15,10 +15,10 @@ class HeaderView: UICollectionViewCell {
     
     var imagenPerfil: UIImageView = {
         let imagen = UIImageView()
-        //imagen.backgroundColor = .cyan
         imagen.translatesAutoresizingMaskIntoConstraints = false
         imagen.layer.cornerRadius = imagen.frame.width / 2
         imagen.clipsToBounds = true
+        imagen.isUserInteractionEnabled = true
         return imagen
     }()
     
@@ -56,8 +56,15 @@ class HeaderView: UICollectionViewCell {
     
     var updateButton: UIButton = {
         let boton = UIButton(type: .custom)
-        boton.titleLabel?.text = "Update"
         boton.setTitle("Update", for: .normal)
+        boton.setTitleColor(.white, for: .normal)
+        boton.backgroundColor = .orange
+        return boton
+    }()
+    
+    var logOutButton: UIButton = {
+        let boton = UIButton(type: .custom)
+        boton.setTitle("Log Out", for: .normal)
         boton.setTitleColor(.white, for: .normal)
         boton.backgroundColor = .orange
         return boton
@@ -86,6 +93,9 @@ class HeaderView: UICollectionViewCell {
         
         addSubview(updateButton)
         updateButton.anchor(imagenPerfil.topAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 6, bottomConstant: 0, rightConstant: 6, widthConstant: 0, heightConstant: 40)
+        
+        addSubview(logOutButton)
+        logOutButton.anchor(updateButton.bottomAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 6, bottomConstant: 0, rightConstant: 6, widthConstant: 0, heightConstant: 40)
     }
     
     required init?(coder: NSCoder) {
@@ -168,10 +178,11 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         collectionView.allowsSelection = false
         
         let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            self.myPosts(userIdentifier: user!.uid)
-            self.myMentions(userIdentifier: user!.uid)
-            self.fetchMyMatches(userIdentifier: user!.uid)
-            self.db.collection("users").document((user!.uid)).getDocument{(documentCreator, err) in
+            guard let usuario = user else { return }
+            self.myPosts(userIdentifier: usuario.uid)
+            self.myMentions(userIdentifier: usuario.uid)
+            self.fetchMyMatches(userIdentifier: usuario.uid)
+            self.db.collection("users").document((usuario.uid)).getDocument{(documentCreator, err) in
                     if let documentCreator = documentCreator, documentCreator.exists{
                         self.loggedUser.firstName = documentCreator["firstName"] as? String
                         self.loggedUser.lastName = documentCreator["lastName"] as? String
@@ -642,9 +653,33 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         header.matchesButton.addTarget(self, action: #selector(matches), for: .touchUpInside)
         header.mentionsButton.addTarget(self, action: #selector(mentions), for: .touchUpInside)
         header.updateButton.addTarget(self, action: #selector(goProfile), for: .touchUpInside)
+        header.logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         header.imagenPerfil.downloaded(from: self.loggedUser.profilePic ?? "")
         header.userLabel.text = (self.loggedUser.firstName ?? "Nombre") + " " + (self.loggedUser.lastName ?? "Apellido")
+        
+        
         return header
+    }
+    
+    @objc func logOut() {
+        
+        let actionSheet = UIAlertController(title: "Log Out", message: "Seguro que desea hacer Log Out?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Log Out", style: .default, handler: { [weak self] _ in
+            
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
+                //self?.navigationController?.pushViewController(vc, animated: true)
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true, completion: nil)
+            } catch {
+                print("Error")
+            }
+        }))
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     @objc func posts() {
@@ -668,4 +703,6 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
 }
+
+
 

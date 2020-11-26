@@ -27,9 +27,18 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false, completion: nil)
+        }
         
-        //title = "Posts"
+        
+        
+        title = "Posts"
+        navigationItem.largeTitleDisplayMode = .always
         collectionView.backgroundColor = .white
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -48,12 +57,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         setupTabBar()
         
-    }
-    
-    
-    
-    @objc func funcionMensajes() {
-        print("qlq")
     }
     
     

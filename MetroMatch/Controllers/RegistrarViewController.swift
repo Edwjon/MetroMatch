@@ -26,6 +26,7 @@ class RegistrarViewController: UIViewController {
     
     
     @IBOutlet var registrarButton: UIButton!
+    @IBOutlet var surveyButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,12 @@ class RegistrarViewController: UIViewController {
         let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
         let colorDerechaNaranja = UIColor(red: 0.998, green: 0.417, blue: 0.298, alpha: 1)
         registrarButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
+        
+        //Boton Hacer Encuesta
+        surveyButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        surveyButton.layer.masksToBounds = true
+        surveyButton.layer.cornerRadius = 12
+        surveyButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
         nombreTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
         nombreTextField.layer.masksToBounds = true
@@ -107,6 +114,10 @@ class RegistrarViewController: UIViewController {
         registrarButton.translatesAutoresizingMaskIntoConstraints = false
         registrarButton.anchor(passwordTextField.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
         registrarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        surveyButton.translatesAutoresizingMaskIntoConstraints = false
+        surveyButton.anchor(registrarButton.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
+        surveyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     
@@ -163,7 +174,20 @@ class RegistrarViewController: UIViewController {
     
     
     @IBAction func logIn(_ sender: Any) {
-        performSegue(withIdentifier: "backLogin", sender: self)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func surveyAction(_ sender: Any) {
+        let layout = UICollectionViewFlowLayout()
+        let vc = SurveyCollectionVC(collectionViewLayout: layout)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+//        present(vc, animated: true, completion: nil)
     }
     
     

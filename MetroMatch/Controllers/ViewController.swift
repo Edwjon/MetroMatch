@@ -123,7 +123,10 @@ class ViewController: UIViewController {
     
     
     @IBAction func registrar(_ sender: Any) {
-        performSegue(withIdentifier: "presentRegistrar", sender: self)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: RegistrarViewController = mainStoryboard.instantiateViewController(withIdentifier: "register") as! RegistrarViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 
 }
