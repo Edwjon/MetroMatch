@@ -39,6 +39,7 @@
 		BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */; };
 		BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */; };
 		BB949303254A2F3F00EBBD14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB949302254A2F3F00EBBD14 /* User.swift */; };
+		BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDE70DB2570B72C0029C73B /* Survey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DescriptionController+handlers.swift"; sourceTree = "<group>"; };
 		BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserController.swift; sourceTree = "<group>"; };
 		BB949302254A2F3F00EBBD14 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BBDE70DB2570B72C0029C73B /* Survey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
 		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				4702A42B2544D39700C1CC8E /* Post.swift */,
+				BBDE70DB2570B72C0029C73B /* Survey.swift */,
 				BB949302254A2F3F00EBBD14 /* User.swift */,
 				BB56EA972563897B002F2B45 /* Match.swift */,
 			);
@@ -322,6 +325,7 @@
 				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
 				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
 				47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */,
+				BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */,
 				4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */,
 				BB56EA982563897B002F2B45 /* Match.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,
