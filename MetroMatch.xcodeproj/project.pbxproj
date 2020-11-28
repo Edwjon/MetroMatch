@@ -36,9 +36,12 @@
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
 		BB56EA982563897B002F2B45 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB56EA972563897B002F2B45 /* Match.swift */; };
+		BB5E456A257205B6005B307A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5E4569257205B6005B307A /* ChatViewController.swift */; };
 		BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */; };
 		BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */; };
 		BB949303254A2F3F00EBBD14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB949302254A2F3F00EBBD14 /* User.swift */; };
+		BBC65F5F25721FBD00CEBB5D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65F5E25721FBD00CEBB5D /* Chat.swift */; };
+		BBC65F6225721FC900CEBB5D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65F6125721FC900CEBB5D /* Message.swift */; };
 		BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDE70DB2570B72C0029C73B /* Survey.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,9 +78,12 @@
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
 		BB56EA972563897B002F2B45 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		BB5E4569257205B6005B307A /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DescriptionController+handlers.swift"; sourceTree = "<group>"; };
 		BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserController.swift; sourceTree = "<group>"; };
 		BB949302254A2F3F00EBBD14 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BBC65F5E25721FBD00CEBB5D /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		BBC65F6125721FC900CEBB5D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		BBDE70DB2570B72C0029C73B /* Survey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
 		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +133,7 @@
 				4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */,
 				72919701254E3EC70097D56F /* MatchTestingViewController.swift */,
 				47883D342569A697007A193E /* OwnProfileVC.swift */,
+				BB5E4569257205B6005B307A /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -147,6 +154,8 @@
 				BBDE70DB2570B72C0029C73B /* Survey.swift */,
 				BB949302254A2F3F00EBBD14 /* User.swift */,
 				BB56EA972563897B002F2B45 /* Match.swift */,
+				BBC65F5E25721FBD00CEBB5D /* Chat.swift */,
+				BBC65F6125721FC900CEBB5D /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -325,13 +334,16 @@
 				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
 				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
 				47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */,
+				BBC65F5F25721FBD00CEBB5D /* Chat.swift in Sources */,
 				BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */,
 				4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */,
 				BB56EA982563897B002F2B45 /* Match.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,
 				4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */,
+				BBC65F6225721FC900CEBB5D /* Message.swift in Sources */,
 				4702A4272544D12600C1CC8E /* RegistrarViewController.swift in Sources */,
 				4728C0532544DFAF00210697 /* ProfileCell.swift in Sources */,
+				BB5E456A257205B6005B307A /* ChatViewController.swift in Sources */,
 				479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */,
 				47883D352569A697007A193E /* OwnProfileVC.swift in Sources */,
 				BB949303254A2F3F00EBBD14 /* User.swift in Sources */,

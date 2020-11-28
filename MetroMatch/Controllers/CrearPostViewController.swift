@@ -56,7 +56,7 @@ class CrearPostViewController: UIViewController {
         guard let customFont = UIFont(name: "LobsterTwo-Bold", size: UIFont.labelFontSize) else {return}
         crearPostLabel.font = UIFontMetrics.default.scaledFont(for: customFont)
         crearPostLabel.textColor = .black
-        
+    
         //usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         //usuarioLabel.font = UIFont.boldSystemFont(ofSize: 18)
         
