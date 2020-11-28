@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "Cell"
 
@@ -37,6 +38,11 @@ var respuestas = [
 ]
 
 var numeros = [1,2,3,4,5,6,7,8,9,10]
+
+var answers = [0,0,0,0,0,0,0,0,0,0]
+
+var contador = 0
+var enabled = false
 
 
 class FooterView: UICollectionViewCell {
@@ -70,23 +76,42 @@ class FooterView: UICollectionViewCell {
 
 class SurveyCollectionVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    let db = Firestore.firestore()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Encuesta"
         collectionView.backgroundColor = .white
         self.collectionView!.register(SurveyCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
-//        navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(dismissButton))
-//        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButton))
      
     }
     
-//    @objc func dismissButton() {
-//        dismiss(animated: true, completion: nil)
-//    }
-    
     @objc func doneButton() {
-        dismiss(animated: true, completion: nil)
+
+        
+        if enabled {
+            var ref: DocumentReference? = nil
+            ref = self.db.collection("surveys").addDocument(data: [
+                "answers": answers,
+                "userId": "TFQIWdiQSTQayjdYl1dC9w5xyZ63"
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document added with ID: \(ref!.documentID)")
+                }
+            }
+        
+        } else {
+            let actionSheet = UIAlertController(title: "Error", message: "Por favor llena todos los campos", preferredStyle: .actionSheet)
+            actionSheet.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(actionSheet, animated: true, completion: nil)
+        }
+        
+        //dismiss(animated: true, completion: nil)
     }
 
     // MARK: UICollectionViewDataSource
@@ -151,19 +176,29 @@ class SurveyCell: UICollectionViewCell, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         textField.text = respuestas[self.tag][row]
+        answers[self.tag] = row
         textField.resignFirstResponder()
+        
+        contador = contador + 1
+        if contador == 10 {
+            enabled = true
+        }
+        
     }
 
 
     let label: UILabel = {
         let label  = UILabel()
-        label.text = "Hola amigos"
+        label.textColor = .white
         return label
     }()
     
     var textField: UITextField = {
         let tf = UITextField()
-        tf.backgroundColor = .lightGray
+        tf.backgroundColor = .white
+        tf.font = UIFont.systemFont(ofSize: 12) //Aqui va el font del usernameTextfield
+        tf.layer.masksToBounds = true
+        tf.layer.cornerRadius = 12
         return tf
     }()
     
@@ -175,6 +210,9 @@ class SurveyCell: UICollectionViewCell, UIPickerViewDelegate, UIPickerViewDataSo
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        let colorIzquierda = UIColor(red: 0.902, green: 0.452, blue: 0.454, alpha: 1)
+        let colorDerecha = UIColor(red: 0.914, green: 0.472, blue: 0.651, alpha: 1)
+        setGradientBackground(colorOne: colorDerecha, colorTwo: colorIzquierda)
         
         picker.delegate = self
         picker.dataSource = self
@@ -182,10 +220,10 @@ class SurveyCell: UICollectionViewCell, UIPickerViewDelegate, UIPickerViewDataSo
         textField.inputView = picker
         
         addSubview(textField)
-        textField.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 18, bottomConstant: 8, rightConstant: 18, widthConstant: 0, heightConstant: 30)
+        textField.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 20, bottomConstant: 40, rightConstant: 20, widthConstant: 0, heightConstant: 30)
         
         addSubview(label)
-        label.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 55, leftConstant: 18, bottomConstant: 0, rightConstant: 18, widthConstant: 0, heightConstant: 30)
+        label.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 25, leftConstant: 20, bottomConstant: 0, rightConstant: 20, widthConstant: 0, heightConstant: 30)
     }
     
     required init?(coder: NSCoder) {

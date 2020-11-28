@@ -36,22 +36,21 @@ class ViewController: UIViewController {
     func setupIntertace() {
         //UserName TExtField
         usernameTextfield.placeholder = "Ingresa tu username"
-        usernameTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextfield.font = UIFont(name: "Helvetica Neue", size: 16)
         usernameTextfield.layer.masksToBounds = true
         usernameTextfield.layer.cornerRadius = 12
         
         //Password TExtfield
-        passwordTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextfield.font = UIFont(name: "Helvetica Neue", size: 16)
         passwordTextfield.layer.masksToBounds = true
         passwordTextfield.layer.cornerRadius = 12
         
         //Etiqueta MetroMatch
-        let customFont = UIFont(name: "LobsterTwo-Italic", size: UIFont.labelFontSize)
-        metrMatchLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        metrMatchLabel.font = UIFont(name: "Savoye LET", size: 50)
         metrMatchLabel.textColor = .white
         
         //Boton Iniciar Sesión
-        iniciarSesionButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        iniciarSesionButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         iniciarSesionButton.layer.masksToBounds = true
         iniciarSesionButton.layer.cornerRadius = 12
         let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
         iniciarSesionButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
         //Boton registrar
-        registrarButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registrarButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         registrarButton.tintColor = .white
         
     }
@@ -68,7 +67,7 @@ class ViewController: UIViewController {
     func constrains() {
         
         metrMatchLabel.translatesAutoresizingMaskIntoConstraints = false
-        metrMatchLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 200, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
+        metrMatchLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 200, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 55)
         //metrMatchLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         metrMatchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         

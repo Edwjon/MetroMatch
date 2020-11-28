@@ -50,7 +50,7 @@
                                 <rect key="frame" x="89.25583451528405" y="344" width="233.99999999999989" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
@@ -581,27 +581,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0N-uC-brG">
-                                <rect key="frame" x="186" y="832" width="42" height="30"/>
+                                <rect key="frame" x="117" y="832" width="179" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="0oa-3q-ICM"/>
-                                    <constraint firstAttribute="width" constant="42" id="cOn-7P-1mN"/>
+                                    <constraint firstAttribute="width" constant="179" id="cOn-7P-1mN"/>
                                 </constraints>
                                 <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="logIn:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="deh-SZ-jh7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-BS-hYB">
-                                <rect key="frame" x="105" y="704" width="200.00000000000017" height="40.000000000000114"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.9732836788" green="0.69261431809999996" blue="0.25132474519999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <state key="normal" title="Hacer encuesta">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="surveyAction:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="bov-Zg-t7M"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -624,14 +611,13 @@
                         <outlet property="passwordTextField" destination="Xaw-uw-sTe" id="VVo-Tf-gnk"/>
                         <outlet property="registrarButton" destination="802-jf-1pW" id="Qgk-iJ-cj3"/>
                         <outlet property="registroLabel" destination="vBd-Yl-DfM" id="B8X-50-J7M"/>
-                        <outlet property="surveyButton" destination="5iE-BS-hYB" id="aIC-8U-Nay"/>
                         <outlet property="usernameTextField" destination="X8T-Re-QO8" id="aNx-K2-9zf"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentRegister" modalPresentationStyle="overFullScreen" id="8Fn-nY-ZES"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahY-oP-747" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230" y="131"/>
+            <point key="canvasLocation" x="-230.43478260869566" y="130.58035714285714"/>
         </scene>
         <!--Item-->
         <scene sceneID="KrL-lC-80D">
