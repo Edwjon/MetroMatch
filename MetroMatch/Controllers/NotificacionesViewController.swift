@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 
 class NotificationCell: UICollectionViewCell {
@@ -43,6 +45,9 @@ class NotificationCell: UICollectionViewCell {
 
 
 class NotificacionesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    let db = Firestore.firestore()
+    var notis = [Noti]()
+    
     
     @IBOutlet var notificacionesButton: UIButton!
     @IBOutlet var collectionView: UICollectionView!
@@ -52,17 +57,52 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
         
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: "cellId")
         notificacionesButton.isUserInteractionEnabled = false
+        myNotis(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
+    }
+    
+    func myNotis(userIdentifier:String) {
+        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
+        db.collection("notifications").whereField("toUser", isEqualTo: userIdentifier)
+            .getDocuments() { (documentPosts, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for noti in documentPosts!.documents {
+                        print("llego la data")
+                        print("\(noti.documentID) => \(noti.data())")
+                        
+                        let myNoti = Noti()
+                        myNoti.message = noti.data()["message"] as! String
+                        
+                        
+                        self.notis.append(myNoti)
+                    }
+                    var index = 0
+//                    while index == 0 {
+//                        print("viendo si en verdad se guardaron en posts ")
+//                        print(self.notis[index].message)
+//                        index = index + 1
+//                    }
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+        }
     }
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return notis.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! NotificationCell
         cell.backgroundColor = .cyan
+        cell.mensaje.text = notis[indexPath.item].message
         return cell
     }
     

@@ -107,7 +107,8 @@ class CrearPostViewController: UIViewController {
                         "crushID": crushID,
                         "description": description,
                         "id": "",
-                        "profilePic": profilePic
+                        "profilePic": profilePic,
+                        "matched": false
                     ]
                     var ref: DocumentReference? = nil
                     ref = self.db.collection("posts").addDocument(data: postData){ err in
