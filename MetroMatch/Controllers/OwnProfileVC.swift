@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class OwnProfileVC: UIViewController {
 
@@ -50,6 +51,7 @@ class OwnProfileVC: UIViewController {
     
     @IBAction func updateAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        print(profilePic)
     }
     
     
@@ -82,6 +84,12 @@ extension OwnProfileVC: UIImagePickerControllerDelegate, UINavigationControllerD
         
         guard let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         self.profilePic.image = imageSelected
+        guard let toUpload = profilePic.image, let data = toUpload.jpegData(compressionQuality: 0.4) else {
+            print("No se pudo enviar su foto al servidor")
+            return
+        }
+        
+        let toUploadName = UUID().uuidString
         
         picker.dismiss(animated: true, completion: nil)
     }
