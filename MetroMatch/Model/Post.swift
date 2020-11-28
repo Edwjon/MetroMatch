@@ -20,6 +20,7 @@ class Post: NSObject {
     public var creatorProfilePic: String?
     public var id: String?
     public var matched: Bool?
+    public var anonymous: Bool?
 }
 
 class Notification: NSObject {
