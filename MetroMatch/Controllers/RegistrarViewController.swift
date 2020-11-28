@@ -114,13 +114,13 @@ class RegistrarViewController: UIViewController {
     
     @IBAction func registrar(_ sender: Any) {
         
-        let layout = UICollectionViewFlowLayout()
-        let vc = SurveyCollectionVC(collectionViewLayout: layout)
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        self.present(nav, animated: true, completion: nil)
+//        let layout = UICollectionViewFlowLayout()
+//        let vc = SurveyCollectionVC(collectionViewLayout: layout)
+//        let nav = UINavigationController(rootViewController: vc)
+//        nav.modalPresentationStyle = .fullScreen
+//        self.present(nav, animated: true, completion: nil)
         
-        /*guard let email = emailTextField.text, !email.isEmpty,
+        guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
             let username = usernameTextField.text, !username.isEmpty,
             let nombre = nombreTextField.text, !nombre.isEmpty,
@@ -167,7 +167,7 @@ class RegistrarViewController: UIViewController {
             self?.present(nav, animated: true, completion: nil)
         }))
         present(actionSheet, animated: true, completion: nil)
-        */
+        
     }
     
     
