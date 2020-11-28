@@ -31,9 +31,10 @@
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
 		47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */; };
+		7212AB332570BF200037AA81 /* Noti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212AB322570BF200037AA81 /* Noti.swift */; };
 		72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72919701254E3EC70097D56F /* MatchTestingViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
-		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
+		890A41E398CC52B84C6EEA45 /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCA574FBD36A2D266869835 /* Pods_MetroMatch.framework */; };
 		BB56EA982563897B002F2B45 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB56EA972563897B002F2B45 /* Match.swift */; };
 		BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */; };
 		BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4329123DC1930DC1F3DE4AE3 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
 		4702A4222544CADB00C1CC8E /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4702A4242544CB0500C1CC8E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		4702A4262544D12600C1CC8E /* RegistrarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrarViewController.swift; sourceTree = "<group>"; };
@@ -67,15 +69,15 @@
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionView.swift; sourceTree = "<group>"; };
+		7212AB322570BF200037AA81 /* Noti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Noti.swift; sourceTree = "<group>"; };
 		72919701254E3EC70097D56F /* MatchTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTestingViewController.swift; sourceTree = "<group>"; };
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
+		939C2F6205C0604B3C486C94 /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
 		BB56EA972563897B002F2B45 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DescriptionController+handlers.swift"; sourceTree = "<group>"; };
 		BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserController.swift; sourceTree = "<group>"; };
 		BB949302254A2F3F00EBBD14 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
+		BDCA574FBD36A2D266869835 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,17 +85,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */,
+				890A41E398CC52B84C6EEA45 /* Pods_MetroMatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1AFE6D3458B9B409E1B57583 /* Frameworks */ = {
+		256B890FB825A8DEADF0BFD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */,
+				BDCA574FBD36A2D266869835 /* Pods_MetroMatch.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,8 +103,8 @@
 		3913CA5671864650AA002261 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */,
-				AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */,
+				4329123DC1930DC1F3DE4AE3 /* Pods-MetroMatch.debug.xcconfig */,
+				939C2F6205C0604B3C486C94 /* Pods-MetroMatch.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -141,6 +143,7 @@
 				4702A42B2544D39700C1CC8E /* Post.swift */,
 				BB949302254A2F3F00EBBD14 /* User.swift */,
 				BB56EA972563897B002F2B45 /* Match.swift */,
+				7212AB322570BF200037AA81 /* Noti.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,7 +166,7 @@
 				4789AE80253F721100D1D1AF /* MetroMatch */,
 				4789AE7F253F721100D1D1AF /* Products */,
 				3913CA5671864650AA002261 /* Pods */,
-				1AFE6D3458B9B409E1B57583 /* Frameworks */,
+				256B890FB825A8DEADF0BFD2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,11 +205,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4789AE95253F721A00D1D1AF /* Build configuration list for PBXNativeTarget "MetroMatch" */;
 			buildPhases = (
-				97DD8CA68AA7723765E089BB /* [CP] Check Pods Manifest.lock */,
+				E10C9AFBA200E2DF595ECD48 /* [CP] Check Pods Manifest.lock */,
 				4789AE7A253F721100D1D1AF /* Sources */,
 				4789AE7B253F721100D1D1AF /* Frameworks */,
 				4789AE7C253F721100D1D1AF /* Resources */,
-				24C3EF79FEABB457AF6068A2 /* [CP] Embed Pods Frameworks */,
+				F8DE287878645C03AD533AD2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,24 +273,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		24C3EF79FEABB457AF6068A2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97DD8CA68AA7723765E089BB /* [CP] Check Pods Manifest.lock */ = {
+		E10C9AFBA200E2DF595ECD48 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -309,6 +295,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F8DE287878645C03AD533AD2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetroMatch/Pods-MetroMatch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -327,6 +330,7 @@
 				479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */,
 				47883D352569A697007A193E /* OwnProfileVC.swift in Sources */,
 				BB949303254A2F3F00EBBD14 /* User.swift in Sources */,
+				7212AB332570BF200037AA81 /* Noti.swift in Sources */,
 				4702A4252544CB0500C1CC8E /* Extension.swift in Sources */,
 				471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */,
 				4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */,
@@ -478,7 +482,7 @@
 		};
 		4789AE96253F721A00D1D1AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */;
+			baseConfigurationReference = 4329123DC1930DC1F3DE4AE3 /* Pods-MetroMatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -497,7 +501,7 @@
 		};
 		4789AE97253F721A00D1D1AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */;
+			baseConfigurationReference = 939C2F6205C0604B3C486C94 /* Pods-MetroMatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
