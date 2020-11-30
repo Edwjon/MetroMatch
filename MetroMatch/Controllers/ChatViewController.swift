@@ -26,7 +26,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         user2Name="Shawn Mendes"
         user2ImgUrl="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iheartradio.ca%2Fnews%2Flisten-shawn-mendes-debuts-in-my-blood-1.3704464&psig=AOvVaw2KfEWaLkWYP4qW7frPMi1R&ust=1606795705395000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjfss2yqe0CFQAAAAAdAAAAABAD"
-        user2UID="6U8L705uYUYll7ErEF4ByDNZARB3"
+        //user2UID="6U8L705uYUYll7ErEF4ByDNZARB3"
+        user2UID="3pzblgRpwZQTAooKEjgIQVvWcgA3"
         
         if user != nil {
             self.db.collection("users").document(user.uid).getDocument(source: .cache) { (document, error) in
