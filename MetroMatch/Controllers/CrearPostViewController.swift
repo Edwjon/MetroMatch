@@ -23,6 +23,10 @@ class CrearPostViewController: UIViewController {
     
     @IBOutlet var anonimoSwitch: UISwitch!
     @IBOutlet var anonimoLabel: UILabel!
+    var surveyUser = Survey()
+    var surveyCrush = Survey()
+    var compatibilityTotal: Int = 0
+    var anonymous=false
     
     
     override func viewDidLoad() {
@@ -33,8 +37,7 @@ class CrearPostViewController: UIViewController {
         setupInterface()
         self.usernameTextField.text = self.labelText
         
-        anonimoLabel.isHidden = true
-        anonimoSwitch.isHidden = true
+        
     }
     let db = Firestore.firestore()
     
@@ -76,10 +79,365 @@ class CrearPostViewController: UIViewController {
         vista.layer.borderColor = UIColor.lightGray.cgColor
         
     }
+    func setCompability(userSurvey: [Int], crushSurvey:[Int]){
+        var compability: Double = 0
+        
+        for (index, answer) in userSurvey.enumerated(){
+            if(answer == crushSurvey[index]){
+                compability=compability+1
+            }
+            //Prengunta 1
+            else if(index==0){
+                if (answer==0){
+                    
+                    if(crushSurvey[0] == 1) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[0] == 2) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[0] == 3){
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[0] == 2) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[0] == 3) {
+                        compability=compability+0.50
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.25
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.25
+                    }
+                }
+            }
+            //Fin Pregunta 1
+
+            //Pregunta 2
+            else if(index==1){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0.25
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.50
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.50
+                    }
+                }
+            }
+            //Fin Pregunta 2
+            
+            //Pregunta 3
+            else if(index==2){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0.80
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0.25
+                    }
+                    
+                } else if (answer==2){
+                    compability=compability+0.3
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0.80
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0
+                    }
+                }
+
+            }
+            //Fin Pregunta 3
+            
+            //Pregunta 4
+            else if(index==3){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.20
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.10
+                    }
+                }
+
+            }
+            //Fin Pregunta 4
+            
+            //Pregunta 5
+            else if(index==4){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0.25
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0.50
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.20
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.20
+                    }
+                }
+            }
+            //Fin Pregunta 5
+            
+            //Pregunta 6
+            else if(index==5){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.30
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0.70
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.50
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.70
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.50
+                    }
+                }
+            }
+            //Fin Pregunta 6
+            
+            //Pregunta 7
+            else if(index==6){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.15
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0.70
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0.50
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.70
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0.70
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.70
+                    }
+                }
+            }
+            //Fin Pregunta 7
+            
+            //Pregunta 8
+            else if(index==7){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.25
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.20
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0.10
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0
+                }else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0
+                    }
+                }
+            }
+            //Fin Pregunta 8
+            
+            //Pregunta 9
+            else if(index==8){
+                compability=compability+0
+            }
+            //Fin Pregunta 9
+            
+            //Pregunta 10
+            else if(index==9){
+                if (answer==0){
+                    if(crushSurvey[index] == 1) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 2) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 3){
+                        compability=compability+0.50
+                    }
+                    
+                } else if (answer==1){
+                    
+                    if(crushSurvey[index] == 2) {
+                        compability=compability+0.10
+                    } else if(crushSurvey[index] == 3) {
+                        compability=compability+0
+                    }
+                    
+                } else if (answer==2){
+                        compability=compability+0.25
+                } else if (answer==3){
+                    if(crushSurvey[index] == 0) {
+                        compability=compability+0.50
+                    } else if(crushSurvey[index] == 1) {
+                        compability=compability+0
+                    } else if(crushSurvey[index] == 2){
+                        compability=compability+0.25
+                    }
+                }
+            }
+            //Fin Pregunta 10
+        }
+        self.compatibilityTotal=Int(compability*10)
+        print("The compatibility is \(self.compatibilityTotal)")
+    }
+    
+    func fetchSurveys(userId:String, crushId: String){
+        self.db.collection("surveys").whereField("userId", isEqualTo: userId)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        self.surveyUser.answers = document["answers"] as? [Int]
+                        self.surveyUser.userId = userId as? String
+                        self.surveyUser.id = document.documentID as? String
+                    }
+                    print("the creator survey is \(self.surveyUser.answers)")
+                    self.db.collection("surveys").whereField("userId", isEqualTo: crushId)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for documentCrush in querySnapshot!.documents {
+                                    self.surveyCrush.answers = documentCrush["answers"] as? [Int]
+                                    self.surveyCrush.userId = crushId as? String
+                                    self.surveyCrush.id = documentCrush.documentID as? String
+                                }
+                                print("the crush survey is \(self.surveyCrush.answers)")
+                                self.setCompability(userSurvey: self.surveyUser.answers ?? [], crushSurvey: self.surveyCrush.answers ?? [])
+                                
+                                
+                            }
+                    }
+                }
+        }
+        
+        
+        
+    }
     
     @IBAction func publicar(_ sender: Any) {
         var crushID = ""
         var profilePic = ""
+        let user = Auth.auth().currentUser
+        if(user==nil){
+            return print("Usuario no loggeado")
+        }
         guard let username = usernameTextField.text, !username.isEmpty,
               let description = descripcionTextView.text, !description.isEmpty
         else{
@@ -95,20 +453,19 @@ class CrearPostViewController: UIViewController {
                 for document in result!.documents {
                     crushID = document.documentID
                     profilePic = (document["profilePic"] as? String)!
+                    self.fetchSurveys(userId: user!.uid, crushId: crushID)
                 }
-                let compatibility = self.randomCompatibility()
-                print(compatibility)
-                let user = Auth.auth().currentUser
                 if user != nil {
                     let postData: [String: Any] = [
                         "comments": [],
-                        "compatibility": compatibility,
+                        "compatibility": self.compatibilityTotal,
                         "creatorID": user!.uid,
                         "crushID": crushID,
                         "description": description,
                         "id": "",
                         "profilePic": profilePic,
-                        "matched": false
+                        "matched": false,
+                        "anonymous": self.anonymous
                     ]
                     var ref: DocumentReference? = nil
                     ref = self.db.collection("posts").addDocument(data: postData){ err in
@@ -146,8 +503,10 @@ class CrearPostViewController: UIViewController {
     @IBAction func cambioSwitch(_ sender: Any) {
         if !anonimoSwitch.isOn {
             anonimoLabel.text = "Anónimo"
+            self.anonymous=true
         } else {
             anonimoLabel.text = "Público"
+            self.anonymous=false
         }
     }
     

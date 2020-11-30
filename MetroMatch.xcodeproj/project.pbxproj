@@ -20,6 +20,7 @@
 		471C25352546F3EA00C33E26 /* LobsterTwo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C25302546F3EA00C33E26 /* LobsterTwo-Regular.ttf */; };
 		471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C25362547416800C33E26 /* CrearPostViewController.swift */; };
 		4728C0532544DFAF00210697 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C0522544DFAF00210697 /* ProfileCell.swift */; };
+		47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4764873F256F61CE0008703A /* SurveyCollectionVC.swift */; };
 		4787DE3A25420B46004C5849 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4787DE3925420B46004C5849 /* CollectionViewController.swift */; };
 		47883D352569A697007A193E /* OwnProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47883D342569A697007A193E /* OwnProfileVC.swift */; };
 		4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE81253F721100D1D1AF /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 		BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */; };
 		BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */; };
 		BB949303254A2F3F00EBBD14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB949302254A2F3F00EBBD14 /* User.swift */; };
+		BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDE70DB2570B72C0029C73B /* Survey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,7 @@
 		471C25302546F3EA00C33E26 /* LobsterTwo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Regular.ttf"; sourceTree = "<group>"; };
 		471C25362547416800C33E26 /* CrearPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrearPostViewController.swift; sourceTree = "<group>"; };
 		4728C0522544DFAF00210697 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		4764873F256F61CE0008703A /* SurveyCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCollectionVC.swift; sourceTree = "<group>"; };
 		4787DE3925420B46004C5849 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		47883D342569A697007A193E /* OwnProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnProfileVC.swift; sourceTree = "<group>"; };
 		4789AE7E253F721100D1D1AF /* MetroMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +81,8 @@
 		BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserController.swift; sourceTree = "<group>"; };
 		BB949302254A2F3F00EBBD14 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BDCA574FBD36A2D266869835 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBDE70DB2570B72C0029C73B /* Survey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
+		C1EAA5B51B7191618B59CD51 /* Pods-MetroMatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.debug.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +120,7 @@
 				4789AE85253F721100D1D1AF /* ViewController.swift */,
 				4702A4262544D12600C1CC8E /* RegistrarViewController.swift */,
 				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
+				4764873F256F61CE0008703A /* SurveyCollectionVC.swift */,
 				47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */,
 				479C4A232544D80800CFD0BD /* DescriptionViewController.swift */,
 				471C25362547416800C33E26 /* CrearPostViewController.swift */,
@@ -141,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				4702A42B2544D39700C1CC8E /* Post.swift */,
+				BBDE70DB2570B72C0029C73B /* Survey.swift */,
 				BB949302254A2F3F00EBBD14 /* User.swift */,
 				BB56EA972563897B002F2B45 /* Match.swift */,
 				7212AB322570BF200037AA81 /* Noti.swift */,
@@ -321,6 +328,8 @@
 			files = (
 				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
 				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
+				47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */,
+				BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */,
 				4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */,
 				BB56EA982563897B002F2B45 /* Match.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,

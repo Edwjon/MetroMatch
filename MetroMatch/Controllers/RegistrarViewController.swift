@@ -39,41 +39,40 @@ class RegistrarViewController: UIViewController {
     func setupInterface() {
         //UserName TExtField
         usernameTextField.placeholder = "Ingresa tu username"
-        usernameTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextField.font = UIFont(name: "Helvetica Neue", size: 16)
         usernameTextField.layer.masksToBounds = true
         usernameTextField.layer.cornerRadius = 12
         
         //Password TExtfield
-        passwordTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextField.font = UIFont(name: "Helvetica Neue", size: 16)
         passwordTextField.layer.masksToBounds = true
         passwordTextField.layer.cornerRadius = 12
         
         //Etiqueta MetroMatch
-        let customFont = UIFont(name: "LobsterTwo-Italic", size: UIFont.labelFontSize)
-        registroLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registroLabel.font = UIFont(name: "Savoye LET", size: 50)
         registroLabel.textColor = .white
         
         //Boton Iniciar Sesión
-        registrarButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registrarButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         registrarButton.layer.masksToBounds = true
         registrarButton.layer.cornerRadius = 12
         let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
         let colorDerechaNaranja = UIColor(red: 0.998, green: 0.417, blue: 0.298, alpha: 1)
         registrarButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
-        nombreTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        nombreTextField.font = UIFont(name: "Helvetica Neue", size: 16)
         nombreTextField.layer.masksToBounds = true
         nombreTextField.layer.cornerRadius = 12
         
-        apellidoTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        apellidoTextField.font = UIFont(name: "Helvetica Neue", size: 16)
         apellidoTextField.layer.masksToBounds = true
         apellidoTextField.layer.cornerRadius = 12
         
-        emailTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        emailTextField.font = UIFont(name: "Helvetica Neue", size: 16)
         emailTextField.layer.masksToBounds = true
         emailTextField.layer.cornerRadius = 12
         
-        loginButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        loginButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         loginButton.tintColor = .white
     }
     
@@ -81,7 +80,7 @@ class RegistrarViewController: UIViewController {
     func constrains() {
         
         registroLabel.translatesAutoresizingMaskIntoConstraints = false
-        registroLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
+        registroLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 55)
         registroLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         nombreTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +113,13 @@ class RegistrarViewController: UIViewController {
     
     
     @IBAction func registrar(_ sender: Any) {
-        //let layout = UICollectionViewFlowLayout()
+        
+//        let layout = UICollectionViewFlowLayout()
+//        let vc = SurveyCollectionVC(collectionViewLayout: layout)
+//        let nav = UINavigationController(rootViewController: vc)
+//        nav.modalPresentationStyle = .fullScreen
+//        self.present(nav, animated: true, completion: nil)
+        
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
             let username = usernameTextField.text, !username.isEmpty,
@@ -150,21 +155,26 @@ class RegistrarViewController: UIViewController {
                 }
             }
             self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
-            //self.crearTabBar()
         }
         
+        let actionSheet = UIAlertController(title: "Alerta", message: "Por favor llena la siguiente encuesta para calcular tu compatiblidad con otros usuarios", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            
+            let layout = UICollectionViewFlowLayout()
+            let vc = SurveyCollectionVC(collectionViewLayout: layout)
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self?.present(nav, animated: true, completion: nil)
+        }))
+        present(actionSheet, animated: true, completion: nil)
         
-        
-        
-        
-        //performSegue(withIdentifier: "presentRegister", sender: self)
-        //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }
     
     
     @IBAction func logIn(_ sender: Any) {
-        performSegue(withIdentifier: "backLogin", sender: self)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
-    
-    
 }

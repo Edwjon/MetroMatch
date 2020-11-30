@@ -27,9 +27,18 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(funcionMensajes))
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false, completion: nil)
+        }
         
-        //title = "Posts"
+        
+        
+        title = "Posts"
+        navigationItem.largeTitleDisplayMode = .always
         collectionView.backgroundColor = .white
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -48,12 +57,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         setupTabBar()
         
-    }
-    
-    
-    
-    @objc func funcionMensajes() {
-        print("qlq")
     }
     
     
@@ -95,6 +98,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 print("Ocurrio un error", err)
             } else {
                 for documentPost in posts!.documents {
+                    let anonymousRef = documentPost["anonymous"] as? Bool
+                    print("the anonymous is \(anonymousRef)")
                     let crushId = documentPost["crushID"] as? String
                     DispatchQueue.global(qos: .userInitiated).async {
                         DispatchQueue.main.async {
@@ -112,9 +117,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
                     self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
-                            post.usernameCreator = document["username"] as? String
-                            post.creatorProfilePic = document["profilePic"] as? String
-                            print("Document data: \(document["username"])")
+                            if(anonymousRef==true){
+                                post.usernameCreator = "Post Anónimo"
+                                post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+                            } else {
+                                post.usernameCreator = document["username"] as? String
+                                post.creatorProfilePic = document["profilePic"] as? String
+                            }
                         } else {
                             print("Document does not exist")
                         }
@@ -129,17 +138,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         }
                     }
                     
-//                    { (user, err)
-//                        if let err = err {
-//                            print("Ha ocurrido un error")
-//                            post.username = self.usernameString
-//                        } else {
-//                            post.username = user["username"]
-//                            print("Agregando el username real \($user["username"])")
-//                        }
-//                    }
-                    
-                    
                     self.posts.append(post)
                 }
                 DispatchQueue.global(qos: .userInitiated).async {
@@ -149,108 +147,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 }
                 print("testing")
                 print(self.posts[0].username)
-            }
-        }
-    }
-    
-    
-    
-    //FUNCION PARA TRAERSE LOS POSTS DE UN USUARIO EN PARTICULAR
-    func myPosts(userIdentifier:String) {
-        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
-        db.collection("posts").whereField("creatorID", isEqualTo: userIdentifier)
-            .getDocuments() { (documentPosts, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for post in documentPosts!.documents {
-                        print("llego la data")
-                        print("\(post.documentID) => \(post.data())")
-                        
-                        let myPost = Post()
-                        myPost.profilePic = post["profilePic"] as! String
-                        myPost.descripcion = post["description"] as? String
-                        myPost.compatibility = post["compatibility"] as? Int
-                        myPost.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
-                        myPost.username = "Yo"
-                        myPost.creatorProfilePic = ""
-                        self.posts.append(myPost)
-                    }
-                    var index = 0
-                    while index < 5 {
-                        print("viendo si en verdad se guardaron en posts ")
-                        print(self.posts[index].username)
-                        print(self.posts[index].profilePic)
-                        print(self.posts[index].descripcion)
-                        print(self.posts[index].comments)
-                        print(self.posts[index].creatorProfilePic)
-                        index = index + 1
-                    }
-                    
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                }
-        }
-    }
-    //FIN DE LA FUNCION QUE TRAE LOS POST SEGUN EL USUARIO
-    
-    func fetchPosts(){
-        print("FETCHING POSTS")
-        db.collection("posts").getDocuments(){(posts, err) in
-            if let err = err {
-                print("Fetching failed", err)
-            } else {
-                for documentPost in posts!.documents {
-                    let user = User()
-                    let creator = User()
-                    let post = Post()
-                    user.id = documentPost["crushID"] as? String
-                    creator.id = documentPost["creatorID"] as? String
-                    print("VERIFICANDO CRUSH ID")
-                    print(user.id)
-                    print("VERIFICANDO CREATOR ID")
-                    print(creator.id)
-                    
-                    self.db.collection("users").document((user.id)!).getDocument{ (documentUser, err) in
-                    if let documentUser = documentUser, documentUser.exists {
-                        post.username = documentUser["username"] as? String
-                        
-                    } else {
-                        print("El documento no existe")
-                    }
-                        
-                        
-                    self.db.collection("users").document((creator.id)!).getDocument{(documentCreator, err) in
-                            if let documentCreator = documentCreator, documentCreator.exists{
-                                
-                                post.creatorProfilePic = documentCreator["profilePic"] as? String
-                                post.usernameCreator = documentCreator["username"] as? String
-                                print("FOTO DE PERFIL DEL CREADOR")
-                                print(post.usernameCreator, post.creatorProfilePic)
-                            } else {
-                                print("El documento no existe")
-                            }
-                        }
-                        
-                        
-                        post.profilePic = documentPost["profilePic"] as? String
-                        post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
-                        post.descripcion = documentPost["description"] as? String
-                        post.compatibility = documentPost["compatibility"] as? Int
-                        self.posts.append(post)
-                        print(self.posts)
-                    }
-                    
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                    print(self.posts)
-                }
             }
         }
     }
@@ -307,21 +203,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-//        let aproximateWidthOfBioTextView = view.frame.width - 40
-//        let size = CGSize(width: aproximateWidthOfBioTextView, height: 1000)
-//        let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15)]
-//
-//        let estimatedFrame = NSString(string: posts[indexPath.item].descripcion).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-//
-//        return CGSize(width: view.frame.width, height: estimatedFrame.height + 66)
-        
         let size = CGSize(width: collectionView.frame.width, height: 450)
         return size
     }
-    
-    
-    
-    
 
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KjL-Wf-Kx9">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="BYZ-38-t0r" customClass="ViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +52,7 @@
                                 <rect key="frame" x="89.25583451528405" y="344" width="233.99999999999989" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
@@ -80,8 +80,6 @@
                         <outlet property="passwordTextfield" destination="uwy-aQ-Kfl" id="RkV-Pe-Soy"/>
                         <outlet property="registrarButton" destination="SJ6-HU-FTx" id="66v-Go-2To"/>
                         <outlet property="usernameTextfield" destination="FiZ-jr-C0G" id="jpK-EB-V7Z"/>
-                        <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentLogin" modalPresentationStyle="overFullScreen" id="t99-ne-fNV"/>
-                        <segue destination="VZd-EZ-fAj" kind="presentation" identifier="presentRegistrar" modalPresentationStyle="overFullScreen" id="nlc-5D-cXj"/>
                         <segue destination="KjL-Wf-Kx9" kind="presentation" identifier="tabBarLogin" modalPresentationStyle="fullScreen" id="e0x-0G-28D"/>
                     </connections>
                 </viewController>
@@ -116,7 +114,24 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhE-sn-tZD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-714"/>
+            <point key="canvasLocation" x="1416" y="-715"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="33h-AF-k8h">
+            <objects>
+                <navigationController id="PZo-4D-pIs" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="posts" id="Isr-9E-Xd5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0f1-sn-tAS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="yiW-YR-2Bh" kind="relationship" relationship="rootViewController" id="lcm-VL-wPz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HDp-rU-OgV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="570" y="-715"/>
         </scene>
         <!--Add Post-->
         <scene sceneID="LPt-1Z-nRG">
@@ -270,17 +285,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="yiW-YR-2Bh" kind="relationship" relationship="viewControllers" id="mjG-ry-rA6"/>
-                        <segue destination="cy0-Rw-LVQ" kind="relationship" relationship="viewControllers" id="wol-PP-MN5"/>
-                        <segue destination="Xny-JY-MBy" kind="relationship" relationship="viewControllers" id="DmK-BU-BKK"/>
-                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="viewControllers" id="AOh-fR-Qu5"/>
+                        <segue destination="PZo-4D-pIs" kind="relationship" relationship="viewControllers" id="ghF-ts-N0z"/>
+                        <segue destination="cy0-Rw-LVQ" kind="relationship" relationship="viewControllers" id="6wN-mF-F0O"/>
+                        <segue destination="Xny-JY-MBy" kind="relationship" relationship="viewControllers" id="aat-Kc-OMx"/>
+                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="viewControllers" id="5eu-Fb-9Om"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPQ-xl-PwU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2509" y="84"/>
+            <point key="canvasLocation" x="1926" y="84"/>
         </scene>
         <!--Match Testing View Controller-->
         <scene sceneID="8Z0-xf-9T4">
@@ -502,7 +518,7 @@
         <!--Registrar View Controller-->
         <scene sceneID="u9X-dx-jXd">
             <objects>
-                <viewController id="VZd-EZ-fAj" customClass="RegistrarViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="register" id="VZd-EZ-fAj" customClass="RegistrarViewController" customModule="MetroMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B0G-79-vHb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -566,11 +582,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0N-uC-brG">
-                                <rect key="frame" x="186" y="832" width="42" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0N-uC-brG">
+                                <rect key="frame" x="117" y="832" width="179" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="0oa-3q-ICM"/>
-                                    <constraint firstAttribute="width" constant="42" id="cOn-7P-1mN"/>
+                                    <constraint firstAttribute="width" constant="179" id="cOn-7P-1mN"/>
                                 </constraints>
                                 <state key="normal" title="Log In"/>
                                 <connections>
@@ -599,13 +615,11 @@
                         <outlet property="registroLabel" destination="vBd-Yl-DfM" id="B8X-50-J7M"/>
                         <outlet property="usernameTextField" destination="X8T-Re-QO8" id="aNx-K2-9zf"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentRegister" modalPresentationStyle="overFullScreen" id="8Fn-nY-ZES"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backLogin" modalPresentationStyle="fullScreen" id="0uW-z2-aL7"/>
-                        <segue destination="KjL-Wf-Kx9" kind="presentation" identifier="tabBarRegistrar" modalPresentationStyle="fullScreen" id="LaB-vR-5qF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahY-oP-747" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287" y="143"/>
+            <point key="canvasLocation" x="-230.43478260869566" y="130.58035714285714"/>
         </scene>
         <!--Item-->
         <scene sceneID="KrL-lC-80D">
@@ -893,8 +907,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="e0x-0G-28D"/>
-        <segue reference="mjG-ry-rA6"/>
+        <segue reference="8Fn-nY-ZES"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LoginBackground.png" width="187.5" height="406"/>
