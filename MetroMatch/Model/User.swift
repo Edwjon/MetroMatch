@@ -20,4 +20,5 @@ class User: NSObject {
     var posts: [String: Any]?
     var username: String?
     var profilePic: String?
+    var profilePicURL: URL?
 }

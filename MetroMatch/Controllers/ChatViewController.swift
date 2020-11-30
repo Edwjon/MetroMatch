@@ -7,8 +7,11 @@ import SDWebImage
 
 class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
 
-
-    var currentUser: User = Auth.auth().currentUser!
+    var currentUser = User()
+    let db = Firestore.firestore()
+    
+    let user = Auth.auth().currentUser!
+    
     
     var user2Name: String?
     var user2ImgUrl: String?
@@ -20,13 +23,29 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-         
+        
+        user2Name="Shawn Mendes"
+        user2ImgUrl="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iheartradio.ca%2Fnews%2Flisten-shawn-mendes-debuts-in-my-blood-1.3704464&psig=AOvVaw2KfEWaLkWYP4qW7frPMi1R&ust=1606795705395000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjfss2yqe0CFQAAAAAdAAAAABAD"
+        user2UID="6U8L705uYUYll7ErEF4ByDNZARB3"
+        
+        if user != nil {
+            self.db.collection("users").document(user.uid).getDocument(source: .cache) { (document, error) in
+                if let document = document {
+                    self.currentUser.firstName=document["firstName"] as? String
+                    self.currentUser.profilePicURL=document["profilePic"] as? URL
+                    
+                } else {
+                  print("Document does not exist in cache")
+                }
+              }
+            currentUser.id=user.uid
+        } else {
+            currentUser.id=""
+        }
         self.title = user2Name ?? "Chat"
 
         navigationItem.largeTitleDisplayMode = .never
         maintainPositionOnKeyboardFrameChanged = true
-        messageInputBar.inputTextView.tintColor = .primary
-        messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
         
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
@@ -40,7 +59,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     // MARK: - Custom messages handlers
     
     func createNewChat() {
-        let users = [self.currentUser.uid, self.user2UID]
+        let users = [self.currentUser.id, self.user2UID]
          let data: [String: Any] = [
              "users":users
          ]
@@ -84,7 +103,9 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                     for doc in chatQuerySnap!.documents {
                         
                         let chat = Chat(dictionary: doc.data())
+                        print(chat)
                         //Get the chat which has user2 id
+                        print(self.user2UID)
                         if (chat?.users.contains(self.user2UID!))! {
                             
                             self.docReference = doc.reference
@@ -155,7 +176,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
             func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
 
-                let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUser.uid, senderName: currentUser.displayName!)
+                let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUser.id!, senderName: currentUser.firstName!)
                 
                   //messages.append(message)
                   insertNewMessage(message)
@@ -204,8 +225,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
 
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         
-        if message.sender.senderId == currentUser.uid {
-            SDWebImageManager.shared.loadImage(with: currentUser.photoURL, options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
+        if message.sender.senderId == currentUser.id {
+            SDWebImageManager.shared.loadImage(with: currentUser.profilePicURL, options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
                 avatarView.image = image
             }
         } else {
