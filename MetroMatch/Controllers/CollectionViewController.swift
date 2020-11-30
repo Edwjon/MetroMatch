@@ -146,7 +146,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     }
                 }
                 print("testing")
-                print(self.posts[0].username)
             }
         }
     }
