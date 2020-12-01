@@ -415,15 +415,6 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         }
         
         else if selectedMenu == 2 {
-            
-//            if (userMentions.count == 0){
-//                print("No tienes Matches")
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-//                return cell
-//            } else if (myMatches[indexPath.item].state == 0){
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-//                return cell
-//            } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
                 cell.backgroundColor = .red
                 cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
@@ -486,11 +477,6 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
             print("doMatch")
             matchMaker(postId: sender.postId ?? "")
             self.userMentions[sender.index ?? 0].matched = true
-//            DispatchQueue.global(qos: .userInitiated).async {
-//                DispatchQueue.main.async {
-//                    self.collectionView.reloadData()
-//                }
-//            }
             self.collectionView.reloadData()
         }
     }
@@ -499,83 +485,89 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
        var thirsty:String = ""
        var crush: String = ""
         
-        self.db.collection("posts").document(postId ?? "").updateData([
-                    "matched": true
-                ]){err in
-                    if let err = err {
-                        print("No se actualizo el post", err)
-                    } else {
-                        print("Se actualizo el post")
-                    }
-                }
-        
         db.collection("matches").whereField("postID", isEqualTo: postId)
             .getDocuments() { (matches, err) in
                 if let err = err {
-                    let post = self.db.collection("posts").document(postId)
-                    
-                    post.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                            //print("Document data: \(dataDescription)")
-                             thirsty = (document.data()!["creatorID"] as? String)!
-                            print("thirsty \(thirsty)")
-                             crush = (document.data()!["crushID"] as? String)!
-                            print("crush \(crush)")
+                    self.db.collection("posts").document(postId).getDocument{(post, err) in
+                        if let post = post, post.exists{
+                            thirsty = (post["creatorID"] as? String)!
+                            crush = (post["crushID"] as? String)!
+                            let myData: [String: Any] = [
+                                "id": "",
+                                "postID": postId,
+                                "state": 1,
+                                "thirstyID": thirsty,
+                                "crushID": crush,
+                            ]
+                            
+                            var ref: DocumentReference? = nil
+                            ref = self.db.collection("matches").addDocument(data: myData){ err in
+                                    if let err = err {
+                                        print("No se creo el match", err)
+                                    } else {
+                                        self.db.collection("matches").document(ref!.documentID).updateData([
+                                                "id": ref!.documentID,
+                                            ]){err in
+                                            if let err = err {
+                                                print("Match Fallido", err)
+                                            } else {
+                                                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                                                let vc: ChatViewController = mainStoryboard.instantiateViewController(withIdentifier: "chat") as! ChatViewController
+                                                vc.modalPresentationStyle = .fullScreen
+                                                print("the crushId is \(crush) and the thirstyId is \(thirsty)")
+                                                vc.user2UID=crush
+                                                self.navigationController?.present(vc, animated: true, completion: nil)
+                                                print("Haz hecho match!!")
+                                                self.db.collection("posts").document(postId ?? "").updateData([
+                                                                   "matched": true
+                                                               ]){err in
+                                                                   if let err = err {
+                                                                       print("No se actualizo el post", err)
+                                                                   } else {
+                                                                       print("Se actualizo el post")
+                                                                   }
+                                                }
+                                            }
+                                        }
+                                    }
+                            }
                         } else {
-                            print("Document does not exist")
+                            print("El post no existe")
                         }
                     }
-                    
-                    print("crush222 \(crush)")
-                    
-                    let myData: [String: Any] = [
-                        "id": "",
-                        "postID": postId,
-                        "state": 1,
-                        "thirstyID": thirsty,
-                        "crushID": crush
-                    ]
-                    print(myData)
-                    var ref: DocumentReference? = nil
-                    
-                    ref = self.db.collection("matches").addDocument(data: myData){ err in
-                        if let err = err {
-                            print("No se creo el match", err)
-                        } else {
-                            self.db.collection("matches").document(ref!.documentID).updateData([
-                                "id": ref!.documentID,
-                                "crushID": crush,
-                                "thirstyID": thirsty
-                            ]){err in
-                                if let err = err {
-                                    print("Match Fallido", err)
-                                } else {
-                                    print("Haz hecho match!!")
+                } else {
+                    for document in matches!.documents {
+                        self.db.collection("matches").document(document.documentID).updateData([
+                            "state": 1
+                        ]){err in
+                            if let err = err{
+                                print("No se actualizo el match")
+                            } else {
+                                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                                        let vc: ChatViewController = mainStoryboard.instantiateViewController(withIdentifier: "chat") as! ChatViewController
+                                        vc.modalPresentationStyle = .fullScreen
+                                        print("the crushId is \(crush) and the thirstyId is \(thirsty)")
+                                        vc.user2UID=crush
+                                        self.navigationController?.present(vc, animated: true, completion: nil)
+                                        print("Se volvio a hacer match")
+                                self.db.collection("posts").document(postId).updateData([
+                                                   "matched": true
+                                               ]){err in
+                                                   if let err = err {
+                                                       print("No se actualizo el post", err)
+                                                   } else {
+                                                       print("Se actualizo el post")
+                                                   }
                                 }
                             }
                             
                         }
                     }
-                } else {
-                    for match in matches!.documents {
-                        let matchId = match.data()["id"] as? String
-
-                        self.db.collection("matches").document(matchId ?? "").updateData([
-                                    "state": 1
-                                ]){err in
-                                    if let err = err {
-                                        print("No se pudo deshacer tu match", err)
-                                    } else {
-                                        print("Se volvio a hacer match")
-                                    }
-                                }
-                    }
                 }
         }
         
-        
-        
+       
+
         DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -590,7 +582,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                     if let err = err {
                         print("No se actualizo el post", err)
                     } else {
-                        print("Se actualizo el post")
+                        print("Se actualizo el post unmatch")
                     }
                 }
         self.db.collection("matches").whereField("postID", isEqualTo: postId)
