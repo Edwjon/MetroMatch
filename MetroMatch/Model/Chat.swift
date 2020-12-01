@@ -11,10 +11,12 @@ import UIKit
 struct Chat {
     
     var users: [String]
+    var anonimo: Bool?
     
     var dictionary: [String: Any] {
         return [
-            "users": users
+            "users": users,
+            "anonimo": anonimo
         ]
     }
 }

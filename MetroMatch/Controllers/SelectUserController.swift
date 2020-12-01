@@ -16,9 +16,9 @@ class SelectUserController: UITableViewController {
     weak var delegate: UserPressTheCell?
     var users = [User]()
     let cellId = "cellId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(handleCancel))
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         fetchUsers()
@@ -58,16 +58,21 @@ class SelectUserController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        //let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let user = users[indexPath.row]
         cell.textLabel?.text = "@" + user.username!
         cell.detailTextLabel?.text = user.firstName! + " " + user.lastName!
-        print(cell.textLabel?.text)
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.nombreTextField = users[indexPath.row].username ?? "No se seleccionó usuario"
+        vc.imagenDePerfil = users[indexPath.row].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596"
+        self.present(vc, animated: true, completion: nil)
+    }
     
 }
 

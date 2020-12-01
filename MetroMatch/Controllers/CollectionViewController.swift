@@ -178,6 +178,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.nombreUsuario.text = posts[indexPath.item].usernameCreator
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion
+        
+        if let compatibilidad = posts[indexPath.item].compatibility {
+            cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
+        }
         cell.boton.isHidden = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
@@ -202,8 +206,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size = CGSize(width: collectionView.frame.width, height: 450)
+        let size = CGSize(width: collectionView.frame.width, height: 500)
         return size
+    }
+    
+    
+    @IBAction func messages(_ sender: Any) {
+        performSegue(withIdentifier: "mensajes", sender: nil)
     }
 
 }
@@ -227,5 +236,9 @@ extension UIImageView {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)
     }
+    
+    
+    
+    
 }
 

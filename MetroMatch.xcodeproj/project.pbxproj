@@ -32,6 +32,7 @@
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
 		47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */; };
+		47E470E02575D32100365EC3 /* ListaChatsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */; };
 		72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72919701254E3EC70097D56F /* MatchTestingViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
@@ -73,6 +74,7 @@
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionView.swift; sourceTree = "<group>"; };
+		47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaChatsCollectionViewController.swift; sourceTree = "<group>"; };
 		72919701254E3EC70097D56F /* MatchTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTestingViewController.swift; sourceTree = "<group>"; };
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 				4789AE85253F721100D1D1AF /* ViewController.swift */,
 				4702A4262544D12600C1CC8E /* RegistrarViewController.swift */,
 				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
+				47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */,
 				4764873F256F61CE0008703A /* SurveyCollectionVC.swift */,
 				47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */,
 				479C4A232544D80800CFD0BD /* DescriptionViewController.swift */,
@@ -336,6 +339,7 @@
 				47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */,
 				BBC65F5F25721FBD00CEBB5D /* Chat.swift in Sources */,
 				BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */,
+				47E470E02575D32100365EC3 /* ListaChatsCollectionViewController.swift in Sources */,
 				4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */,
 				BB56EA982563897B002F2B45 /* Match.swift in Sources */,
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,

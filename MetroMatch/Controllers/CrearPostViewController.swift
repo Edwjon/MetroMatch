@@ -28,14 +28,19 @@ class CrearPostViewController: UIViewController {
     var compatibilityTotal: Int = 0
     var anonymous=false
     
+    var nombreTextField = ""
+    var imagenDePerfil = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //title = "Crear"
         
+        usernameTextField.text = nombreTextField
+        imagenPerfil.downloaded(from:imagenDePerfil)
+        
         anonimoLabel.text = "Público"
         setupInterface()
-        self.usernameTextField.text = self.labelText
+        //self.usernameTextField.text = self.labelText
         
         
     }
@@ -60,7 +65,7 @@ class CrearPostViewController: UIViewController {
         //usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         //usuarioLabel.font = UIFont.boldSystemFont(ofSize: 18)
         
-        imagenPerfil.image = UIImage(named: "mia")
+        //imagenPerfil.image = UIImage(named: "mia")
         imagenPerfil.layer.cornerRadius = 12
         imagenPerfil.contentMode = .scaleToFill
         
@@ -72,13 +77,16 @@ class CrearPostViewController: UIViewController {
         let colorDerecha = UIColor(red: 0.914, green: 0.472, blue: 0.651, alpha: 1)
         publicarBoton.setGradientBackground(colorOne: colorDerecha, colorTwo: colorIzquierda)
         
-        descripcionTextView.backgroundColor = .lightGray
+        descripcionTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        descripcionTextView.layer.cornerRadius = 5
+        descripcionTextView.layer.masksToBounds = true
         
         vista.layer.cornerRadius = 12
         vista.layer.borderWidth = 0.5
         vista.layer.borderColor = UIColor.lightGray.cgColor
         
     }
+    
     func setCompability(userSurvey: [Int], crushSurvey:[Int]){
         var compability: Double = 0
         
@@ -397,6 +405,7 @@ class CrearPostViewController: UIViewController {
     }
     
     func fetchSurveys(userId:String, crushId: String){
+        self.myGroup.enter()
         self.db.collection("surveys").whereField("userId", isEqualTo: userId)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -420,7 +429,7 @@ class CrearPostViewController: UIViewController {
                                 }
                                 print("the crush survey is \(self.surveyCrush.answers)")
                                 self.setCompability(userSurvey: self.surveyUser.answers ?? [], crushSurvey: self.surveyCrush.answers ?? [])
-                                
+                                self.myGroup.leave()
                                 
                             }
                     }
@@ -430,6 +439,8 @@ class CrearPostViewController: UIViewController {
         
         
     }
+    
+    let myGroup = DispatchGroup()
     
     @IBAction func publicar(_ sender: Any) {
         var crushID = ""
@@ -453,50 +464,58 @@ class CrearPostViewController: UIViewController {
                 for document in result!.documents {
                     crushID = document.documentID
                     profilePic = (document["profilePic"] as? String)!
-                    self.fetchSurveys(userId: user!.uid, crushId: crushID)
                 }
-                if user != nil {
-                    let postData: [String: Any] = [
-                        "comments": [],
-                        "compatibility": self.compatibilityTotal,
-                        "creatorID": user!.uid,
-                        "crushID": crushID,
-                        "description": description,
-                        "id": "",
-                        "profilePic": profilePic,
-                        "matched": false,
-                        "anonymous": self.anonymous
-                    ]
-                    var ref: DocumentReference? = nil
-                    ref = self.db.collection("posts").addDocument(data: postData){ err in
-                        if let err = err {
-                            print("No se creo el post", err)
-                        } else {
-                            self.db.collection("posts").document(ref!.documentID).updateData([
-                                "id": ref!.documentID,
-                            ]){err in
-                                if let err = err {
-                                    print("El post no se creo correctamente", err)
-                                } else {
-                                    print("El post se creo correctamente")
+                
+                //aqui
+                self.fetchSurveys(userId: user!.uid, crushId: crushID)
+                
+                self.myGroup.notify(queue: .main) {
+                    if user != nil {
+                        let postData: [String: Any] = [
+                            "comments": [],
+                            "compatibility": self.compatibilityTotal,
+                            "creatorID": user!.uid,
+                            "crushID": crushID,
+                            "description": description,
+                            "id": "",
+                            "profilePic": profilePic,
+                            "matched": false,
+                            "anonymous": self.anonymous
+                        ]
+                        var ref: DocumentReference? = nil
+                        ref = self.db.collection("posts").addDocument(data: postData){ err in
+                            if let err = err {
+                                print("No se creo el post", err)
+                            } else {
+                                self.db.collection("posts").document(ref!.documentID).updateData([
+                                    "id": ref!.documentID,
+                                ]){err in
+                                    if let err = err {
+                                        print("El post no se creo correctamente", err)
+                                    } else {
+                                        
+                                        print("El post se creo correctamente")
+                                        
+                                        self.performSegue(withIdentifier: "aaaa", sender: self)
+                                    }
                                 }
+                                
                             }
-                            
                         }
+                    } else {
+                      print("No se ha iniciado sesión")
                     }
-                } else {
-                  print("No se ha iniciado sesión")
                 }
             }
         }
-        //self.crearTabBar()
-        //performSegue(withIdentifier: "publicarSegue", sender: self)
+        
     }
     
     
     @IBAction func openSelectUser(_ sender: Any) {
         let selectUserController = SelectUserController()
         let navController = UINavigationController(rootViewController: selectUserController)
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
     }
     

@@ -80,11 +80,23 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     let usuarioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
+        //label.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        label.textColor = .systemPink
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .clear
+        return label
+    }()
+    
+    let compatibilidadLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        //label.textColor = .systemPink
         label.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
         return label
     }()
+    
     
     let descripcion: UITextView = {
         let tv = UITextView()
@@ -94,8 +106,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         //tv.layer.cornerRadius = 10
         tv.font = UIFont.systemFont(ofSize: 16)
         tv.isUserInteractionEnabled = false
-        //tv.text = "Hola esta es mi descripcion del mensaje jajajajajajjajajajajajjajajajajajjajajajajajjajajajajajjajajajajajjajajajajajjajajajajajjajajajajajjajajajajaj"
-        //tv.backgroundColor = .yellow
+        //tv.layer.cornerRadius = 5
         return tv
     }()
     
@@ -138,7 +149,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         nombreUsuario.centerYAnchor.constraint(equalTo: imagenPerfil.centerYAnchor, constant: 0).isActive = true
         
         addSubview(viewCuadrada)
-        viewCuadrada.anchor(imagenPerfil.bottomAnchor, left: imagenPerfil.leftAnchor, bottom: nil, right: nombreUsuario.rightAnchor, topConstant: 15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 350)
+        viewCuadrada.anchor(imagenPerfil.bottomAnchor, left: imagenPerfil.leftAnchor, bottom: nil, right: nombreUsuario.rightAnchor, topConstant: 15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 400)
         viewCuadrada.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         viewCuadrada.addSubview(imagenGrande)
@@ -150,8 +161,11 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         viewCuadrada.addSubview(usuarioLabel)
         usuarioLabel.anchor(imagenGrande.bottomAnchor, left: viewCuadrada.leftAnchor, bottom: nil, right: boton.leftAnchor, topConstant: 12, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 30)
         
+        viewCuadrada.addSubview(compatibilidadLabel)
+        compatibilidadLabel.anchor(usuarioLabel.bottomAnchor, left: viewCuadrada.leftAnchor, bottom: nil, right: boton.leftAnchor, topConstant: 6, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 30)
+        
         viewCuadrada.addSubview(descripcion)
-        descripcion.anchor(usuarioLabel.bottomAnchor, left: usuarioLabel.leftAnchor, bottom: nil, right: boton.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        descripcion.anchor(compatibilidadLabel.bottomAnchor, left: usuarioLabel.leftAnchor, bottom: nil, right: boton.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
         
         //viewCuadrada.addSubview(tableView)
         //tableView.anchor(descripcion.bottomAnchor, left: descripcion.leftAnchor, bottom: viewCuadrada.bottomAnchor, right: descripcion.rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
