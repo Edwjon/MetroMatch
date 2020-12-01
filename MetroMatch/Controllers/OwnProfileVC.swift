@@ -117,6 +117,31 @@ class OwnProfileVC: UIViewController {
                 
             }
         }
+        
+        let hobbies = hobbiesTextView.text
+        let quienSoy = quienSoyTextView.text
+        let queBusco = queBuscoTextView.text
+        let firstName = nameTextField.text
+        let lastName = lastNameTextField.text
+        let userID = Auth.auth().currentUser!.uid
+        let userUpdate = self.db.collection("users").document(userID)
+        // Cambiando la referencia de la foto de perfil en la aplicacion
+        userUpdate.updateData([
+            "firstName": firstName,
+            "lastName": lastName,
+            "hobbies": hobbies,
+            "quienSoy": quienSoy,
+            "queBusco": queBusco
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        
+        
+        
     }
     
     

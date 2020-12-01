@@ -12,7 +12,9 @@ class User: NSObject {
     var firstName: String?
     var lastName: String?
     var email: String?
-    var aboutMe: [String: Any]?
+    var hobbies: String?
+    var quienSoy: String?
+    var queBusco: String?
     var id: String?
     var matches: [String: Any]?
     var notifications: [String: Any]?

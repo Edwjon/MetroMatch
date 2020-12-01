@@ -61,6 +61,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
                     self.user.firstName = userLogged.data()!["firstName"] as? String
                     self.user.lastName = userLogged.data()!["lastName"] as? String
                     self.user.profilePic = userLogged.data()!["profilePic"] as? String
+                    self.user.hobbies = userLogged.data()!["hobbies"] as? String
+                    self.user.quienSoy = userLogged.data()!["quienSoy"] as? String
+                    self.user.queBusco = userLogged.data()!["queBusco"] as? String
                     print(self.user.firstName)
                     self.setupInterface()
                 } else {

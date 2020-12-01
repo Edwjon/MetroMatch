@@ -57,7 +57,9 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
         
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: "cellId")
         notificacionesButton.isUserInteractionEnabled = false
-        myNotis(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
+        let userID = Auth.auth().currentUser!.uid
+
+        myNotis(userIdentifier: userID)
     }
     
     func myNotis(userIdentifier:String) {
