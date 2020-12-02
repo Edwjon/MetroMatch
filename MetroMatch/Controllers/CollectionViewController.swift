@@ -93,6 +93,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     func fetchUsers(){
+        let dateFormatter = DateFormatter()
         db.collection("posts").getDocuments(){ [self] (posts, err) in
             if let err = err {
                 print("Ocurrio un error", err)
@@ -108,7 +109,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     }
 
                     let post = Post()
-                     
+                    dateFormatter.dateFormat = "MMMM d, yyyy"
+                    if let date = dateFormatter.date(from: dateString) {
+                        post.date = date
+                    }
                      post.descripcion = documentPost["description"] as? String
                      post.compatibility = documentPost["compatibility"] as? Int
                      post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
@@ -139,6 +143,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     }
                     
                     self.posts.append(post)
+                    orderPostByDate()
                 }
                 DispatchQueue.global(qos: .userInitiated).async {
                     DispatchQueue.main.async {
@@ -148,6 +153,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 print("testing")
             }
         }
+    }
+    
+    func orderPostByDate(){
+        self.posts = self.posts.sorted(by: {
+            $0.date.compare($1.date) == .orderedDescending
+        })
     }
 
     // MARK: UICollectionViewDataSource
