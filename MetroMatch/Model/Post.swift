@@ -8,11 +8,21 @@
 
 import UIKit
 
-struct Post {
-    let imagenPerfil: UIImage
-    let nombre: String
-    let imagenPrincipal: UIImage
-    let username: String
-    let descripcion: String
-    let comentarios: [String]
+
+class Post: NSObject {
+    public var profilePic: String?
+    public var comments: [String]?
+    //let imagenPrincipal: UIImage
+    public var username: String?
+    public var descripcion: String?
+    public var compatibility: Int?
+    public var usernameCreator: String?
+    public var creatorProfilePic: String?
+    public var id: String?
+    public var matched: Bool?
+    public var anonymous: Bool?
+}
+
+class Notification: NSObject {
+    //public var 
 }

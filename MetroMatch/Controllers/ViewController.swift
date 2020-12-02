@@ -36,22 +36,21 @@ class ViewController: UIViewController {
     func setupIntertace() {
         //UserName TExtField
         usernameTextfield.placeholder = "Ingresa tu username"
-        usernameTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextfield.font = UIFont(name: "Helvetica Neue", size: 16)
         usernameTextfield.layer.masksToBounds = true
         usernameTextfield.layer.cornerRadius = 12
         
         //Password TExtfield
-        passwordTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextfield.font = UIFont(name: "Helvetica Neue", size: 16)
         passwordTextfield.layer.masksToBounds = true
         passwordTextfield.layer.cornerRadius = 12
         
         //Etiqueta MetroMatch
-        let customFont = UIFont(name: "LobsterTwo-Italic", size: UIFont.labelFontSize)
-        metrMatchLabel.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        metrMatchLabel.font = UIFont(name: "Savoye LET", size: 50)
         metrMatchLabel.textColor = .white
         
         //Boton Iniciar Sesión
-        iniciarSesionButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        iniciarSesionButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         iniciarSesionButton.layer.masksToBounds = true
         iniciarSesionButton.layer.cornerRadius = 12
         let colorIzquierdaAmarillo = UIColor(red: 1, green: 0.73, blue: 0.004, alpha: 1)
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
         iniciarSesionButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
         //Boton registrar
-        registrarButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+        registrarButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 16)
         registrarButton.tintColor = .white
         
     }
@@ -68,7 +67,7 @@ class ViewController: UIViewController {
     func constrains() {
         
         metrMatchLabel.translatesAutoresizingMaskIntoConstraints = false
-        metrMatchLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 200, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
+        metrMatchLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 200, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 55)
         //metrMatchLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         metrMatchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -94,33 +93,39 @@ class ViewController: UIViewController {
         
         guard let username = usernameTextfield.text, !username.isEmpty,
               let password = passwordTextfield.text, !password.isEmpty else {
-                
+
                 let alert = UIAlertController(title: "Error", message: "Campos inválidos. Por favor ingrese datos correctos en los campos de texto", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-                
+
             return
         }
-        
+
         Auth.auth().signIn(withEmail: username, password: password) { authResult, error in
             guard error == nil else {
                 // show account creation
-                
+
                 let alert = UIAlertController(title: "Error", message: "Usuario o contraseña inválidos. Por favor ingrese un usuario válido", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-                
+
                 return
             }
             print("Se ha inicado sesion del usuario")
-            self.performSegue(withIdentifier: "presentLogin", sender: self)
+            self.performSegue(withIdentifier: "tabBarLogin", sender: self)
+            //self.crearTabBar()
         }
+        
+        //self.crearTabBar()
         
     }
     
     
     @IBAction func registrar(_ sender: Any) {
-        performSegue(withIdentifier: "presentRegistrar", sender: self)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: RegistrarViewController = mainStoryboard.instantiateViewController(withIdentifier: "register") as! RegistrarViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 
 }
@@ -138,4 +143,54 @@ extension UIView {
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
         layer.insertSublayer(gradientLayer, at: 0)
     }
+}
+
+
+extension UIViewController {
+    
+    func crearTabBar() {
+        let tabBarVC = UITabBarController()
+        
+        
+        let layout = UICollectionViewFlowLayout()
+        let vc1 = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: layout))
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let v2: CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
+        let vc2 = UINavigationController(rootViewController: v2)
+        
+        let v3: NotificacionesViewController = mainStoryboard.instantiateViewController(withIdentifier: "notificaciones") as! NotificacionesViewController
+        let vc3 = UINavigationController(rootViewController: v3)
+        
+        let v4: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        let vc4 = UINavigationController(rootViewController: v4)
+        
+        
+        
+        vc1.title = "Posts"
+        vc2.title = "Crear"
+        vc3.title = "Notificaciones"
+        vc4.title = "Perfil"
+        
+        tabBarVC.setViewControllers([vc1,vc2,vc3, vc4], animated: true)
+        
+//        guard let items = tabBarVC.tabBar.items else {return}
+//
+//        let image1 = UIImage(named: "posts")
+//        let image2 = UIImage(named: "")
+//        let image3 = UIImage(named: "edit")
+//
+//
+        //let images = [image1, image2, image3]
+        
+        
+//        for x in 0..<items.count {
+//            items[x].image = images[x]
+//        }
+        
+        
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true, completion: nil)
+    }
+    
 }

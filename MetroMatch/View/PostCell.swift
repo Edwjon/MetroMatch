@@ -34,8 +34,10 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         imagen.layer.shadowOpacity = 0.9
         imagen.layer.shadowOffset = CGSize.zero
         imagen.layer.shadowRadius = 6
+        imagen.isUserInteractionEnabled = true
         return imagen
     }()
+    
     
     let nombreUsuario: UILabel = {
         let label = UILabel()
@@ -86,6 +88,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     let descripcion: UITextView = {
         let tv = UITextView()
+        tv.textColor = .black
         tv.isEditable = false
         tv.backgroundColor = .clear
         //tv.layer.cornerRadius = 10
@@ -107,6 +110,18 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         return tv
     }()
     
+    var boton: UIButton = {
+        let boton = UIButton(type: .system)
+        //boton.titleLabel?.text = "Match"
+        //boton.tintColor = .black
+        boton.setTitleColor(.white, for: .normal)
+        boton.setTitle("Match", for: .normal)
+        boton.backgroundColor = .systemPink
+        boton.layer.cornerRadius = 5
+        boton.layer.masksToBounds = true
+        return boton
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         
@@ -123,20 +138,23 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         nombreUsuario.centerYAnchor.constraint(equalTo: imagenPerfil.centerYAnchor, constant: 0).isActive = true
         
         addSubview(viewCuadrada)
-        viewCuadrada.anchor(imagenPerfil.bottomAnchor, left: imagenPerfil.leftAnchor, bottom: nil, right: nombreUsuario.rightAnchor, topConstant: 15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 400)
+        viewCuadrada.anchor(imagenPerfil.bottomAnchor, left: imagenPerfil.leftAnchor, bottom: nil, right: nombreUsuario.rightAnchor, topConstant: 15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 350)
         viewCuadrada.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         viewCuadrada.addSubview(imagenGrande)
         imagenGrande.anchor(viewCuadrada.topAnchor, left: viewCuadrada.leftAnchor, bottom: nil, right: viewCuadrada.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 200)
         
+        viewCuadrada.addSubview(boton)
+        boton.anchor(imagenGrande.bottomAnchor, left: nil, bottom: nil, right: imagenGrande.rightAnchor, topConstant: 12, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 100, heightConstant: 30)
+        
         viewCuadrada.addSubview(usuarioLabel)
-        usuarioLabel.anchor(imagenGrande.bottomAnchor, left: viewCuadrada.leftAnchor, bottom: nil, right: imagenGrande.rightAnchor, topConstant: 12, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 20)
+        usuarioLabel.anchor(imagenGrande.bottomAnchor, left: viewCuadrada.leftAnchor, bottom: nil, right: boton.leftAnchor, topConstant: 12, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 30)
         
         viewCuadrada.addSubview(descripcion)
-        descripcion.anchor(usuarioLabel.bottomAnchor, left: usuarioLabel.leftAnchor, bottom: nil, right: usuarioLabel.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        descripcion.anchor(usuarioLabel.bottomAnchor, left: usuarioLabel.leftAnchor, bottom: nil, right: boton.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
         
-        viewCuadrada.addSubview(tableView)
-        tableView.anchor(descripcion.bottomAnchor, left: descripcion.leftAnchor, bottom: viewCuadrada.bottomAnchor, right: descripcion.rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        //viewCuadrada.addSubview(tableView)
+        //tableView.anchor(descripcion.bottomAnchor, left: descripcion.leftAnchor, bottom: viewCuadrada.bottomAnchor, right: descripcion.rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
 //        addSubview(separador)
 //        separador.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 0.5)
@@ -158,11 +176,13 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         
-        cell.textLabel?.text = posts[indexPath.item].comentarios[indexPath.item]
+//        cell.textLabel?.text = posts[indexPath.item].comentarios[indexPath.item]
         return cell
     }
     
 }
+
+
 
 
 
