@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import SDWebImage
 
 
 //let posts: [Post] = [
@@ -44,6 +45,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         fetchUsers()
+        
+//        self.myGroup.notify(queue: .main) {
+//            self.orderPostByDate()
+//        }
+        
+        
         //myPosts(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
         
         
@@ -92,10 +99,22 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
     }
     
+    func orderPostByDate(){
+        self.posts = self.posts.sorted(by: {
+            $0.date?.compare($1.date ?? Date()) == .orderedDescending
+        })
+    }
+    
+    let myGroup = DispatchGroup()
+    
     func fetchUsers(){
+        
+//        myGroup.enter()
+        
         db.collection("posts").getDocuments(){ [self] (posts, err) in
             if let err = err {
                 print("Ocurrio un error", err)
+//                self.myGroup.leave()
             } else {
                 for documentPost in posts!.documents {
                     let anonymousRef = documentPost["anonymous"] as? Bool
@@ -108,37 +127,53 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     }
 
                     let post = Post()
-                     
-                     post.descripcion = documentPost["description"] as? String
-                     post.compatibility = documentPost["compatibility"] as? Int
-                     post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
-                     post.profilePic = documentPost["profilePic"] as? String
+                    let dataRef = documentPost["date"] as? Timestamp
+                    let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
+                    
+                    post.date = date
+                    post.descripcion = documentPost["description"] as? String
+                    post.compatibility = documentPost["compatibility"] as? Int
+                    post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                    post.profilePic = documentPost["profilePic"] as? String
                     
                     //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
+                    
+//                    let group = DispatchGroup()
+//                    group.enter()
+                    
                     self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
                             if(anonymousRef==true){
                                 post.usernameCreator = "Post Anónimo"
                                 post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+                                group.leave()
                             } else {
                                 post.usernameCreator = document["username"] as? String
                                 post.creatorProfilePic = document["profilePic"] as? String
+                                group.leave()
                             }
                         } else {
                             print("Document does not exist")
+//                            group.leave()
+//                            self.myGroup.leave()
                         }
                     }
                     
-                    self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            post.username = document["username"] as? String
-                            print("Document data: \(document["username"])")
-                        } else {
-                            print("Document does not exist")
+//                    group.notify(queue: .main) {
+                        self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                post.username = document["username"] as? String
+                                print("Document data: \(document["username"])")
+                            } else {
+                                print("Document does not exist")
+                            }
                         }
-                    }
+                        
+                        self.posts.append(post)
+                        self.orderPostByDate()
+//                    }
                     
-                    self.posts.append(post)
+                    
                 }
                 DispatchQueue.global(qos: .userInitiated).async {
                     DispatchQueue.main.async {
@@ -148,6 +183,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 print("testing")
             }
         }
+        
+//        self.myGroup.leave()
     }
 
     // MARK: UICollectionViewDataSource
@@ -165,29 +202,41 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
         
-        cell.nombreUsuario.text = posts[indexPath.item].username
-        
-        //print(self.posts)
-        //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
-        
-        cell.nombreUsuario.text = posts[indexPath.item].username
-        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
-        cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
-        cell.nombreUsuario.text = posts[indexPath.item].usernameCreator
-        cell.usuarioLabel.text = posts[indexPath.item].username
-        cell.descripcion.text = posts[indexPath.item].descripcion
-        
-        if let compatibilidad = posts[indexPath.item].compatibility {
-            cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
-        }
-        cell.boton.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile))
-        cell.imagenPerfil.addGestureRecognizer(tapGesture)
+//        self.myGroup.notify(queue: .main) {
         
         
+            cell.nombreUsuario.text = self.posts[indexPath.item].username
+            cell.nombreUsuario.text = self.posts[indexPath.item].username
+            
+            if let imagenProfile = self.posts[indexPath.item].profilePic {
+                cell.imagenGrande.downloaded(from: imagenProfile)
+            }
+            
+            if let imagenCreador = self.posts[indexPath.item].creatorProfilePic {
+//                cell.imagenPerfil.downloaded(from: imagenCreador)
+                SDWebImageManager.shared.loadImage(with: URL(string: imagenCreador), options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
+                    cell.imagenPerfil.image = image
+                }
+            }
+//            cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
+//            cell.imagenPerfil.downloaded(from: self.posts[indexPath.item].creatorProfilePic!)
+            cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
+            cell.usuarioLabel.text = self.posts[indexPath.item].username
+            cell.descripcion.text = self.posts[indexPath.item].descripcion
+            
+            if let compatibilidad = self.posts[indexPath.item].compatibility {
+                cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
+            }
+            cell.boton.isHidden = true
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.goProfile))
+            cell.imagenPerfil.addGestureRecognizer(tapGesture)
+        
+        
+//        }
         
        // cell.tableView.numberOfRows(inSection: posts[indexPath.item].comments.count)
         //cell.tableView.cellForRow(at: indexPath)?.textLabel = posts[indexPath.item].comentarios[indexPath.item]

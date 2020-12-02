@@ -21,6 +21,7 @@ class Post: NSObject {
     public var id: String?
     public var matched: Bool?
     public var anonymous: Bool?
+    public var date: Date?
 }
 
 class Notification: NSObject {

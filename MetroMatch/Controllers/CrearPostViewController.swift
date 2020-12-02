@@ -36,6 +36,7 @@ class CrearPostViewController: UIViewController {
         //title = "Crear"
         
         usernameTextField.text = nombreTextField
+        usernameTextField.isUserInteractionEnabled = false
         imagenPerfil.downloaded(from:imagenDePerfil)
         
         anonimoLabel.text = "Público"
@@ -480,7 +481,8 @@ class CrearPostViewController: UIViewController {
                             "id": "",
                             "profilePic": profilePic,
                             "matched": false,
-                            "anonymous": self.anonymous
+                            "anonymous": self.anonymous,
+                            "date": Date()
                         ]
                         var ref: DocumentReference? = nil
                         ref = self.db.collection("posts").addDocument(data: postData){ err in
