@@ -82,7 +82,7 @@ class OwnProfileVC: UIViewController {
             return
         }
         
-        let toUploadName = UUID().uuidString
+        let toUploadName = UUID().uuidString + ".jpg"
         let toUploadReference = Storage.storage().reference().child("images").child(toUploadName)
         
         toUploadReference.putData(data, metadata: nil) { (metadata, err) in
