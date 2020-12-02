@@ -548,40 +548,67 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
     func matchMaker(postId:String){
-        db.collection("matches").whereField("postID", isEqualTo: postId).getDocuments(){ (matches, err) in
-            if let _ = err{
-                print("Error buscando los matches")
-            } else {
-                print("oooooo")
-                print(matches)
-                if (matches==nil){
-                    self.createMatch(postId:postId)
-                } else {
-                    for document in matches!.documents{
-                        self.db.collection("matches").document(document.documentID).updateData([
-                            "state": 1
-                        ]){ err in
-                            if let _ = err{
-                                print("Error actualizando el documento")
-                            } else {
-                                print("Se actualizo el documento")
+        
+        let match = db.collection("matches").whereField("postID", isEqualTo: postId)
+                
+                match.getDocuments{ (matchDoc, err) in
+                    if let err = err {
+                        print(err)
+                    } else{
+                        guard let count = matchDoc?.documents.count else {
+                            return
+                        }
+                        if count == 0 {
+                            self.createMatch(postId: postId)
+                        } else if count >= 1 {
+                            for document in matchDoc!.documents{
+                                self.db.collection("matches").document(document.documentID).updateData([
+                                    "state": 1
+                                ]){ err in
+                                    if let _ = err{
+                                        print("Error actualizando el documento")
+                                    } else {
+                                        print("Se actualizo el documento")
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                self.db.collection("posts").document(postId).updateData([
-                    "matched": true
-                ]){ err in
-                    if let _ = err {
-                        print("No se actualizó el post")
-                    } else {
-                        print("Se actualizó el post")
-                    }
-                }
-                
-            }
-        }
-        
+//        db.collection("matches").whereField("postID", isEqualTo: postId).getDocuments(){ (matches, err) in
+//            if let _ = err{
+//                print("Error buscando los matches")
+//            } else {
+//                print("oooooo")
+//                print(matches)
+//                if (matches==nil){
+//                    self.createMatch(postId:postId)
+//                } else {
+//                    for document in matches!.documents{
+//                        self.db.collection("matches").document(document.documentID).updateData([
+//                            "state": 1
+//                        ]){ err in
+//                            if let _ = err{
+//                                print("Error actualizando el documento")
+//                            } else {
+//                                print("Se actualizo el documento")
+//                            }
+//                        }
+//                    }
+//                }
+//                self.db.collection("posts").document(postId).updateData([
+//                    "matched": true
+//                ]){ err in
+//                    if let _ = err {
+//                        print("No se actualizó el post")
+//                    } else {
+//                        print("Se actualizó el post")
+//                    }
+//                }
+//
+//            }
+//        }
+//
     }
     
     func undoMatch (postId:String) {
