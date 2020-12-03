@@ -163,6 +163,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
                             if let document = document, document.exists {
                                 post.username = document["username"] as? String
+                                post.profilePic = document["profilePic"] as? String
                                 print("Document data: \(document["username"])")
                             } else {
                                 print("Document does not exist")

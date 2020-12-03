@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
+import FirebaseStorage
 
 class OwnProfileVC: UIViewController {
-
+    
+    let db = Firestore.firestore()
+    
+    
     @IBOutlet var profilePic: UIImageView!
     @IBOutlet var changePicButton: UIButton!
     @IBOutlet var nameTextField: UITextField!
@@ -21,6 +28,24 @@ class OwnProfileVC: UIViewController {
     @IBOutlet var updateButton: UIButton!
     @IBOutlet var queBuscoTextView: UITextView!
     override func viewDidLoad() {
+        let user = Auth.auth().currentUser
+        if let user = user {
+          // The user's ID, unique to the Firebase project.
+          // Do NOT use this value to authenticate with your backend server,
+          // if you have one. Use getTokenWithCompletion:completion: instead.
+          let uid = user.uid
+          let email = user.email
+          let photoURL = user.photoURL
+          var multiFactorString = "MultiFactor: "
+          for info in user.multiFactor.enrolledFactors {
+            multiFactorString += info.displayName ?? "[DispayName]"
+            multiFactorString += " "
+          }
+          // ...
+        }
+        
+        
+        
         super.viewDidLoad()
 
         hobbiesTextView.backgroundColor = .orange
@@ -50,6 +75,78 @@ class OwnProfileVC: UIViewController {
     
     @IBAction func updateAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        print(profilePic)
+        
+        guard let toUpload = profilePic.image, let data = toUpload.jpegData(compressionQuality: 0.4) else {
+            print("No se pudo enviar su foto al servidor")
+            return
+        }
+        
+        
+        let toUploadName = UUID().uuidString + ".jpg"
+        let toUploadReference = Storage.storage().reference().child("images").child(toUploadName)
+        let uploadMetadata = StorageMetadata.init()
+        uploadMetadata.contentType = "image/jpeg"
+        
+        toUploadReference.putData(data, metadata: uploadMetadata) { (downloadMetadata, err) in
+            if let err = err {
+                print(err.localizedDescription)
+                return
+            }
+            toUploadReference.downloadURL { (url, err) in
+                if let err = err {
+                    print("oH NO GOT AN ERROR!!")
+                    print(err.localizedDescription)
+                    return
+                }
+                print("PUT IS COMPLETE AND GOT THIS BACK \(downloadMetadata)")
+                guard let url = url else {
+                    print("ALGO SALIO MAL MANAO, INTENTA OTRA VEZ")
+                    return
+                }
+                let urlString = url.absoluteString
+                let userID = Auth.auth().currentUser!.uid
+                print("User ID traido es " + userID)
+                
+                let userUpdate = self.db.collection("users").document(userID)
+                // Cambiando la referencia de la foto de perfil en la aplicacion
+                userUpdate.updateData([
+                    "profilePic": urlString
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated")
+                    }
+                }
+                
+            }
+        }
+        
+        let hobbies = hobbiesTextView.text
+        let quienSoy = quienSoyTextView.text
+        let queBusco = queBuscoTextView.text
+        let firstName = nameTextField.text
+        let lastName = lastNameTextField.text
+        let userID = Auth.auth().currentUser!.uid
+        let userUpdate = self.db.collection("users").document(userID)
+        // Cambiando la referencia de la foto de perfil en la aplicacion
+        userUpdate.updateData([
+            "firstName": firstName,
+            "lastName": lastName,
+            "hobbies": hobbies,
+            "quienSoy": quienSoy,
+            "queBusco": queBusco
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        
+        
+        
     }
     
     
@@ -82,6 +179,7 @@ extension OwnProfileVC: UIImagePickerControllerDelegate, UINavigationControllerD
         
         guard let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         self.profilePic.image = imageSelected
+        
         
         picker.dismiss(animated: true, completion: nil)
     }
