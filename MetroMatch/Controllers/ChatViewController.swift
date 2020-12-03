@@ -57,6 +57,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         loadChat()
         
+        print("hola")
+        print(user2UID)
     }
     
     // MARK: - Custom messages handlers
@@ -195,7 +197,11 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     // MARK: - MessagesDataSource
     func currentSender() -> SenderType {
         
-        return Sender(id: Auth.auth().currentUser!.uid, displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
+        if let user = Auth.auth().currentUser?.uid {
+            return Sender(id: user, displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
+        }
+        
+        return Sender(id: "", displayName: "")
         
     }
     
