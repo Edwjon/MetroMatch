@@ -214,16 +214,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             cell.nombreUsuario.text = self.posts[indexPath.item].username
             cell.nombreUsuario.text = self.posts[indexPath.item].username
             
-            if let imagenProfile = self.posts[indexPath.item].profilePic {
-                cell.imagenGrande.downloaded(from: imagenProfile)
-            }
-            
-            if let imagenCreador = self.posts[indexPath.item].creatorProfilePic {
-//                cell.imagenPerfil.downloaded(from: imagenCreador)
-                SDWebImageManager.shared.loadImage(with: URL(string: imagenCreador), options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
-                    cell.imagenPerfil.image = image
-                }
-            }
+//            if let imagenProfile = self.posts[indexPath.item].profilePic {
+//                cell.imagenGrande.downloaded(from: imagenProfile)
+//            }
+//
+//            if let imagenCreador = self.posts[indexPath.item].creatorProfilePic {
+//                SDWebImageManager.shared.loadImage(with: URL(string: imagenCreador), options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
+//                    cell.imagenPerfil.image = image
+//                }
+//            }
 //            cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
 //            cell.imagenPerfil.downloaded(from: self.posts[indexPath.item].creatorProfilePic!)
             cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
@@ -233,6 +232,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             if let compatibilidad = self.posts[indexPath.item].compatibility {
                 cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
             }
+        
             cell.boton.isHidden = true
             
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile(sender:<#Any#>, uid: usuario)))

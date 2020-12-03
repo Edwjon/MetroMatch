@@ -77,7 +77,10 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
             } else {
                 
                 for document in chats!.documents {
-                    let chat = Chat(dictionary: document.data())
+                    var chat = Chat(dictionary: document.data())
+                    
+                    chat?.anonimo = document["anonimo"] as? Bool
+                    
                     self.chats.append(chat!)
                 }
                 
@@ -117,6 +120,7 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
                     if chat.anonimo! {
                         user.firstName = "Anónimo"
                         user.lastName = ""
+                        user.profilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
                     } else {
                         user.firstName = document["firstName"] as? String
                         user.lastName = document["lastName"] as? String

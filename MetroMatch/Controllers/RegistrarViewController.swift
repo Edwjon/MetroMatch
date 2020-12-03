@@ -26,7 +26,7 @@ class RegistrarViewController: UIViewController {
     
     
     @IBOutlet var registrarButton: UIButton!
-    @IBOutlet var surveyButton: UIButton!
+//    @IBOutlet var surveyButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,10 +63,10 @@ class RegistrarViewController: UIViewController {
         registrarButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
         //Boton Hacer Encuesta
-        surveyButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
-        surveyButton.layer.masksToBounds = true
-        surveyButton.layer.cornerRadius = 12
-        surveyButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
+//        surveyButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
+//        surveyButton.layer.masksToBounds = true
+//        surveyButton.layer.cornerRadius = 12
+//        surveyButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
         nombreTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
         nombreTextField.layer.masksToBounds = true
@@ -115,9 +115,9 @@ class RegistrarViewController: UIViewController {
         registrarButton.anchor(passwordTextField.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
         registrarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        surveyButton.translatesAutoresizingMaskIntoConstraints = false
-        surveyButton.anchor(registrarButton.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
-        surveyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        surveyButton.translatesAutoresizingMaskIntoConstraints = false
+//        surveyButton.anchor(registrarButton.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
+//        surveyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     
@@ -125,6 +125,11 @@ class RegistrarViewController: UIViewController {
     
     
     @IBAction func registrar(_ sender: Any) {
+        
+        if qlq == true {
+            self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
+        }
+        else {
         //let layout = UICollectionViewFlowLayout()
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
@@ -158,20 +163,35 @@ class RegistrarViewController: UIViewController {
                     print("No se creo el usuario: ", err)
                 } else {
                     print("Se creo el usuario")
+                    
+                    
+                    let layout = UICollectionViewFlowLayout()
+                    let vc = SurveyCollectionVC(collectionViewLayout: layout)
+                    let nav = UINavigationController(rootViewController: vc)
+                    nav.modalPresentationStyle = .fullScreen
+                    self.present(nav, animated: true, completion: nil)
+                    
+                    
+//
                 }
             }
-            self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
+            
+            //self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
             //self.crearTabBar()
         }
         
         
-        
+        }
         
         
         //performSegue(withIdentifier: "presentRegister", sender: self)
         //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }
     
+    
+    func segue() {
+        self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
+    }
     
     @IBAction func logIn(_ sender: Any) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -181,14 +201,14 @@ class RegistrarViewController: UIViewController {
     }
     
     
-    @IBAction func surveyAction(_ sender: Any) {
-        let layout = UICollectionViewFlowLayout()
-        let vc = SurveyCollectionVC(collectionViewLayout: layout)
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true, completion: nil)
-//        present(vc, animated: true, completion: nil)
-    }
+//    @IBAction func surveyAction(_ sender: Any) {
+//        let layout = UICollectionViewFlowLayout()
+//        let vc = SurveyCollectionVC(collectionViewLayout: layout)
+//        let nav = UINavigationController(rootViewController: vc)
+//        nav.modalPresentationStyle = .fullScreen
+//        present(nav, animated: true, completion: nil)
+////        present(vc, animated: true, completion: nil)
+//    }
     
     
 }

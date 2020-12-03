@@ -139,7 +139,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HDp-rU-OgV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="570" y="-715"/>
+            <point key="canvasLocation" x="483" y="-847"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="HH9-Ih-5X0">
@@ -343,7 +343,7 @@
                         <segue destination="PZo-4D-pIs" kind="relationship" relationship="viewControllers" id="ghF-ts-N0z"/>
                         <segue destination="cy0-Rw-LVQ" kind="relationship" relationship="viewControllers" id="6wN-mF-F0O"/>
                         <segue destination="Xny-JY-MBy" kind="relationship" relationship="viewControllers" id="aat-Kc-OMx"/>
-                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="viewControllers" id="5eu-Fb-9Om"/>
+                        <segue destination="fIP-Yn-qPp" kind="relationship" relationship="viewControllers" id="v5b-so-dJb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPQ-xl-PwU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -654,9 +654,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="surveyAction:" destination="VZd-EZ-fAj" eventType="touchUpInside" id="bov-Zg-t7M"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -678,9 +675,9 @@
                         <outlet property="passwordTextField" destination="Xaw-uw-sTe" id="VVo-Tf-gnk"/>
                         <outlet property="registrarButton" destination="802-jf-1pW" id="Qgk-iJ-cj3"/>
                         <outlet property="registroLabel" destination="vBd-Yl-DfM" id="B8X-50-J7M"/>
-                        <outlet property="surveyButton" destination="5iE-BS-hYB" id="aIC-8U-Nay"/>
                         <outlet property="usernameTextField" destination="X8T-Re-QO8" id="aNx-K2-9zf"/>
                         <segue destination="yiW-YR-2Bh" kind="presentation" identifier="presentRegister" modalPresentationStyle="overFullScreen" id="8Fn-nY-ZES"/>
+                        <segue destination="KjL-Wf-Kx9" kind="presentation" identifier="tabBarRegistrar" modalPresentationStyle="fullScreen" id="Pi0-DT-3q2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahY-oP-747" sceneMemberID="firstResponder"/>
@@ -966,15 +963,44 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Profile" image="person.circle" catalog="system" id="l8g-eB-zsc"/>
+                    <navigationItem key="navigationItem" id="DKv-xA-DbM">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Ggx-ob-ppC">
+                            <connections>
+                                <action selector="logOut:" destination="wdL-FH-o5d" id="WRi-w2-eie"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="GKw-mn-waf">
+                            <connections>
+                                <action selector="updateAction:" destination="wdL-FH-o5d" id="mcp-8A-W38"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2e-XM-60z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3472" y="84"/>
+            <point key="canvasLocation" x="3929" y="120"/>
+        </scene>
+        <!--Perfil-->
+        <scene sceneID="JuZ-kK-jGM">
+            <objects>
+                <navigationController title="Perfil" id="fIP-Yn-qPp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="kaw-3u-RAc"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="25P-Ha-R5R">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="wdL-FH-o5d" kind="relationship" relationship="rootViewController" id="wCK-Ab-da8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f5j-Ch-zIs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3041" y="120"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="niE-ja-RB5"/>
-        <segue reference="LLE-Xd-Ca5"/>
+        <segue reference="Pi0-DT-3q2"/>
+        <segue reference="8Fn-nY-ZES"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LoginBackground.png" width="187.5" height="406"/>
