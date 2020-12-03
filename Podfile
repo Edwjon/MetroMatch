@@ -12,4 +12,5 @@ target 'MetroMatch' do
   pod 'Firebase/Firestore'
   pod 'MessageKit'
   pod 'SDWebImage'
+  pod 'Firebase/Storage'
 end
