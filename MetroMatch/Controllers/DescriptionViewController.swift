@@ -112,6 +112,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileCell
             
+            cell.miHistoria.text = "Mis Hobbies"
             //Aqui se setean los textos. Ejemplo:
             cell.descripcion.text = user.hobbies
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.

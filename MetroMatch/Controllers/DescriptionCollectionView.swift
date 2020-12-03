@@ -213,38 +213,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
     func fetchMyMatches(userIdentifier:String) {
-//        db.collection("matches").whereField("crushID", isEqualTo: userIdentifier)
-//            .getDocuments() { (documentMatches, err) in
-//                if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    for match in documentMatches!.documents {
-//                        print("llego la data")
-//                        let myMatch = Match()
-//                        let crush = User()
-//                        crush.id = match["thirstyID"] as? String
-//
-//                        self.db.collection("users").document((crush.id)!).getDocument{ (documentUser, err) in
-//                        if let documentUser = documentUser, documentUser.exists {
-//                            myMatch.crushUsername = documentUser["username"] as? String
-//                            myMatch.crushProfilePic = documentUser["profilePic"] as? String
-//                        } else {
-//                            print("El documento no existe")
-//                        }
-//                        }
-//                        myMatch.id = match["id"] as? String
-//                        myMatch.postID = match["postID"] as? String
-//                        myMatch.state = match["state"] as? Int
-//                        self.myMatches.append(myMatch)
-//                    }
-//
-//                    DispatchQueue.global(qos: .userInitiated).async {
-//                        DispatchQueue.main.async {
-//                            self.collectionView.reloadData()
-//                        }
-//                    }
-//                }
-//        }
+        self.collectionView.reloadData()
         
         db.collection("matches").whereField("crushID", isEqualTo: userIdentifier).addSnapshotListener { (matches, err) in
             
@@ -307,38 +276,6 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
             self.collectionView.reloadData()
         }
         
-//        db.collection("matches").whereField("thirstyID", isEqualTo: userIdentifier)
-//            .getDocuments() { (documentMatches, err) in
-//                if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    for match in documentMatches!.documents {
-//                        print("llego la data")
-//                        let myMatch = Match()
-//                        let crush = User()
-//                        crush.id = match["crushID"] as? String
-//
-//                        self.db.collection("users").document((crush.id)!).getDocument{ (documentUser, err) in
-//                        if let documentUser = documentUser, documentUser.exists {
-//                            myMatch.crushUsername = documentUser["username"] as? String
-//                            myMatch.crushProfilePic = documentUser["profilePic"] as? String
-//                        } else {
-//                            print("El documento no existe")
-//                        }
-//                        }
-//                        myMatch.id = match["id"] as? String
-//                        myMatch.postID = match["postID"] as? String
-//                        myMatch.state = match["state"] as? Int
-//                        self.myMatches.append(myMatch)
-//                    }
-//
-//                    DispatchQueue.global(qos: .userInitiated).async {
-//                        DispatchQueue.main.async {
-//                            self.collectionView.reloadData()
-//                        }
-//                    }
-//                }
-//        }
     }
     
     
@@ -489,8 +426,8 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as! PostCell
             
                 cell.nombreUsuario.text = userPosts[indexPath.item].usernameCreator
-    //            cell.imagenGrande.downloaded(from: userPosts[indexPath.item].profilePic ?? "")
-    //            cell.imagenPerfil.downloaded(from:userPosts[indexPath.item].creatorProfilePic ?? "")
+                cell.imagenGrande.downloaded(from: userPosts[indexPath.item].profilePic ?? "")
+                cell.imagenPerfil.downloaded(from:userPosts[indexPath.item].creatorProfilePic ?? "")
                 cell.usuarioLabel.text = userPosts[indexPath.item].username
                 cell.descripcion.text = userPosts[indexPath.item].descripcion
                 
@@ -509,7 +446,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         
         else if selectedMenu == 2 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "matchesCell", for: indexPath) as! Matches
-//                cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
+                cell.imagenUsuario.downloaded(from: myMatches[indexPath.item].crushProfilePic ?? "")
                 cell.usuarioLabel.text = myMatches[indexPath.item].crushUsername
                 return cell
             //}
@@ -525,8 +462,8 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mentionsCell", for: indexPath) as! PostCell
                 
                 cell.nombreUsuario.text = userMentions[indexPath.item].usernameCreator
-//                cell.imagenGrande.downloaded(from: userMentions[indexPath.item].creatorProfilePic ?? "")
-//                cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
+                cell.imagenGrande.downloaded(from: userMentions[indexPath.item].creatorProfilePic ?? "")
+                cell.imagenPerfil.downloaded(from:userMentions[indexPath.item].profilePic ?? "")
                 cell.usuarioLabel.text = userMentions[indexPath.item].username
                 cell.descripcion.text = userMentions[indexPath.item].descripcion
                 
@@ -830,7 +767,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if selectedMenu == 1 {
-            return CGSize(width: collectionView.frame.width, height: 450)
+            return CGSize(width: collectionView.frame.width, height: 500)
         }
         
         else if selectedMenu == 2 {
@@ -851,7 +788,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         header.mentionsButton.addTarget(self, action: #selector(mentions), for: .touchUpInside)
         //header.updateButton.addTarget(self, action: #selector(goProfile), for: .touchUpInside)
         //header.logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
-//        header.imagenPerfil.downloaded(from: self.loggedUser.profilePic ?? "")
+        header.imagenPerfil.downloaded(from: self.loggedUser.profilePic ?? "")
         header.userLabel.text = (self.loggedUser.firstName ?? "Nombre") + " " + (self.loggedUser.lastName ?? "Apellido")
         
         
@@ -906,56 +843,3 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
 }
-
-
-//func matchMaker(postId:String){
-//
-//    let match = db.collection("matches").whereField("postID", isEqualTo: postId)
-//
-//            match.getDocuments{ (matchDoc, err) in
-//                if let err = err {
-//                    print(err)
-//                } else{
-//                    guard let count = matchDoc?.documents.count else {
-//                        return
-//                    }
-//                    if count == 0 {
-//                        self.createMatch(postId: postId)
-//                    } else if count >= 1 {
-//                        for document in matchDoc!.documents{
-//                            self.db.collection("matches").document(document.documentID).updateData([
-//                                "state": 1
-//                            ]){ err in
-//                                if let _ = err{
-//                                    print("Error actualizando el documento")
-//                                } else {
-//                                    print("Se actualizo el documento")
-//
-//                                    //..
-//                                    self.db.collection("posts").document(postId).updateData([
-//                                            "matched": true
-//                                    ]){ err in
-//                                        if let _ = err {
-//                                            print("No se actualizó el post")
-//                                        } else {
-//                                            print("Se actualizó el post")
-//
-//                                            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//                                            let vc: ChatViewController = mainStoryboard.instantiateViewController(withIdentifier: "chat") as! ChatViewController
-//                                            vc.modalPresentationStyle = .fullScreen
-//
-//                                            vc.user2UID = crush
-//
-//                                            self.navigationController?.present(vc, animated: true, completion: nil)
-//                                        }
-//                                    }
-//                                    //..
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//    self.collectionView.reloadData()
-//}

@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 
 class SelectUserController: UITableViewController {
@@ -36,7 +37,10 @@ class SelectUserController: UITableViewController {
                     user.email = document["email"] as? String
                     user.username = document["username"] as? String
                     user.profilePic = document["profilePic"] as? String
-                    self.users.append(user)
+                    
+                    if document.documentID != Auth.auth().currentUser?.uid {
+                        self.users.append(user)
+                    }
                 }
                 DispatchQueue.global(qos: .userInitiated).async {
                     DispatchQueue.main.async {

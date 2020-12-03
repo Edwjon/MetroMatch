@@ -223,8 +223,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 //                    cell.imagenPerfil.image = image
 //                }
 //            }
-//            cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
-//            cell.imagenPerfil.downloaded(from: self.posts[indexPath.item].creatorProfilePic!)
+            cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
+        
+        if let imagen = self.posts[indexPath.item].creatorProfilePic {
+            cell.imagenPerfil.downloaded(from: imagen)
+        }
+            //cell.imagenPerfil.downloaded(from: self.posts[indexPath.item].creatorProfilePic!)
             cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
             cell.usuarioLabel.text = self.posts[indexPath.item].username
             cell.descripcion.text = self.posts[indexPath.item].descripcion

@@ -14,27 +14,35 @@ class NotificationCell: UICollectionViewCell {
     
     var imagen: UIImageView = {
         let imagen = UIImageView()
-        imagen.backgroundColor = .orange
         return imagen
     }()
     
     var mensaje: UITextView = {
         let tv = UITextView()
-        tv.text = "Ok amigo comi estas"
         //label.numberOfLines = 0
-        tv.backgroundColor = .purple
+        tv.font = UIFont.systemFont(ofSize: 18)
         tv.isUserInteractionEnabled = false
+        tv.textColor = .systemPink
         return tv
+    }()
+    
+    let view: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(imagen)
-        imagen.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
+//        addSubview(imagen)
+//        imagen.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
         addSubview(mensaje)
-        mensaje.anchor(topAnchor, left: imagen.rightAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 12, rightConstant: 12, widthConstant: 0, heightConstant: 0)
+        mensaje.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 12, rightConstant: 12, widthConstant: 0, heightConstant: 0)
+        
+        addSubview(view)
+        view.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 1)
     }
     
     required init?(coder: NSCoder) {
@@ -103,7 +111,6 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! NotificationCell
-        cell.backgroundColor = .cyan
         cell.mensaje.text = notis[indexPath.item].message
         return cell
     }

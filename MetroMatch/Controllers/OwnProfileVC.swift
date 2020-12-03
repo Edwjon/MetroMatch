@@ -27,15 +27,41 @@ class OwnProfileVC: UIViewController {
     
     @IBOutlet var updateButton: UIButton!
     @IBOutlet var queBuscoTextView: UITextView!
+    
+    let _user = User()
+    
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
         let user = Auth.auth().currentUser
         if let user = user {
-          // The user's ID, unique to the Firebase project.
-          // Do NOT use this value to authenticate with your backend server,
-          // if you have one. Use getTokenWithCompletion:completion: instead.
-          let uid = user.uid
-          let email = user.email
-          let photoURL = user.photoURL
+          
+            self.db.collection("users").document(user.uid).getDocument { (userr, err) in
+                
+                if let userr = userr, userr.exists {
+                    self._user.firstName = userr["firstName"] as? String
+                    self._user.lastName = userr["lastName"] as? String
+                    self._user.hobbies = userr["hobbies"] as? String
+                    self._user.quienSoy = userr["quienSoy"] as? String
+                    self._user.queBusco = userr["queBusco"] as? String
+                    self._user.profilePic = userr["profilePic"] as? String
+                    
+                    self.profilePic.downloaded(from: self._user.profilePic!)
+                    self.nameTextField.text = self._user.firstName
+                    self.lastNameTextField.text = self._user.lastName
+                    self.hobbiesTextView.text = self._user.hobbies
+                    self.quienSoyTextView.text = self._user.quienSoy
+                    self.queBuscoTextView.text = self._user.queBusco
+                
+                } else {
+                    print("Error mamalon")
+                }
+            }
+            
+//          let uid = user.uid
+//          let email = user.email
+//          let photoURL = user.photoURL
           var multiFactorString = "MultiFactor: "
           for info in user.multiFactor.enrolledFactors {
             multiFactorString += info.displayName ?? "[DispayName]"
@@ -43,19 +69,11 @@ class OwnProfileVC: UIViewController {
           }
           // ...
         }
-        
-        
-        
-        super.viewDidLoad()
 
-        hobbiesTextView.backgroundColor = .orange
+        hobbiesTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         hobbiesTextView.layer.masksToBounds = true
-        queBuscoTextView.backgroundColor = .orange
-        quienSoyTextView.backgroundColor = .orange
-        
-        hobbiesTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
-        quienSoyTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
-        queBuscoTextView.text = "HolaHolaHolaHolaHolaHolaHolaHolaHola"
+        queBuscoTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        quienSoyTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         
         profilePic.isUserInteractionEnabled = true
         profilePic.layer.cornerRadius = profilePic.frame.width / 2

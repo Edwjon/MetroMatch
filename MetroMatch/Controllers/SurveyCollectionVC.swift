@@ -34,7 +34,7 @@ var respuestas = [
     ["Salir de fiesta a bailar y a tomar", "Salir a tomar un café y hablar de la vida", "Ir al cine", "Pedir comida a domicilio y maratón de series"],
     ["Sociable", "Racional y Calculadora", "Extrovertida", "Introvertida"],
     ["Su bondad", "Su inteligencia", "Su sentido del humor", "Su atractivo físico"],
-    ["Si", "No", "a", "a"],
+    ["Si", "No", "", ""],
     ["Equipación deportiva para un día de aventura", "Ropa nueva y a ser posible sexy", "Un buen libro", "Comida de sobra por si alguien tiene hambre"]
 ]
 
@@ -104,15 +104,6 @@ class SurveyCollectionVC: UICollectionViewController, UICollectionViewDelegateFl
                     
                     qlq = true
                     self.dismiss(animated: true, completion: nil)
-                    //self.performSegue(withIdentifier: "tabbarSurvey", sender: self)
-//                    let layout = UICollectionViewFlowLayout()
-//                    let vc = SurveyCollectionVC(collectionViewLayout: layout)
-//                    let nav = UINavigationController(rootViewController: vc)
-//                    nav.modalPresentationStyle = .fullScreen
-//                    self.present(vc, animated: true) {
-//                        vc.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
-//                    }
-//                    self.present(nav, animated: true, completion: nil)
                 }
             }
         

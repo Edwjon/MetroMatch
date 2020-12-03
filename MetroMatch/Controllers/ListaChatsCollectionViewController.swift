@@ -17,7 +17,6 @@ class ListaChatsCell: UICollectionViewCell {
     
     let imagenPerfil: UIImageView = {
         let imagen = UIImageView()
-        imagen.backgroundColor = .orange
         imagen.layer.cornerRadius = imagen.frame.width / 2
         imagen.layer.masksToBounds = true
         return imagen
@@ -27,8 +26,8 @@ class ListaChatsCell: UICollectionViewCell {
         let label = UITextView()
         label.text = "hola"
         label.isEditable = false
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.backgroundColor = .green
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .systemPink
         return label
     }()
     
@@ -86,10 +85,10 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
                 
                 self.fetchUsers()
                 
-                self.myGroup.notify(queue: .main) {
-                    print("pppp")
-                    self.collectionView.reloadData()
-                }
+//                self.myGroup.notify(queue: .main) {
+//                    print("pppp")
+//                    self.collectionView.reloadData()
+//                }
             }
         }
         
@@ -97,7 +96,7 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
     
     func fetchUsers() {
         
-        myGroup.enter()
+//        myGroup.enter()
         
         for chat in chats {
             print("feo")
@@ -131,11 +130,13 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
                     print("gaa")
                     print(user.firstName)
                     print(self.users)
-                    self.myGroup.leave()
+//                    self.myGroup.leave()
+                    self.collectionView.reloadData()
                 
                 } else {
                     print("No existe el usuario")
-                    self.myGroup.leave()
+//                    self.myGroup.leave()
+                    self.collectionView.reloadData()
                 }
             }
             
