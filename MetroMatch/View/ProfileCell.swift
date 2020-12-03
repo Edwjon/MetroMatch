@@ -52,6 +52,7 @@ class ProfileCell: UITableViewCell {
 }
 
 
+
 class ProfileCell2: UITableViewCell {
     
     let misHobbies: UILabel = {

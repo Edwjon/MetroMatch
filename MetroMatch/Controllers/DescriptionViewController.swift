@@ -28,7 +28,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     var hobbies = ""
     var queHago = ""
     
-    var idUsuario = 0
+    var idUsuario = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,14 +55,23 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.rowHeight = 170
         
         let userId = Auth.auth().currentUser
+        print("EL USUARIO QUE LE PASAMOS ES")
+        print(idUsuario)
         if let userId = userId {
-            db.collection("users").document(userId.uid).getDocument{(userLogged, err) in
+            db.collection("users").document(idUsuario).getDocument{(userLogged, err) in
                 if let userLogged = userLogged, userLogged.exists{
                     self.user.firstName = userLogged.data()!["firstName"] as? String
                     self.user.lastName = userLogged.data()!["lastName"] as? String
                     self.user.profilePic = userLogged.data()!["profilePic"] as? String
+                    self.user.queBusco = userLogged.data()!["queBusco"] as? String
+                    self.user.hobbies = userLogged.data()!["hobbies"] as? String
+                    print("HOBBIES SON \(self.user.hobbies)")
+                    self.user.quienSoy = userLogged.data()!["quienSoy"] as? String
                     print(self.user.firstName)
-                    self.setupInterface()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.
+                        self.setupInterface()
+                    }
+                    
                 } else {
                     print("El usuario no existe")
                 }
@@ -94,27 +103,31 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileCell
             
             //Aqui se setean los textos. Ejemplo:
-            //cell.descripcion.text = "Lo que sea"
+            cell.descripcion.text = user.quienSoy
             //descripcion = "Algo"
             
             return cell
         }
         
-        if (indexPath.row == 1) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! ProfileCell2
+        else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileCell
             
             //Aqui se setean los textos. Ejemplo:
-            //cell.hobbies.text = "Lo que sea"
-            //hobbies = "Algo"
+            cell.descripcion.text = user.hobbies
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.
+                cell.descripcion.text = self.user.hobbies
+            }
+
+            //descripcion = "Algo"
             
             return cell
         }
         
-        if (indexPath.row == 2) {
+        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell3", for: indexPath) as! ProfileCell3
             
             //Aqui se setean los textos. Ejemplo:
-            //cell.queBusco.text = "Lo que sea"
+            cell.queBusco.text = user.queBusco
             //queHago = "Algp"
             
             return cell

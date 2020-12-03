@@ -131,6 +131,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
                     
                     post.date = date
+                    post.creatorID = documentPost["creatorID"] as? String
                     post.descripcion = documentPost["description"] as? String
                     post.compatibility = documentPost["compatibility"] as? Int
                     post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
@@ -227,15 +228,18 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
             cell.usuarioLabel.text = self.posts[indexPath.item].username
             cell.descripcion.text = self.posts[indexPath.item].descripcion
-            
+        let usuario = self.posts[indexPath.item].creatorID ?? "alguito"
             if let compatibilidad = self.posts[indexPath.item].compatibility {
                 cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
             }
             cell.boton.isHidden = true
             
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.goProfile))
-            cell.imagenPerfil.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile(sender:<#Any#>, uid: usuario)))
+//            cell.imagenPerfil.addGestureRecognizer(tapGesture)
         
+        let tapGestureCreator = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
+                tapGestureCreator.id = posts[indexPath.item].creatorID
+                cell.imagenPerfil.addGestureRecognizer(tapGestureCreator)
         
 //        }
         
@@ -245,12 +249,19 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         return cell
     }
     
-    @objc func goProfile() {
+    class CustomTapGestureRecognizer: UITapGestureRecognizer {
+          var id: String?
+      }
+    
+    @objc func goProfile(sender: CustomTapGestureRecognizer) {
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
         dvc.editable = false
-        dvc.idUsuario = 0
+        
+        //NOS TRAEMOS EL USUARIO
+        
+        dvc.idUsuario = sender.id!
         self.present(dvc, animated: true, completion: nil)
     }
     

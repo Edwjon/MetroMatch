@@ -11,6 +11,9 @@ import UIKit
 class User: NSObject {
     var firstName: String?
     var lastName: String?
+    var hobbies: String?
+    var queBusco: String?
+    var quienSoy: String?
     var email: String?
     var aboutMe: [String: Any]?
     var id: String?
