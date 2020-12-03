@@ -196,7 +196,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
     func fetchMyMatches(userIdentifier:String) {
-        db.collection("matches").whereField("crushID", isEqualTo: userIdentifier)
+        db.collection("matches").whereField("crushID", isEqualTo: userIdentifier).whereField("state", isEqualTo: 1)
             .getDocuments() { (documentMatches, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
