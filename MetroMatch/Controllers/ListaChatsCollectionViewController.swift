@@ -57,6 +57,7 @@ class ListaChatsCollectionViewController: UICollectionViewController, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.reloadData()
 
         collectionView.backgroundColor = .white
         self.collectionView!.register(ListaChatsCell.self, forCellWithReuseIdentifier: reuseIdentifier)

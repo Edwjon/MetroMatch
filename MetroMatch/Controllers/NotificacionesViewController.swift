@@ -54,7 +54,7 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.collectionView.reloadData()
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: "cellId")
         notificacionesButton.isUserInteractionEnabled = false
         let userID = Auth.auth().currentUser!.uid

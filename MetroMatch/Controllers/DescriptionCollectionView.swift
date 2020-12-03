@@ -160,6 +160,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.reloadData()
             
         collectionView.backgroundColor = .white
 
@@ -196,6 +197,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     }
     
     func fetchMyMatches(userIdentifier:String) {
+        self.collectionView.reloadData()
         db.collection("matches").whereField("crushID", isEqualTo: userIdentifier).whereField("state", isEqualTo: 1)
             .getDocuments() { (documentMatches, err) in
                 if let err = err {
