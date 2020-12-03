@@ -10,7 +10,6 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-
 //let posts: [Post] = [
 //    Post(imagenPerfil: UIImage(named: "mia") ?? UIImage(), nombre: "Mia Milano", imagenPrincipal: UIImage(named: "george") ?? UIImage(), username: "@miamilano", descripcion: "Me parece muy inteligente y guapo!!!", comentarios: ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]),
 //    Post(imagenPerfil: UIImage(named: "stevenn") ?? UIImage(), nombre: "Steven", imagenPrincipal: UIImage(named: "johana") ?? UIImage(), username: "@steven", descripcion: "Johana me parece super mega linda, es mega increible!!!", comentarios: ["@jonathan: si es linda","@juancho: guao quien es esa jeva", "@juancho: guao quien es esa jeva"])
@@ -132,6 +131,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
                             post.username = document["username"] as? String
+                            post.profilePic = document["profilePic"] as? String
                             print("Document data: \(document["username"])")
                         } else {
                             print("Document does not exist")
@@ -174,8 +174,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         //cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic!)
         
         cell.nombreUsuario.text = posts[indexPath.item].username
-        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
-        cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/IMG_8386.png?alt=media&token=942c020a-d0b9-4d93-b5fc-2ef1f4459596")
+        cell.imagenGrande.downloaded(from: posts[indexPath.item].profilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/images%2FFA80B777-7D44-4F1F-8881-23EBE7CFA8AC.jpg?alt=media&token=45a4bfc0-c48f-4f56-905f-da9570889556")
+        cell.imagenPerfil.downloaded(from: posts[indexPath.item].creatorProfilePic ?? "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/images%2FFA80B777-7D44-4F1F-8881-23EBE7CFA8AC.jpg?alt=media&token=45a4bfc0-c48f-4f56-905f-da9570889556")
         cell.nombreUsuario.text = posts[indexPath.item].usernameCreator
         cell.usuarioLabel.text = posts[indexPath.item].username
         cell.descripcion.text = posts[indexPath.item].descripcion

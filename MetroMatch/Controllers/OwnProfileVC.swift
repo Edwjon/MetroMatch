@@ -82,19 +82,24 @@ class OwnProfileVC: UIViewController {
             return
         }
         
+        
         let toUploadName = UUID().uuidString + ".jpg"
         let toUploadReference = Storage.storage().reference().child("images").child(toUploadName)
+        let uploadMetadata = StorageMetadata.init()
+        uploadMetadata.contentType = "image/jpeg"
         
-        toUploadReference.putData(data, metadata: nil) { (metadata, err) in
+        toUploadReference.putData(data, metadata: uploadMetadata) { (downloadMetadata, err) in
             if let err = err {
                 print(err.localizedDescription)
                 return
             }
             toUploadReference.downloadURL { (url, err) in
                 if let err = err {
+                    print("oH NO GOT AN ERROR!!")
                     print(err.localizedDescription)
                     return
                 }
+                print("PUT IS COMPLETE AND GOT THIS BACK \(downloadMetadata)")
                 guard let url = url else {
                     print("ALGO SALIO MAL MANAO, INTENTA OTRA VEZ")
                     return
