@@ -32,7 +32,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.reloadData()
         //Se puede editar ya que se entró desde el own perfil
         if editable {
             updateButton.isHidden = false

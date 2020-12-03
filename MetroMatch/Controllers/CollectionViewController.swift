@@ -146,6 +146,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         if let document = document, document.exists {
                             if(anonymousRef==true){
                                 post.usernameCreator = "Post Anónimo"
+                                post.creatorID = "lM30eN2SozK6CzQ2M1S4"
                                 post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
                                 //group.leave()
                             } else {
