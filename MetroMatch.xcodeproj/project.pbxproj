@@ -33,6 +33,7 @@
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
 		47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */; };
 		47E470E02575D32100365EC3 /* ListaChatsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */; };
+		7237929825788FF9001D2060 /* Noti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237929725788FF9001D2060 /* Noti.swift */; };
 		72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72919701254E3EC70097D56F /* MatchTestingViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
@@ -75,6 +76,7 @@
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionView.swift; sourceTree = "<group>"; };
 		47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaChatsCollectionViewController.swift; sourceTree = "<group>"; };
+		7237929725788FF9001D2060 /* Noti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Noti.swift; sourceTree = "<group>"; };
 		72919701254E3EC70097D56F /* MatchTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTestingViewController.swift; sourceTree = "<group>"; };
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 				BB56EA972563897B002F2B45 /* Match.swift */,
 				BBC65F5E25721FBD00CEBB5D /* Chat.swift */,
 				BBC65F6125721FC900CEBB5D /* Message.swift */,
+				7237929725788FF9001D2060 /* Noti.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				BB949300254A25BD00EBBD14 /* SelectUserController.swift in Sources */,
 				4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */,
 				BBC65F6225721FC900CEBB5D /* Message.swift in Sources */,
+				7237929825788FF9001D2060 /* Noti.swift in Sources */,
 				4702A4272544D12600C1CC8E /* RegistrarViewController.swift in Sources */,
 				4728C0532544DFAF00210697 /* ProfileCell.swift in Sources */,
 				BB5E456A257205B6005B307A /* ChatViewController.swift in Sources */,
