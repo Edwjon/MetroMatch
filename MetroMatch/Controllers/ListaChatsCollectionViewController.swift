@@ -29,6 +29,7 @@ class ListaChatsCell: UICollectionViewCell {
         label.isEditable = false
         label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .systemPink
+        label.isUserInteractionEnabled = false
         return label
     }()
     
@@ -40,7 +41,7 @@ class ListaChatsCell: UICollectionViewCell {
         imagenPerfil.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: 70, heightConstant: 70)
         
         addSubview(nombreUsuario)
-        nombreUsuario.anchor(topAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 35)
+        nombreUsuario.anchor(topAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 35)
     }
     
     required init?(coder: NSCoder) {
