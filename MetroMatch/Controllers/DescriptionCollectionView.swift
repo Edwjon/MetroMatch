@@ -598,13 +598,16 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                                                     if anonimo! {
                                                         vc.user2Name = "Anónimo"
                                                         vc.user2ImgUrl = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+                                                        vc.anonimo=true
                                                     
                                                     } else {
                                                         if let firstName = user["firstName"], let lastName = user["lastName"] {
                                                             vc.user2Name = "\(firstName) \(lastName)"
                                                         }
                                                         vc.user2ImgUrl = user["profilePic"] as? String
+                                                        vc.anonimo=false
                                                     }
+                                                    
                                                     
                                                     self.navigationController?.pushViewController(vc, animated: true)
                                                                                                         
@@ -688,12 +691,14 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                                                                 if anonimo! {
                                                                     vc.user2Name = "Anónimo"
                                                                     vc.user2ImgUrl = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+                                                                    vc.anonimo=true
                                                                 
                                                                 } else {
                                                                     if let firstName = user["firstName"], let lastName = user["lastName"] {
                                                                         vc.user2Name = "\(firstName) \(lastName)"
                                                                     }
                                                                     vc.user2ImgUrl = user["profilePic"] as? String
+                                                                    vc.anonimo=false
                                                                 }
                                                                 
 //                                                                if let firstName = user["firstName"], let lastName = user["lastName"] {
@@ -754,6 +759,9 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                                                 print("No se actualizo el post", err)
                                             } else {
                                                 print("Se actualizo el post unmatch")
+                                                let alert = UIAlertController(title: "OH NO!", message: "Haz roto un corazon satisfactoriamente", preferredStyle: .alert)
+                                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                                self.present(alert, animated: true)
                                             }
                                         }
                                     }
