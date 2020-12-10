@@ -197,15 +197,26 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
             self.myPosts(userIdentifier: usuario.uid)
             self.myMentions(userIdentifier: usuario.uid)
             self.fetchMyMatches(userIdentifier: usuario.uid)
-            self.db.collection("users").document((usuario.uid)).getDocument{(documentCreator, err) in
-                    if let documentCreator = documentCreator, documentCreator.exists{
-                        self.loggedUser.firstName = documentCreator["firstName"] as? String
-                        self.loggedUser.lastName = documentCreator["lastName"] as? String
-                        self.loggedUser.profilePic = documentCreator["profilePic"] as? String
-                    } else {
-                        print("El documento no existe")
-                    }
+            
+            self.db.collection("users").document(usuario.uid).addSnapshotListener{(user, err) in
+                guard let documentCreator = user, ((user?.exists) != nil) else {
+                    print("No existe el usuario")
+                    return
                 }
+                
+                self.loggedUser.firstName = documentCreator["firstName"] as? String
+                self.loggedUser.lastName = documentCreator["lastName"] as? String
+                self.loggedUser.profilePic = documentCreator["profilePic"] as? String
+            }
+//            self.db.collection("users").document((usuario.uid)).getDocument{(documentCreator, err) in
+//                    if let documentCreator = documentCreator, documentCreator.exists{
+//                        self.loggedUser.firstName = documentCreator["firstName"] as? String
+//                        self.loggedUser.lastName = documentCreator["lastName"] as? String
+//                        self.loggedUser.profilePic = documentCreator["profilePic"] as? String
+//                    } else {
+//                        print("El documento no existe")
+//                    }
+//                }
         }
         
         self.collectionView.reloadData()
@@ -221,6 +232,8 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 print("Error en los documentos")
                 return
             }
+            
+            self.myMatches = []
             
             for match in documents {
                 print("llego la data")
@@ -239,7 +252,9 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 myMatch.id = match["id"] as? String
                 myMatch.postID = match["postID"] as? String
                 myMatch.state = match["state"] as? Int
-                self.myMatches.append(myMatch)
+                if(myMatch.state==1){
+                    self.myMatches.append(myMatch)
+                }
             }
             
             self.collectionView.reloadData()
@@ -791,9 +806,14 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         header.imagenPerfil.downloaded(from: self.loggedUser.profilePic ?? "")
         header.userLabel.text = (self.loggedUser.firstName ?? "Nombre") + " " + (self.loggedUser.lastName ?? "Apellido")
         
-        
+        roundingUIView(let: header.imagenPerfil, let: 70)
         return header
     }
+    
+    private func roundingUIView(let aView: UIView!, let cornerRadiusParam: CGFloat!) {
+            aView.clipsToBounds = true
+            aView.layer.cornerRadius = cornerRadiusParam
+        }
     
     @IBAction func logOut(_ sender: Any) {
         logOut()

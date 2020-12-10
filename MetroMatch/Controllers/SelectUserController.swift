@@ -39,7 +39,9 @@ class SelectUserController: UITableViewController {
                     user.profilePic = document["profilePic"] as? String
                     
                     if document.documentID != Auth.auth().currentUser?.uid {
-                        self.users.append(user)
+                        if document.documentID != "lM30eN2SozK6CzQ2M1S4"{
+                            self.users.append(user)
+                        }
                     }
                 }
                 DispatchQueue.global(qos: .userInitiated).async {

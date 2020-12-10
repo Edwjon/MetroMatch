@@ -450,16 +450,25 @@ class CrearPostViewController: UIViewController {
         if(user==nil){
             return print("Usuario no loggeado")
         }
-        guard let username = usernameTextField.text, !username.isEmpty,
-              let description = descripcionTextView.text, !description.isEmpty
+        guard let username = usernameTextField.text, !username.isEmpty
         else{
-            print("Debe llenar todos los campos")
+            let alert = UIAlertController(title: "Error", message: "No pudes publicar un posts sin un crush, presiona en el libro y escoje a tu Metro Crush", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
             return
         }
-        print(description)
+        guard let description = descripcionTextView.text, !description.isEmpty
+        else {
+            let alert = UIAlertController(title: "Error", message: "Debes declararle tu amor! Te falta la descripción", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
         db.collection("users").whereField("username", isEqualTo: username).getDocuments(){(result, err) in
             if let err = err {
-                print("No existe el nombre de usuario ingresado, por favor ingrese un nombre de usuario válido", err)
+                let alert = UIAlertController(title: "Error", message: "No existe el nombre de usuario ingresado, por favor ingrese un nombre de usuario válido", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
             } else {
                 print("Se obtuvo un resultado")
                 for document in result!.documents {

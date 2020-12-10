@@ -110,82 +110,158 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     func fetchUsers(){
         
 //        myGroup.enter()
-        
-        db.collection("posts").getDocuments(){ [self] (posts, err) in
-            if let err = err {
-                print("Ocurrio un error", err)
-//                self.myGroup.leave()
-            } else {
-                for documentPost in posts!.documents {
-                    let anonymousRef = documentPost["anonymous"] as? Bool
-                    print("the anonymous is \(anonymousRef)")
-                    let crushId = documentPost["crushID"] as? String
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        DispatchQueue.main.async {
-                            self.getUsername(crushId: crushId!)
-                        }
-                    }
-
-                    let post = Post()
-                    let dataRef = documentPost["date"] as? Timestamp
-                    let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
-                    
-                    post.date = date
-                    post.creatorID = documentPost["creatorID"] as? String
-                    post.descripcion = documentPost["description"] as? String
-                    post.compatibility = documentPost["compatibility"] as? Int
-                    post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
-                    post.profilePic = documentPost["profilePic"] as? String
-                    
-                    //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
-                    
-//                    let group = DispatchGroup()
-//                    group.enter()
-                    
-                    self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            if(anonymousRef==true){
-                                post.usernameCreator = "Post Anónimo"
-                                post.creatorID = "lM30eN2SozK6CzQ2M1S4"
-                                post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
-                                //group.leave()
-                            } else {
-                                post.usernameCreator = document["username"] as? String
-                                post.creatorProfilePic = document["profilePic"] as? String
-                               // group.leave()
-                            }
-                        } else {
-                            print("Document does not exist")
-//                            group.leave()
-//                            self.myGroup.leave()
-                        }
-                    }
-                    
-//                    group.notify(queue: .main) {
-                        self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
-                            if let document = document, document.exists {
-                                post.username = document["username"] as? String
-                                post.profilePic = document["profilePic"] as? String
-                                print("Document data: \(document["username"])")
-                            } else {
-                                print("Document does not exist")
-                            }
-                        }
-                        
-                        self.posts.append(post)
-                        self.orderPostByDate()
-//                    }
-                    
-                    
-                }
+        db.collection("posts").addSnapshotListener{(postsRef, err) in
+            guard let posts = postsRef?.documents else {
+                print("Error fetching posts")
+                return
+            }
+            self.posts=[]
+            for documentPost in posts {
+                let anonymousRef = documentPost["anonymous"] as? Bool
+                print("the anonymous is \(anonymousRef)")
+                let crushId = documentPost["crushID"] as? String
                 DispatchQueue.global(qos: .userInitiated).async {
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                        self.getUsername(crushId: crushId!)
                     }
                 }
-                print("testing")
+
+                let post = Post()
+                let dataRef = documentPost["date"] as? Timestamp
+                let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
+                
+                post.date = date
+                post.creatorID = documentPost["creatorID"] as? String
+                post.descripcion = documentPost["description"] as? String
+                post.compatibility = documentPost["compatibility"] as? Int
+                post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+                post.profilePic = documentPost["profilePic"] as? String
+                
+                //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
+                
+//                    let group = DispatchGroup()
+//                    group.enter()
+                
+                self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        if(anonymousRef==true){
+                            post.usernameCreator = "Post Anónimo"
+                            post.creatorID = "lM30eN2SozK6CzQ2M1S4"
+                            post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+                            //group.leave()
+                        } else {
+                            post.usernameCreator = document["username"] as? String
+                            post.creatorProfilePic = document["profilePic"] as? String
+                           // group.leave()
+                        }
+                    } else {
+                        print("Document does not exist")
+//                            group.leave()
+//                            self.myGroup.leave()
+                    }
+                }
+                
+//                    group.notify(queue: .main) {
+                    self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            post.username = document["username"] as? String
+                            post.profilePic = document["profilePic"] as? String
+                            print("Document data: \(document["username"])")
+                        } else {
+                            print("Document does not exist")
+                        }
+                    }
+                    
+                    self.posts.append(post)
+                    self.orderPostByDate()
+//                    }
+                
+                
             }
+            DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+            print("testing")
+            
         }
+        
+//        db.collection("posts").getDocuments(){ [self] (posts, err) in
+//            if let err = err {
+//                print("Ocurrio un error", err)
+////                self.myGroup.leave()
+//            } else {
+//                for documentPost in posts!.documents {
+//                    let anonymousRef = documentPost["anonymous"] as? Bool
+//                    print("the anonymous is \(anonymousRef)")
+//                    let crushId = documentPost["crushID"] as? String
+//                    DispatchQueue.global(qos: .userInitiated).async {
+//                        DispatchQueue.main.async {
+//                            self.getUsername(crushId: crushId!)
+//                        }
+//                    }
+//
+//                    let post = Post()
+//                    let dataRef = documentPost["date"] as? Timestamp
+//                    let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
+//
+//                    post.date = date
+//                    post.creatorID = documentPost["creatorID"] as? String
+//                    post.descripcion = documentPost["description"] as? String
+//                    post.compatibility = documentPost["compatibility"] as? Int
+//                    post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
+//                    post.profilePic = documentPost["profilePic"] as? String
+//
+//                    //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
+//
+////                    let group = DispatchGroup()
+////                    group.enter()
+//
+//                    self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
+//                        if let document = document, document.exists {
+//                            if(anonymousRef==true){
+//                                post.usernameCreator = "Post Anónimo"
+//                                post.creatorID = "lM30eN2SozK6CzQ2M1S4"
+//                                post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
+//                                //group.leave()
+//                            } else {
+//                                post.usernameCreator = document["username"] as? String
+//                                post.creatorProfilePic = document["profilePic"] as? String
+//                               // group.leave()
+//                            }
+//                        } else {
+//                            print("Document does not exist")
+////                            group.leave()
+////                            self.myGroup.leave()
+//                        }
+//                    }
+//
+////                    group.notify(queue: .main) {
+//                        self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
+//                            if let document = document, document.exists {
+//                                post.username = document["username"] as? String
+//                                post.profilePic = document["profilePic"] as? String
+//                                print("Document data: \(document["username"])")
+//                            } else {
+//                                print("Document does not exist")
+//                            }
+//                        }
+//
+//                        self.posts.append(post)
+//                        self.orderPostByDate()
+////                    }
+//
+//
+//                }
+//                DispatchQueue.global(qos: .userInitiated).async {
+//                    DispatchQueue.main.async {
+//                        self.collectionView.reloadData()
+//                    }
+//                }
+//                print("testing")
+//            }
+//        }
         
 //        self.myGroup.leave()
     }

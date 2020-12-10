@@ -71,36 +71,58 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func myNotis(userIdentifier:String) {
-        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
-        db.collection("notifications").whereField("toUser", isEqualTo: userIdentifier)
-            .getDocuments() { (documentPosts, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for noti in documentPosts!.documents {
-                        print("llego la data")
-                        print("\(noti.documentID) => \(noti.data())")
-                        
-                        let myNoti = Noti()
-                        myNoti.message = noti.data()["message"] as! String
-                        
-                        
-                        self.notis.append(myNoti)
-                    }
-                    var index = 0
-//                    while index == 0 {
-//                        print("viendo si en verdad se guardaron en posts ")
-//                        print(self.notis[index].message)
-//                        index = index + 1
-//                    }
-                    
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
+        
+        db.collection("notifications").whereField("toUser", isEqualTo: userIdentifier).addSnapshotListener{(notifications, err) in
+            guard let documentPosts = notifications?.documents else {
+                print("Error fetching notifications")
+                return
+            }
+            
+            for noti in documentPosts {
+                print("llego la data")
+                print("\(noti.documentID) => \(noti.data())")
+                
+                let myNoti = Noti()
+                myNoti.message = noti.data()["message"] as! String
+                self.notis.append(myNoti)
+            }
+            DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
                 }
+            }
+            
         }
+        //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
+//        db.collection("notifications").whereField("toUser", isEqualTo: userIdentifier)
+//            .getDocuments() { (documentPosts, err) in
+//                if let err = err {
+//                    print("Error getting documents: \(err)")
+//                } else {
+//                    for noti in documentPosts!.documents {
+//                        print("llego la data")
+//                        print("\(noti.documentID) => \(noti.data())")
+//
+//                        let myNoti = Noti()
+//                        myNoti.message = noti.data()["message"] as! String
+//
+//
+//                        self.notis.append(myNoti)
+//                    }
+//                    var index = 0
+////                    while index == 0 {
+////                        print("viendo si en verdad se guardaron en posts ")
+////                        print(self.notis[index].message)
+////                        index = index + 1
+////                    }
+//
+//                    DispatchQueue.global(qos: .userInitiated).async {
+//                        DispatchQueue.main.async {
+//                            self.collectionView.reloadData()
+//                        }
+//                    }
+//                }
+//        }
     }
 
     

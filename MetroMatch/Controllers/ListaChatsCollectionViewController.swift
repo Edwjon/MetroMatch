@@ -17,8 +17,9 @@ class ListaChatsCell: UICollectionViewCell {
     
     let imagenPerfil: UIImageView = {
         let imagen = UIImageView()
-        imagen.layer.cornerRadius = imagen.frame.width / 2
+        imagen.layer.cornerRadius = imagen.bounds.size.width / 2.0
         imagen.layer.masksToBounds = true
+        roundingUIView(let: imagen, let: 30)
         return imagen
     }()
     
@@ -46,6 +47,11 @@ class ListaChatsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+private func roundingUIView(let aView: UIView!, let cornerRadiusParam: CGFloat!) {
+        aView.clipsToBounds = true
+        aView.layer.cornerRadius = cornerRadiusParam
+    }
 
 
 class ListaChatsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {

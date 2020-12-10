@@ -101,6 +101,9 @@ class ViewController: UIViewController {
 
             return
         }
+        
+        self.registrarButton.isEnabled=false;
+        self.iniciarSesionButton.isEnabled=false
 
         Auth.auth().signIn(withEmail: username, password: password) { authResult, error in
             guard error == nil else {
@@ -109,10 +112,14 @@ class ViewController: UIViewController {
                 let alert = UIAlertController(title: "Error", message: "Usuario o contraseña inválidos. Por favor ingrese un usuario válido", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-
+                
+                self.registrarButton.isEnabled=true;
+                self.iniciarSesionButton.isEnabled=true;
                 return
             }
             print("Se ha inicado sesion del usuario")
+            self.registrarButton.isEnabled=true;
+            self.iniciarSesionButton.isEnabled=true;
             self.performSegue(withIdentifier: "tabBarLogin", sender: self)
             //self.crearTabBar()
         }

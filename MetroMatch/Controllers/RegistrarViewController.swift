@@ -122,7 +122,23 @@ class RegistrarViewController: UIViewController {
     
     
     
+    func isValidEmail(testStr:String) -> Bool {
+          // print("validate calendar: \(testStr)")
+          let emailRegEx = "[A-Z0-9a-z._%+-]+@correo.unimet.edu.ve"
+
+          let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+          return emailTest.evaluate(with: testStr)
+   }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool
+           {
+        let currentCharacterCount = self.nombreTextField.text?.count ?? 0
+               if (range.length + range.location > currentCharacterCount){
+                   return false
+               }
+               let newLength = currentCharacterCount + string.count - range.length
+               return newLength <= 10
+           }
     
     @IBAction func registrar(_ sender: Any) {
         
@@ -130,20 +146,33 @@ class RegistrarViewController: UIViewController {
             self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
         }
         else {
+            
+            
+        
         //let layout = UICollectionViewFlowLayout()
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
             let username = usernameTextField.text, !username.isEmpty,
             let nombre = nombreTextField.text, !nombre.isEmpty,
             let apellido = apellidoTextField.text, !apellido.isEmpty else{
-            print("Faltan campos para completar")
+            let alert = UIAlertController(title: "Error", message: "Faltan campos para completar", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
             return
         }
+            if(!isValidEmail(testStr: email)){
+                let alert = UIAlertController(title: "Error", message: "Debes registrarte con un correo unimet", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                return
+            }
+            
+            self.registrarButton.isEnabled = false;
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             guard error == nil else {
                 // show account creation
-                
+                self.registrarButton.isEnabled = true;
                 return
             }
             self.db.collection("users").document((authResult?.user.uid)!).setData([
@@ -161,8 +190,10 @@ class RegistrarViewController: UIViewController {
             ]){ err in
                 if let err = err {
                     print("No se creo el usuario: ", err)
+                    self.registrarButton.isEnabled = true;
                 } else {
                     print("Se creo el usuario")
+                    self.registrarButton.isEnabled = true;
                     
                     
                     let layout = UICollectionViewFlowLayout()

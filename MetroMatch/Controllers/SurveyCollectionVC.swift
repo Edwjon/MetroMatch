@@ -91,6 +91,7 @@ class SurveyCollectionVC: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     @objc func doneButton() {
+        
         if enabled {
             var ref: DocumentReference? = nil
             ref = self.db.collection("surveys").addDocument(data: [
