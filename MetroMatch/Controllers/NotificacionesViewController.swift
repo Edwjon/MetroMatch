@@ -72,12 +72,13 @@ class NotificacionesViewController: UIViewController, UICollectionViewDelegate, 
     
     func myNotis(userIdentifier:String) {
         
+        
         db.collection("notifications").whereField("toUser", isEqualTo: userIdentifier).addSnapshotListener{(notifications, err) in
             guard let documentPosts = notifications?.documents else {
                 print("Error fetching notifications")
                 return
             }
-            
+            self.notis = []
             for noti in documentPosts {
                 print("llego la data")
                 print("\(noti.documentID) => \(noti.data())")
