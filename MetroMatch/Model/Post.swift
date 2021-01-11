@@ -12,7 +12,6 @@ import UIKit
 class Post: NSObject {
     public var profilePic: String?
     public var comments: [String]?
-    //let imagenPrincipal: UIImage
     public var username: String?
     public var descripcion: String?
     public var compatibility: Int?
@@ -23,8 +22,4 @@ class Post: NSObject {
     public var matched: Bool?
     public var anonymous: Bool?
     public var date: Date?
-}
-
-class Notification: NSObject {
-    //public var 
 }

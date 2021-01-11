@@ -9,39 +9,34 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
-    
+class LoginViewController: UIViewController {
     
     @IBOutlet var usernameTextfield: UITextField!
-    
     @IBOutlet var passwordTextfield: UITextField!
-    
     @IBOutlet var iniciarSesionButton: UIButton!
-    
     @IBOutlet var metrMatchLabel: UILabel!
-    
     @IBOutlet var registrarButton: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupIntertace()
-        
         constrains()
     }
-    
-    
+
+}
+
+// MARK: - Setup And Constrains -
+extension LoginViewController {
     
     func setupIntertace() {
         //UserName TExtField
         usernameTextfield.placeholder = "Ingresa tu username"
-        usernameTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextfield.font = UIFont.systemFont(ofSize: 16)
         usernameTextfield.layer.masksToBounds = true
         usernameTextfield.layer.cornerRadius = 12
         
         //Password TExtfield
-        passwordTextfield.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        passwordTextfield.font = UIFont.systemFont(ofSize: 16)
         passwordTextfield.layer.masksToBounds = true
         passwordTextfield.layer.cornerRadius = 12
         
@@ -69,7 +64,6 @@ class ViewController: UIViewController {
         
         metrMatchLabel.translatesAutoresizingMaskIntoConstraints = false
         metrMatchLabel.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 200, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
-        //metrMatchLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         metrMatchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +82,10 @@ class ViewController: UIViewController {
         registrarButton.anchor(nil, left: nil, bottom: view.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 50, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
         registrarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
+}
+
+// MARK: - IBActions -
+extension LoginViewController {
     
     @IBAction func iniciarSesion(_ sender: Any) {
         
@@ -121,11 +118,7 @@ class ViewController: UIViewController {
             self.registrarButton.isEnabled=true;
             self.iniciarSesionButton.isEnabled=true;
             self.performSegue(withIdentifier: "tabBarLogin", sender: self)
-            //self.crearTabBar()
         }
-        
-        //self.crearTabBar()
-        
     }
     
     
@@ -135,70 +128,4 @@ class ViewController: UIViewController {
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
-
-}
-
-
-extension UIView {
-    
-    func setGradientBackground(colorOne: UIColor, colorTwo: UIColor) {
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [colorOne.cgColor, colorTwo.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
-        layer.insertSublayer(gradientLayer, at: 0)
-    }
-}
-
-
-extension UIViewController {
-    
-    func crearTabBar() {
-        let tabBarVC = UITabBarController()
-        
-        
-        let layout = UICollectionViewFlowLayout()
-        let vc1 = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: layout))
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let v2: CrearPostViewController = mainStoryboard.instantiateViewController(withIdentifier: "crear") as! CrearPostViewController
-        let vc2 = UINavigationController(rootViewController: v2)
-        
-        let v3: NotificacionesViewController = mainStoryboard.instantiateViewController(withIdentifier: "notificaciones") as! NotificacionesViewController
-        let vc3 = UINavigationController(rootViewController: v3)
-        
-        let v4: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
-        let vc4 = UINavigationController(rootViewController: v4)
-        
-        
-        
-        vc1.title = "Posts"
-        vc2.title = "Crear"
-        vc3.title = "Notificaciones"
-        vc4.title = "Perfil"
-        
-        tabBarVC.setViewControllers([vc1,vc2,vc3, vc4], animated: true)
-        
-//        guard let items = tabBarVC.tabBar.items else {return}
-//
-//        let image1 = UIImage(named: "posts")
-//        let image2 = UIImage(named: "")
-//        let image3 = UIImage(named: "edit")
-//
-//
-        //let images = [image1, image2, image3]
-        
-        
-//        for x in 0..<items.count {
-//            items[x].image = images[x]
-//        }
-        
-        
-        tabBarVC.modalPresentationStyle = .fullScreen
-        present(tabBarVC, animated: true, completion: nil)
-    }
-    
 }

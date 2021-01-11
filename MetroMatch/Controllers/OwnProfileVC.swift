@@ -16,7 +16,6 @@ class OwnProfileVC: UIViewController {
     
     let db = Firestore.firestore()
     
-    
     @IBOutlet var profilePic: UIImageView!
     @IBOutlet var changePicButton: UIButton!
     @IBOutlet var nameTextField: UITextField!
@@ -34,6 +33,31 @@ class OwnProfileVC: UIViewController {
         
         super.viewDidLoad()
         
+        setupUser()
+        setupConstrains()
+        
+    }
+}
+
+
+// MARK: - Setup -
+extension OwnProfileVC {
+    
+    func setupConstrains() {
+        
+        hobbiesTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        hobbiesTextView.layer.masksToBounds = true
+        queBuscoTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        quienSoyTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
+        
+        profilePic.isUserInteractionEnabled = true
+        profilePic.layer.cornerRadius = profilePic.frame.width / 2
+        profilePic.layer.masksToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imagePicker))
+        profilePic.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupUser() {
         let user = Auth.auth().currentUser
         if let user = user {
           
@@ -59,41 +83,21 @@ class OwnProfileVC: UIViewController {
                 }
             }
             
-//          let uid = user.uid
-//          let email = user.email
-//          let photoURL = user.photoURL
           var multiFactorString = "MultiFactor: "
           for info in user.multiFactor.enrolledFactors {
             multiFactorString += info.displayName ?? "[DispayName]"
             multiFactorString += " "
           }
-          // ...
         }
+    }
+}
 
-        hobbiesTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
-        hobbiesTextView.layer.masksToBounds = true
-        queBuscoTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
-        quienSoyTextView.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
-        
-        profilePic.isUserInteractionEnabled = true
-        profilePic.layer.cornerRadius = profilePic.frame.width / 2
-        profilePic.layer.masksToBounds = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imagePicker))
-        profilePic.addGestureRecognizer(tapGesture)
-    }
+
+// MARK: - Firebase Update -
+extension OwnProfileVC {
     
-    @objc func imagePicker() {
-        presentPhotoActionSheet()
-    }
-    
-    
-    @IBAction func cambiarPicAction(_ sender: Any) {
-        presentPhotoActionSheet()
-    }
-    
-    @IBAction func updateAction(_ sender: Any) {
+    func updateUser() {
         self.dismiss(animated: true, completion: nil)
-        print(profilePic)
         
         guard let toUpload = profilePic.image, let data = toUpload.jpegData(compressionQuality: 0.4) else {
             print("No se pudo enviar su foto al servidor")
@@ -162,15 +166,28 @@ class OwnProfileVC: UIViewController {
                 print("Document successfully updated")
             }
         }
-        
-        
-        
     }
-    
-    
-
 }
 
+
+// MARK: - IBActions -
+extension OwnProfileVC {
+    
+    @IBAction func cambiarPicAction(_ sender: Any) {
+        presentPhotoActionSheet()
+    }
+    
+    @IBAction func updateAction(_ sender: Any) {
+        updateUser()
+    }
+    
+    @objc func imagePicker() {
+        presentPhotoActionSheet()
+    }
+}
+
+
+// MARK: - Image Picker -
 extension OwnProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {

@@ -13,11 +13,6 @@
 		4702A42C2544D39700C1CC8E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702A42B2544D39700C1CC8E /* Post.swift */; };
 		4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719DE5125544FFF008FC6F5 /* MyProfile.swift */; };
 		4719DE58255450C1008FC6F5 /* NotificacionesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */; };
-		471C25312546F3EA00C33E26 /* LobsterTwo-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252C2546F3E800C33E26 /* LobsterTwo-Italic.ttf */; };
-		471C25322546F3EA00C33E26 /* LobsterTwo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252D2546F3E900C33E26 /* LobsterTwo-Bold.ttf */; };
-		471C25332546F3EA00C33E26 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252E2546F3E900C33E26 /* Lobster-Regular.ttf */; };
-		471C25342546F3EA00C33E26 /* LobsterTwo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C252F2546F3EA00C33E26 /* LobsterTwo-BoldItalic.ttf */; };
-		471C25352546F3EA00C33E26 /* LobsterTwo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471C25302546F3EA00C33E26 /* LobsterTwo-Regular.ttf */; };
 		471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C25362547416800C33E26 /* CrearPostViewController.swift */; };
 		4728C0532544DFAF00210697 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C0522544DFAF00210697 /* ProfileCell.swift */; };
 		47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4764873F256F61CE0008703A /* SurveyCollectionVC.swift */; };
@@ -25,16 +20,18 @@
 		47883D352569A697007A193E /* OwnProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47883D342569A697007A193E /* OwnProfileVC.swift */; };
 		4789AE82253F721100D1D1AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE81253F721100D1D1AF /* AppDelegate.swift */; };
 		4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE83253F721100D1D1AF /* SceneDelegate.swift */; };
-		4789AE86253F721100D1D1AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE85253F721100D1D1AF /* ViewController.swift */; };
+		4789AE86253F721100D1D1AF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE85253F721100D1D1AF /* LoginViewController.swift */; };
 		4789AE89253F721100D1D1AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE87253F721100D1D1AF /* Main.storyboard */; };
 		4789AE8C253F721100D1D1AF /* MetroMatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4789AE8A253F721100D1D1AF /* MetroMatch.xcdatamodeld */; };
 		4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8D253F721A00D1D1AF /* Assets.xcassets */; };
 		4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */; };
 		479C4A242544D80800CFD0BD /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479C4A232544D80800CFD0BD /* DescriptionViewController.swift */; };
 		47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */; };
+		47C6643F25AA53EB00B66699 /* ListaChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6643E25AA53EB00B66699 /* ListaChatCell.swift */; };
+		47C6644225AA562500B66699 /* SurveyCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6644125AA562500B66699 /* SurveyCells.swift */; };
+		47C6644B25AC1F8700B66699 /* LobsterTwo-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C6644925AC1EEC00B66699 /* LobsterTwo-Italic.ttf */; };
 		47E470E02575D32100365EC3 /* ListaChatsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */; };
 		7237929825788FF9001D2060 /* Noti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237929725788FF9001D2060 /* Noti.swift */; };
-		72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72919701254E3EC70097D56F /* MatchTestingViewController.swift */; };
 		729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 729A96A325450EA4001E3E46 /* GoogleService-Info.plist */; };
 		75EF7E330A34D6885CB4A00F /* Pods_MetroMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */; };
 		BB56EA982563897B002F2B45 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB56EA972563897B002F2B45 /* Match.swift */; };
@@ -54,11 +51,6 @@
 		4702A42B2544D39700C1CC8E /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4719DE5125544FFF008FC6F5 /* MyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfile.swift; sourceTree = "<group>"; };
 		4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificacionesViewController.swift; sourceTree = "<group>"; };
-		471C252C2546F3E800C33E26 /* LobsterTwo-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Italic.ttf"; sourceTree = "<group>"; };
-		471C252D2546F3E900C33E26 /* LobsterTwo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Bold.ttf"; sourceTree = "<group>"; };
-		471C252E2546F3E900C33E26 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
-		471C252F2546F3EA00C33E26 /* LobsterTwo-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-BoldItalic.ttf"; sourceTree = "<group>"; };
-		471C25302546F3EA00C33E26 /* LobsterTwo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Regular.ttf"; sourceTree = "<group>"; };
 		471C25362547416800C33E26 /* CrearPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrearPostViewController.swift; sourceTree = "<group>"; };
 		4728C0522544DFAF00210697 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		4764873F256F61CE0008703A /* SurveyCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCollectionVC.swift; sourceTree = "<group>"; };
@@ -67,7 +59,7 @@
 		4789AE7E253F721100D1D1AF /* MetroMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4789AE81253F721100D1D1AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4789AE83253F721100D1D1AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4789AE85253F721100D1D1AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4789AE85253F721100D1D1AF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4789AE88253F721100D1D1AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4789AE8B253F721100D1D1AF /* MetroMatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MetroMatch.xcdatamodel; sourceTree = "<group>"; };
 		4789AE8D253F721A00D1D1AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,9 +67,11 @@
 		4789AE92253F721A00D1D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479C4A232544D80800CFD0BD /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionView.swift; sourceTree = "<group>"; };
+		47C6643E25AA53EB00B66699 /* ListaChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaChatCell.swift; sourceTree = "<group>"; };
+		47C6644125AA562500B66699 /* SurveyCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCells.swift; sourceTree = "<group>"; };
+		47C6644925AC1EEC00B66699 /* LobsterTwo-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LobsterTwo-Italic.ttf"; sourceTree = "<group>"; };
 		47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaChatsCollectionViewController.swift; sourceTree = "<group>"; };
 		7237929725788FF9001D2060 /* Noti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Noti.swift; sourceTree = "<group>"; };
-		72919701254E3EC70097D56F /* MatchTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTestingViewController.swift; sourceTree = "<group>"; };
 		729A96A325450EA4001E3E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C815E44C8509B06F2754245 /* Pods_MetroMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetroMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED8A1EB3A7877F3D2655A9E /* Pods-MetroMatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetroMatch.release.xcconfig"; path = "Target Support Files/Pods-MetroMatch/Pods-MetroMatch.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,19 +118,18 @@
 		4702A4282544D35900C1CC8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4789AE85253F721100D1D1AF /* ViewController.swift */,
+				4789AE85253F721100D1D1AF /* LoginViewController.swift */,
 				4702A4262544D12600C1CC8E /* RegistrarViewController.swift */,
 				4787DE3925420B46004C5849 /* CollectionViewController.swift */,
 				47E470DF2575D32100365EC3 /* ListaChatsCollectionViewController.swift */,
 				4764873F256F61CE0008703A /* SurveyCollectionVC.swift */,
 				47A6C6942561915C007ABD08 /* DescriptionCollectionView.swift */,
 				479C4A232544D80800CFD0BD /* DescriptionViewController.swift */,
+				BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */,
 				471C25362547416800C33E26 /* CrearPostViewController.swift */,
 				BB9492FF254A25BD00EBBD14 /* SelectUserController.swift */,
-				BB66783B254A96DC006E1F8E /* DescriptionController+handlers.swift */,
 				4719DE5125544FFF008FC6F5 /* MyProfile.swift */,
 				4719DE57255450C0008FC6F5 /* NotificacionesViewController.swift */,
-				72919701254E3EC70097D56F /* MatchTestingViewController.swift */,
 				47883D342569A697007A193E /* OwnProfileVC.swift */,
 				BB5E4569257205B6005B307A /* ChatViewController.swift */,
 			);
@@ -148,6 +141,8 @@
 			children = (
 				4702A4222544CADB00C1CC8E /* PostCell.swift */,
 				4728C0522544DFAF00210697 /* ProfileCell.swift */,
+				47C6643E25AA53EB00B66699 /* ListaChatCell.swift */,
+				47C6644125AA562500B66699 /* SurveyCells.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -164,18 +159,6 @@
 				7237929725788FF9001D2060 /* Noti.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		471C252B2546F3CC00C33E26 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				471C252E2546F3E900C33E26 /* Lobster-Regular.ttf */,
-				471C252D2546F3E900C33E26 /* LobsterTwo-Bold.ttf */,
-				471C252F2546F3EA00C33E26 /* LobsterTwo-BoldItalic.ttf */,
-				471C252C2546F3E800C33E26 /* LobsterTwo-Italic.ttf */,
-				471C25302546F3EA00C33E26 /* LobsterTwo-Regular.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		4789AE75253F721100D1D1AF = {
@@ -204,16 +187,24 @@
 				4702A4282544D35900C1CC8E /* Controllers */,
 				4702A4292544D36D00C1CC8E /* View */,
 				4702A42A2544D37700C1CC8E /* Model */,
-				471C252B2546F3CC00C33E26 /* Fonts */,
+				47C6643B25AA470900B66699 /* Extensions */,
 				4789AE87253F721100D1D1AF /* Main.storyboard */,
 				4789AE8D253F721A00D1D1AF /* Assets.xcassets */,
 				4789AE8F253F721A00D1D1AF /* LaunchScreen.storyboard */,
 				4789AE92253F721A00D1D1AF /* Info.plist */,
 				4789AE8A253F721100D1D1AF /* MetroMatch.xcdatamodeld */,
-				4702A4242544CB0500C1CC8E /* Extension.swift */,
 				729A96A325450EA4001E3E46 /* GoogleService-Info.plist */,
 			);
 			path = MetroMatch;
+			sourceTree = "<group>";
+		};
+		47C6643B25AA470900B66699 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4702A4242544CB0500C1CC8E /* Extension.swift */,
+				47C6644925AC1EEC00B66699 /* LobsterTwo-Italic.ttf */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,15 +267,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				471C25322546F3EA00C33E26 /* LobsterTwo-Bold.ttf in Resources */,
 				4789AE91253F721A00D1D1AF /* LaunchScreen.storyboard in Resources */,
 				729A96A425450EA4001E3E46 /* GoogleService-Info.plist in Resources */,
-				471C25352546F3EA00C33E26 /* LobsterTwo-Regular.ttf in Resources */,
-				471C25332546F3EA00C33E26 /* Lobster-Regular.ttf in Resources */,
 				4789AE8E253F721A00D1D1AF /* Assets.xcassets in Resources */,
 				4789AE89253F721100D1D1AF /* Main.storyboard in Resources */,
-				471C25342546F3EA00C33E26 /* LobsterTwo-BoldItalic.ttf in Resources */,
-				471C25312546F3EA00C33E26 /* LobsterTwo-Italic.ttf in Resources */,
+				47C6644B25AC1F8700B66699 /* LobsterTwo-Italic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB66783C254A96DC006E1F8E /* DescriptionController+handlers.swift in Sources */,
-				4789AE86253F721100D1D1AF /* ViewController.swift in Sources */,
+				4789AE86253F721100D1D1AF /* LoginViewController.swift in Sources */,
 				47648740256F61CE0008703A /* SurveyCollectionVC.swift in Sources */,
 				BBC65F5F25721FBD00CEBB5D /* Chat.swift in Sources */,
 				BBDE70DC2570B72C0029C73B /* Survey.swift in Sources */,
@@ -359,11 +346,12 @@
 				471C25372547416800C33E26 /* CrearPostViewController.swift in Sources */,
 				4719DE5225545000008FC6F5 /* MyProfile.swift in Sources */,
 				47A6C6952561915C007ABD08 /* DescriptionCollectionView.swift in Sources */,
-				72919702254E3EC70097D56F /* MatchTestingViewController.swift in Sources */,
+				47C6644225AA562500B66699 /* SurveyCells.swift in Sources */,
 				4789AE84253F721100D1D1AF /* SceneDelegate.swift in Sources */,
 				4789AE8C253F721100D1D1AF /* MetroMatch.xcdatamodeld in Sources */,
 				4702A42C2544D39700C1CC8E /* Post.swift in Sources */,
 				4787DE3A25420B46004C5849 /* CollectionViewController.swift in Sources */,
+				47C6643F25AA53EB00B66699 /* ListaChatCell.swift in Sources */,
 				4702A4232544CADB00C1CC8E /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

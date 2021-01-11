@@ -25,7 +25,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     let imagenPerfil: UIImageView = {
         let imagen = UIImageView()
-        //imagen.backgroundColor = .red
         imagen.layer.cornerRadius = 25
         imagen.clipsToBounds = true
         imagen.contentMode = .scaleToFill
@@ -41,9 +40,7 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     let nombreUsuario: UILabel = {
         let label = UILabel()
-        label.text = "Usuario"
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.backgroundColor = .purple
         return label
     }()
     
@@ -53,10 +50,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.lightGray.cgColor
-//        view.layer.shadowColor = UIColor.gray.cgColor
-//        view.layer.shadowOpacity = 0.9
-//        view.layer.shadowOffset = CGSize.zero
-//        view.layer.shadowRadius = 6
         return view
     }()
     
@@ -69,7 +62,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     let imagenGrande: UIImageView = {
         let imagen = UIImageView()
-        //imagen.backgroundColor = .green
         imagen.layer.cornerRadius = 10
         imagen.contentMode = .scaleToFill
         imagen.clipsToBounds = true
@@ -80,7 +72,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     let usuarioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        //label.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         label.textColor = .systemPink
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
@@ -90,7 +81,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     let compatibilidadLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        //label.textColor = .systemPink
         label.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
@@ -103,10 +93,8 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         tv.textColor = .black
         tv.isEditable = false
         tv.backgroundColor = .clear
-        //tv.layer.cornerRadius = 10
         tv.font = UIFont.systemFont(ofSize: 16)
         tv.isUserInteractionEnabled = false
-        //tv.layer.cornerRadius = 5
         return tv
     }()
     
@@ -123,8 +111,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
     
     var boton: UIButton = {
         let boton = UIButton(type: .system)
-        //boton.titleLabel?.text = "Match"
-        //boton.tintColor = .black
         boton.setTitleColor(.white, for: .normal)
         boton.setTitle("Match", for: .normal)
         boton.backgroundColor = .systemPink
@@ -166,12 +152,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         
         viewCuadrada.addSubview(descripcion)
         descripcion.anchor(compatibilidadLabel.bottomAnchor, left: usuarioLabel.leftAnchor, bottom: nil, right: boton.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
-        
-        //viewCuadrada.addSubview(tableView)
-        //tableView.anchor(descripcion.bottomAnchor, left: descripcion.leftAnchor, bottom: viewCuadrada.bottomAnchor, right: descripcion.rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        
-//        addSubview(separador)
-//        separador.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 0.5)
     }
     
     
@@ -190,7 +170,6 @@ class PostCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
         
-//        cell.textLabel?.text = posts[indexPath.item].comentarios[indexPath.item]
         return cell
     }
     

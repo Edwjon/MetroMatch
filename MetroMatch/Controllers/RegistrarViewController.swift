@@ -14,38 +14,36 @@ import FirebaseFirestore
 class RegistrarViewController: UIViewController {
 
     @IBOutlet var registroLabel: UILabel!
-    
-    
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var nombreTextField: UITextField!
     @IBOutlet var apellidoTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
-    
     @IBOutlet var loginButton: UIButton!
-    
-    
     @IBOutlet var registrarButton: UIButton!
-//    @IBOutlet var surveyButton: UIButton!
+    
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupInterface()
         constrains()
     }
     
-    let db = Firestore.firestore()
+}
+
+// MARK: - Setup and Constrains -
+extension RegistrarViewController {
     
     func setupInterface() {
         //UserName TExtField
         usernameTextField.placeholder = "Ingresa tu username"
-        usernameTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        usernameTextField.font = UIFont.systemFont(ofSize: 16)
         usernameTextField.layer.masksToBounds = true
         usernameTextField.layer.cornerRadius = 12
         
-        //Password TExtfield
-        passwordTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        //Password Textfield
+        passwordTextField.font = UIFont.systemFont(ofSize: 16)
         passwordTextField.layer.masksToBounds = true
         passwordTextField.layer.cornerRadius = 12
         
@@ -62,21 +60,15 @@ class RegistrarViewController: UIViewController {
         let colorDerechaNaranja = UIColor(red: 0.998, green: 0.417, blue: 0.298, alpha: 1)
         registrarButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
         
-        //Boton Hacer Encuesta
-//        surveyButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFont!)
-//        surveyButton.layer.masksToBounds = true
-//        surveyButton.layer.cornerRadius = 12
-//        surveyButton.setGradientBackground(colorOne: colorDerechaNaranja, colorTwo: colorIzquierdaAmarillo)
-        
-        nombreTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        nombreTextField.font = UIFont.systemFont(ofSize: 16)
         nombreTextField.layer.masksToBounds = true
         nombreTextField.layer.cornerRadius = 12
         
-        apellidoTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        apellidoTextField.font = UIFont.systemFont(ofSize: 16)
         apellidoTextField.layer.masksToBounds = true
         apellidoTextField.layer.cornerRadius = 12
         
-        emailTextField.font = UIFont.systemFont(ofSize: 16) //Aqui va el font del usernameTextfield
+        emailTextField.font = UIFont.systemFont(ofSize: 16)
         emailTextField.layer.masksToBounds = true
         emailTextField.layer.cornerRadius = 12
         
@@ -114,13 +106,99 @@ class RegistrarViewController: UIViewController {
         registrarButton.translatesAutoresizingMaskIntoConstraints = false
         registrarButton.anchor(passwordTextField.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
         registrarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+}
+
+
+// MARK: - IBActions -
+extension RegistrarViewController {
+    
+    @IBAction func registrar(_ sender: Any) {
         
-//        surveyButton.translatesAutoresizingMaskIntoConstraints = false
-//        surveyButton.anchor(registrarButton.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: view.frame.width / 2, heightConstant: 40)
-//        surveyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        performRegister()
     }
     
+    @IBAction func logIn(_ sender: Any) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc: LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! LoginViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
     
+}
+
+
+// MARK: - Auxiliar Methods - 
+extension RegistrarViewController {
+    
+    func performRegister() {
+        if qlq == true {
+            self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
+        }
+        else {
+        
+            guard let email = emailTextField.text, !email.isEmpty,
+                let password = passwordTextField.text, !password.isEmpty,
+                let username = usernameTextField.text, !username.isEmpty,
+                let nombre = nombreTextField.text, !nombre.isEmpty,
+                let apellido = apellidoTextField.text, !apellido.isEmpty else{
+                let alert = UIAlertController(title: "Error", message: "Faltan campos para completar", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                return
+            }
+                if(!isValidEmail(testStr: email)){
+                    let alert = UIAlertController(title: "Error", message: "Debes registrarte con un correo unimet", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                self.registrarButton.isEnabled = false;
+            
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                guard error == nil else {
+                    // show account creation
+                    self.registrarButton.isEnabled = true;
+                    return
+                }
+                self.db.collection("users").document((authResult?.user.uid)!).setData([
+                    "firstName": nombre,
+                    "lastName": apellido,
+                    "email": email,
+                    "hobbies": "Aqui van mis hobbies",
+                    "id": authResult?.user.uid ?? "",
+                    "quienSoy": "Aqui va mi identidad",
+                    "queBusco": "Aqui va lo que busco",
+                    "phone": "+587393086",
+                    "posts": [],
+                    "profilePic": "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/DefaultProfilePic.png?alt=media&token=035b79bd-bf5b-45e0-9f36-2b5e46ad1f03",
+                    "username": username
+                ]){ err in
+                    if let err = err {
+                        print("No se creo el usuario: ", err)
+                        self.registrarButton.isEnabled = true;
+                    } else {
+                        print("Se creo el usuario")
+                        self.registrarButton.isEnabled = true;
+                        
+                        
+                        let layout = UICollectionViewFlowLayout()
+                        let vc = SurveyCollectionVC(collectionViewLayout: layout)
+                        let nav = UINavigationController(rootViewController: vc)
+                        nav.modalPresentationStyle = .fullScreen
+                        self.present(nav, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+// MARK: - Textfield Methods -
+extension RegistrarViewController {
     
     func isValidEmail(testStr:String) -> Bool {
           // print("validate calendar: \(testStr)")
@@ -130,116 +208,13 @@ class RegistrarViewController: UIViewController {
           return emailTest.evaluate(with: testStr)
    }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool
-           {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
         let currentCharacterCount = self.nombreTextField.text?.count ?? 0
                if (range.length + range.location > currentCharacterCount){
                    return false
                }
                let newLength = currentCharacterCount + string.count - range.length
                return newLength <= 10
-           }
-    
-    @IBAction func registrar(_ sender: Any) {
-        
-        if qlq == true {
-            self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
-        }
-        else {
-            
-            
-        
-        //let layout = UICollectionViewFlowLayout()
-        guard let email = emailTextField.text, !email.isEmpty,
-            let password = passwordTextField.text, !password.isEmpty,
-            let username = usernameTextField.text, !username.isEmpty,
-            let nombre = nombreTextField.text, !nombre.isEmpty,
-            let apellido = apellidoTextField.text, !apellido.isEmpty else{
-            let alert = UIAlertController(title: "Error", message: "Faltan campos para completar", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-            return
-        }
-            if(!isValidEmail(testStr: email)){
-                let alert = UIAlertController(title: "Error", message: "Debes registrarte con un correo unimet", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-                return
-            }
-            
-            self.registrarButton.isEnabled = false;
-        
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard error == nil else {
-                // show account creation
-                self.registrarButton.isEnabled = true;
-                return
-            }
-            self.db.collection("users").document((authResult?.user.uid)!).setData([
-                "firstName": nombre,
-                "lastName": apellido,
-                "email": email,
-                "hobbies": "Aqui van mis hobbies",
-                "id": authResult?.user.uid ?? "",
-                "quienSoy": "Aqui va mi identidad",
-                "queBusco": "Aqui va lo que busco",
-                "phone": "+587393086",
-                "posts": [],
-                "profilePic": "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/DefaultProfilePic.png?alt=media&token=035b79bd-bf5b-45e0-9f36-2b5e46ad1f03",
-                "username": username
-            ]){ err in
-                if let err = err {
-                    print("No se creo el usuario: ", err)
-                    self.registrarButton.isEnabled = true;
-                } else {
-                    print("Se creo el usuario")
-                    self.registrarButton.isEnabled = true;
-                    
-                    
-                    let layout = UICollectionViewFlowLayout()
-                    let vc = SurveyCollectionVC(collectionViewLayout: layout)
-                    let nav = UINavigationController(rootViewController: vc)
-                    nav.modalPresentationStyle = .fullScreen
-                    self.present(nav, animated: true, completion: nil)
-                    
-                    
-//
-                }
-            }
-            
-            //self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
-            //self.crearTabBar()
-        }
-        
-        
-        }
-        
-        
-        //performSegue(withIdentifier: "presentRegister", sender: self)
-        //self.present(CollectionViewController(collectionViewLayout: layout), animated: true, completion: nil)
     }
-    
-    
-    func segue() {
-        self.performSegue(withIdentifier: "tabBarRegistrar", sender: self)
-    }
-    
-    @IBAction func logIn(_ sender: Any) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    
-//    @IBAction func surveyAction(_ sender: Any) {
-//        let layout = UICollectionViewFlowLayout()
-//        let vc = SurveyCollectionVC(collectionViewLayout: layout)
-//        let nav = UINavigationController(rootViewController: vc)
-//        nav.modalPresentationStyle = .fullScreen
-//        present(nav, animated: true, completion: nil)
-////        present(vc, animated: true, completion: nil)
-//    }
-    
     
 }

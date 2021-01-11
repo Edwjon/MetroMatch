@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
-class HeaderView: UICollectionViewCell {
+class HeaderDescriptionView: UICollectionViewCell {
     
     var imagenPerfil: UIImageView = {
         let imagen = UIImageView()
@@ -90,19 +90,13 @@ class HeaderView: UICollectionViewCell {
         
         addSubview(mentionsButton)
         mentionsButton.anchor(userLabel.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 138, heightConstant: 40)
-        
-//        addSubview(updateButton)
-//        updateButton.anchor(imagenPerfil.topAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 6, bottomConstant: 0, rightConstant: 6, widthConstant: 0, heightConstant: 40)
-        
-//        addSubview(logOutButton)
-//        logOutButton.anchor(updateButton.bottomAnchor, left: imagenPerfil.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 6, bottomConstant: 0, rightConstant: 6, widthConstant: 0, heightConstant: 40)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
+
 
 
 class Matches: UICollectionViewCell{
@@ -144,12 +138,6 @@ class Matches: UICollectionViewCell{
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        addSubview(imagenUsuario)
-//        imagenUsuario.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
-        
-//        addSubview(usuarioLabel)
-//        usuarioLabel.anchor(imagenUsuario.topAnchor, left: imagenUsuario.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 30)
-        
         addSubview(usuarioLabel)
         usuarioLabel.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: 30)
         
@@ -188,7 +176,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
         collectionView!.register(Matches.self, forCellWithReuseIdentifier: "matchesCell")
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: "mentionsCell")
         
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView.register(HeaderDescriptionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
             
         collectionView.allowsSelection = false
         
@@ -805,7 +793,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! HeaderView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! HeaderDescriptionView
         header.postButton.addTarget(self, action: #selector(posts), for: .touchUpInside)
         header.matchesButton.addTarget(self, action: #selector(matches), for: .touchUpInside)
         header.mentionsButton.addTarget(self, action: #selector(mentions), for: .touchUpInside)
@@ -839,7 +827,7 @@ class DescriptionCollectionView: UICollectionViewController, UICollectionViewDel
                 try FirebaseAuth.Auth.auth().signOut()
                 //self?.navigationController?.pushViewController(vc, animated: true)
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+                let vc: LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! LoginViewController
                 vc.modalPresentationStyle = .fullScreen
                 self?.present(vc, animated: true, completion: nil)
             } catch {

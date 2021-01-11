@@ -19,10 +19,10 @@ class CrearPostViewController: UIViewController {
     @IBOutlet var descripcionTextView: UITextView!
     @IBOutlet var publicarBoton: UIButton!
     @IBOutlet var vista: UIView!
-    var labelText: String!
-    
     @IBOutlet var anonimoSwitch: UISwitch!
     @IBOutlet var anonimoLabel: UILabel!
+    
+    var labelText: String!
     var surveyUser = Survey()
     var surveyCrush = Survey()
     var compatibilityTotal: Int = 0
@@ -30,43 +30,104 @@ class CrearPostViewController: UIViewController {
     
     var nombreTextField = ""
     var imagenDePerfil = ""
+    let db = Firestore.firestore()
+    let myGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //title = "Crear"
         
-        usernameTextField.text = nombreTextField
-        usernameTextField.isUserInteractionEnabled = false
-        imagenPerfil.downloaded(from:imagenDePerfil)
-        
-        anonimoLabel.text = "Público"
         setupInterface()
-        //self.usernameTextField.text = self.labelText
-        
-        
     }
-    let db = Firestore.firestore()
+}
+
+
+// MARK: - Firebase -
+extension CrearPostViewController {
+    
+    func fetchSurveys(userId:String, crushId: String) {
+        self.myGroup.enter()
+        self.db.collection("surveys").whereField("userId", isEqualTo: userId)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        self.surveyUser.answers = document["answers"] as? [Int]
+                        self.surveyUser.userId = userId as? String
+                        self.surveyUser.id = document.documentID as? String
+                    }
+                    print("the creator survey is \(self.surveyUser.answers)")
+                    self.db.collection("surveys").whereField("userId", isEqualTo: crushId)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for documentCrush in querySnapshot!.documents {
+                                    self.surveyCrush.answers = documentCrush["answers"] as? [Int]
+                                    self.surveyCrush.userId = crushId as? String
+                                    self.surveyCrush.id = documentCrush.documentID as? String
+                                }
+                                print("the crush survey is \(self.surveyCrush.answers)")
+                                self.setCompability(userSurvey: self.surveyUser.answers ?? [], crushSurvey: self.surveyCrush.answers ?? [])
+                                self.myGroup.leave()
+                                
+                            }
+                    }
+                }
+        }
+    }
+}
+
+
+// MARK: - IBAction -
+extension CrearPostViewController {
+    
+    @IBAction func openSelectUser(_ sender: Any) {
+        let selectUserController = SelectUserController()
+        let navController = UINavigationController(rootViewController: selectUserController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true, completion: nil)
+    }
+    
+    @IBAction func cambioSwitch(_ sender: Any) {
+        if !anonimoSwitch.isOn {
+            anonimoLabel.text = "Anónimo"
+            self.anonymous=true
+        } else {
+            anonimoLabel.text = "Público"
+            self.anonymous=false
+        }
+    }
+    
+    @IBAction func publicar(_ sender: Any) {
+        postCrush()
+    }
+    
+}
+
+
+// MARK: - Auxiliar -
+extension CrearPostViewController {
     
     func randomCompatibility() -> Int{
         let number = 0 + arc4random_uniform(100 - 0 + 1)
         return Int(number)
     }
     
-    func didUserPressTheCellWith( text: String)
-        {
-        
+    func didUserPressTheCellWith( text: String) {
         usernameTextField.text = text
-        }
+    }
+}
+
+
+// MARK: - Setup -
+extension CrearPostViewController {
     
     func setupInterface() {
         guard let customFont = UIFont(name: "LobsterTwo-Bold", size: UIFont.labelFontSize) else {return}
         crearPostLabel.font = UIFontMetrics.default.scaledFont(for: customFont)
         crearPostLabel.textColor = .black
     
-        //usuarioLabel.textColor = UIColor(red: 248/255, green: 150/255, blue: 166/255, alpha: 1)
-        //usuarioLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        
-        //imagenPerfil.image = UIImage(named: "mia")
         imagenPerfil.layer.cornerRadius = 12
         imagenPerfil.contentMode = .scaleToFill
         
@@ -86,7 +147,92 @@ class CrearPostViewController: UIViewController {
         vista.layer.borderWidth = 0.5
         vista.layer.borderColor = UIColor.lightGray.cgColor
         
+        usernameTextField.text = nombreTextField
+        usernameTextField.isUserInteractionEnabled = false
+        imagenPerfil.downloaded(from:imagenDePerfil)
+        
+        anonimoLabel.text = "Público"
     }
+    
+    
+    func postCrush() {
+        var crushID = ""
+        var profilePic = ""
+        let user = Auth.auth().currentUser
+        if(user==nil){
+            return print("Usuario no loggeado")
+        }
+        guard let username = usernameTextField.text, !username.isEmpty
+        else{
+            let alert = UIAlertController(title: "Error", message: "No pudes publicar un posts sin un crush, presiona en el libro y escoje a tu Metro Crush", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        guard let description = descripcionTextView.text, !description.isEmpty
+        else {
+            let alert = UIAlertController(title: "Error", message: "Debes declararle tu amor! Te falta la descripción", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        db.collection("users").whereField("username", isEqualTo: username).getDocuments(){(result, err) in
+            if let err = err {
+                let alert = UIAlertController(title: "Error", message: "No existe el nombre de usuario ingresado, por favor ingrese un nombre de usuario válido", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                print("Se obtuvo un resultado")
+                for document in result!.documents {
+                    crushID = document.documentID
+                    profilePic = (document["profilePic"] as? String)!
+                }
+                
+                //aqui
+                self.fetchSurveys(userId: user!.uid, crushId: crushID)
+                
+                self.myGroup.notify(queue: .main) {
+                    if user != nil {
+                        let postData: [String: Any] = [
+                            "comments": [],
+                            "compatibility": self.compatibilityTotal,
+                            "creatorID": user!.uid,
+                            "crushID": crushID,
+                            "description": description,
+                            "id": "",
+                            "profilePic": profilePic,
+                            "matched": false,
+                            "anonymous": self.anonymous,
+                            "date": Date()
+                        ]
+                        var ref: DocumentReference? = nil
+                        ref = self.db.collection("posts").addDocument(data: postData){ err in
+                            if let err = err {
+                                print("No se creo el post", err)
+                            } else {
+                                self.db.collection("posts").document(ref!.documentID).updateData([
+                                    "id": ref!.documentID,
+                                ]){err in
+                                    if let err = err {
+                                        print("El post no se creo correctamente", err)
+                                    } else {
+                                        
+                                        print("El post se creo correctamente")
+                                        
+                                        self.performSegue(withIdentifier: "aaaa", sender: self)
+                                    }
+                                }
+                                
+                            }
+                        }
+                    } else {
+                      print("No se ha iniciado sesión")
+                    }
+                }
+            }
+        }
+    }
+    
     
     func setCompability(userSurvey: [Int], crushSurvey:[Int]){
         var compability: Double = 0
@@ -402,142 +548,5 @@ class CrearPostViewController: UIViewController {
             //Fin Pregunta 10
         }
         self.compatibilityTotal=Int(compability*10)
-        print("The compatibility is \(self.compatibilityTotal)")
     }
-    
-    func fetchSurveys(userId:String, crushId: String){
-        self.myGroup.enter()
-        self.db.collection("surveys").whereField("userId", isEqualTo: userId)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        self.surveyUser.answers = document["answers"] as? [Int]
-                        self.surveyUser.userId = userId as? String
-                        self.surveyUser.id = document.documentID as? String
-                    }
-                    print("the creator survey is \(self.surveyUser.answers)")
-                    self.db.collection("surveys").whereField("userId", isEqualTo: crushId)
-                        .getDocuments() { (querySnapshot, err) in
-                            if let err = err {
-                                print("Error getting documents: \(err)")
-                            } else {
-                                for documentCrush in querySnapshot!.documents {
-                                    self.surveyCrush.answers = documentCrush["answers"] as? [Int]
-                                    self.surveyCrush.userId = crushId as? String
-                                    self.surveyCrush.id = documentCrush.documentID as? String
-                                }
-                                print("the crush survey is \(self.surveyCrush.answers)")
-                                self.setCompability(userSurvey: self.surveyUser.answers ?? [], crushSurvey: self.surveyCrush.answers ?? [])
-                                self.myGroup.leave()
-                                
-                            }
-                    }
-                }
-        }
-        
-        
-        
-    }
-    
-    let myGroup = DispatchGroup()
-    
-    @IBAction func publicar(_ sender: Any) {
-        var crushID = ""
-        var profilePic = ""
-        let user = Auth.auth().currentUser
-        if(user==nil){
-            return print("Usuario no loggeado")
-        }
-        guard let username = usernameTextField.text, !username.isEmpty
-        else{
-            let alert = UIAlertController(title: "Error", message: "No pudes publicar un posts sin un crush, presiona en el libro y escoje a tu Metro Crush", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-            return
-        }
-        guard let description = descripcionTextView.text, !description.isEmpty
-        else {
-            let alert = UIAlertController(title: "Error", message: "Debes declararle tu amor! Te falta la descripción", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-            return
-        }
-        db.collection("users").whereField("username", isEqualTo: username).getDocuments(){(result, err) in
-            if let err = err {
-                let alert = UIAlertController(title: "Error", message: "No existe el nombre de usuario ingresado, por favor ingrese un nombre de usuario válido", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-            } else {
-                print("Se obtuvo un resultado")
-                for document in result!.documents {
-                    crushID = document.documentID
-                    profilePic = (document["profilePic"] as? String)!
-                }
-                
-                //aqui
-                self.fetchSurveys(userId: user!.uid, crushId: crushID)
-                
-                self.myGroup.notify(queue: .main) {
-                    if user != nil {
-                        let postData: [String: Any] = [
-                            "comments": [],
-                            "compatibility": self.compatibilityTotal,
-                            "creatorID": user!.uid,
-                            "crushID": crushID,
-                            "description": description,
-                            "id": "",
-                            "profilePic": profilePic,
-                            "matched": false,
-                            "anonymous": self.anonymous,
-                            "date": Date()
-                        ]
-                        var ref: DocumentReference? = nil
-                        ref = self.db.collection("posts").addDocument(data: postData){ err in
-                            if let err = err {
-                                print("No se creo el post", err)
-                            } else {
-                                self.db.collection("posts").document(ref!.documentID).updateData([
-                                    "id": ref!.documentID,
-                                ]){err in
-                                    if let err = err {
-                                        print("El post no se creo correctamente", err)
-                                    } else {
-                                        
-                                        print("El post se creo correctamente")
-                                        
-                                        self.performSegue(withIdentifier: "aaaa", sender: self)
-                                    }
-                                }
-                                
-                            }
-                        }
-                    } else {
-                      print("No se ha iniciado sesión")
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    
-    @IBAction func openSelectUser(_ sender: Any) {
-        let selectUserController = SelectUserController()
-        let navController = UINavigationController(rootViewController: selectUserController)
-        navController.modalPresentationStyle = .fullScreen
-        present(navController, animated: true, completion: nil)
-    }
-    
-    @IBAction func cambioSwitch(_ sender: Any) {
-        if !anonimoSwitch.isOn {
-            anonimoLabel.text = "Anónimo"
-            self.anonymous=true
-        } else {
-            anonimoLabel.text = "Público"
-            self.anonymous=false
-        }
-    }
-    
 }

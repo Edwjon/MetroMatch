@@ -35,9 +35,18 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
     let db = Firestore.firestore()
     var posts = [Post]()
     var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupInterface()
+    }
+}
+
+
+// MARK: - Setup -
+extension MyProfile {
+    func setupInterface() {
         selectedMenu = 1
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId2")
@@ -46,9 +55,80 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
         user = Auth.auth().addStateDidChangeListener { (auth, users) in
             print(users)
         } as! User
+    }
+}
+
+
+// MARK: - TableView -
+extension MyProfile {
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if selectedMenu == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+            cell.backgroundColor = .red
+            cell.textLabel?.text = "Posts"
+            return cell
+        
+        } else if selectedMenu == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId2", for: indexPath)
+            cell.backgroundColor = .blue
+            cell.textLabel?.text = "Matches"
+            return cell
+        
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId3", for: indexPath)
+            cell.backgroundColor = .yellow
+            cell.textLabel?.text = "Menciones"
+            return cell
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+}
+
+
+// MARK: - IBAction -
+extension MyProfile {
+    
+    @IBAction func posts(_ sender: Any) {
+        selectedMenu = 1
+        tableView.reloadData()
     }
     
+    @IBAction func matches(_ sender: Any) {
+        selectedMenu = 2
+        tableView.reloadData()
+    }
+    
+    @IBAction func mentions(_ sender: Any) {
+        selectedMenu = 3
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func updateButton(_ sender: Any) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        dvc.editable = true
+        self.present(dvc, animated: true, completion: nil)
+    }
+    
+}
+
+
+// MARK: - Firebase -
+extension MyProfile {
     func myPosts(userIdentifier:String) {
         //LA SIGUIENTE LINEA ES COMO SE HACE QUERIES ESPECIFICOS EN FIREBASE
         db.collection("posts").whereField("creatorID", isEqualTo: userIdentifier)
@@ -88,72 +168,4 @@ class MyProfile: UITableViewController, UICollectionViewDelegateFlowLayout{
                 }
         }
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 5
-    }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if selectedMenu == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-            cell.backgroundColor = .red
-            cell.textLabel?.text = "Posts"
-            return cell
-        
-        } else if selectedMenu == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId2", for: indexPath)
-            cell.backgroundColor = .blue
-            cell.textLabel?.text = "Matches"
-            return cell
-        
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellId3", for: indexPath)
-            cell.backgroundColor = .yellow
-            cell.textLabel?.text = "Menciones"
-            return cell
-        }
-    }
-    
-
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    
-    
-    @IBAction func posts(_ sender: Any) {
-        selectedMenu = 1
-        tableView.reloadData()
-    }
-    
-    @IBAction func matches(_ sender: Any) {
-        selectedMenu = 2
-        tableView.reloadData()
-    }
-    
-    @IBAction func mentions(_ sender: Any) {
-        selectedMenu = 3
-        tableView.reloadData()
-    }
-    
-    
-    @IBAction func updateButton(_ sender: Any) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
-        dvc.editable = true
-        //dvc.idUsuario = 0
-        self.present(dvc, animated: true, completion: nil)
-    }
-    
 }

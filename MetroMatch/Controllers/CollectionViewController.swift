@@ -12,47 +12,95 @@ import FirebaseAuth
 import SDWebImage
 
 
-//let posts: [Post] = [
-//    Post(imagenPerfil: UIImage(named: "mia") ?? UIImage(), nombre: "Mia Milano", imagenPrincipal: UIImage(named: "george") ?? UIImage(), username: "@miamilano", descripcion: "Me parece muy inteligente y guapo!!!", comentarios: ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]),
-//    Post(imagenPerfil: UIImage(named: "stevenn") ?? UIImage(), nombre: "Steven", imagenPrincipal: UIImage(named: "johana") ?? UIImage(), username: "@steven", descripcion: "Johana me parece super mega linda, es mega increible!!!", comentarios: ["@jonathan: si es linda","@juancho: guao quien es esa jeva", "@juancho: guao quien es esa jeva"])
-//]
-
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let reuseIdentifier = "Cell"
     let db = Firestore.firestore()
     var usernameString = "@Testing"
     var posts = [Post]()
+    let myGroup = DispatchGroup()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupInterface()
+        fetchUsers()
+        setupTabBar()
+    }
+}
+
+
+//MARK: - CollectionView -
+extension CollectionViewController {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+                
+        return posts.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
+        
+        
+        cell.nombreUsuario.text = self.posts[indexPath.item].username
+        cell.nombreUsuario.text = self.posts[indexPath.item].username
+        cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
+        
+        if let imagen = self.posts[indexPath.item].creatorProfilePic {
+            cell.imagenPerfil.downloaded(from: imagen)
+        }
+        
+        cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
+        cell.usuarioLabel.text = self.posts[indexPath.item].username
+        cell.descripcion.text = self.posts[indexPath.item].descripcion
+        
+        if let compatibilidad = self.posts[indexPath.item].compatibility {
+            cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
+        }
+        
+        cell.boton.isHidden = true
+            
+        let tapGestureCreator = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
+        tapGestureCreator.id = posts[indexPath.item].creatorID
+        cell.imagenPerfil.addGestureRecognizer(tapGestureCreator)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let size = CGSize(width: collectionView.frame.width, height: 500)
+        return size
+    }
+}
+
+
+// MARK: - Setup -
+extension CollectionViewController {
+    
+    func setupInterface() {
+        
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let vc: ViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! ViewController
+            let vc: LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "login") as! LoginViewController
 
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: false, completion: nil)
         }
-        
-        
         
         title = "Posts"
         navigationItem.largeTitleDisplayMode = .always
         collectionView.backgroundColor = .white
 
         collectionView!.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        fetchUsers()
-        
-//        self.myGroup.notify(queue: .main) {
-//            self.orderPostByDate()
-//        }
-        
-        
-        //myPosts(userIdentifier: "3pzblgRpwZQTAooKEjgIQVvWcgA3")
-        
         
         DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.main.async {
@@ -61,9 +109,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
         
         collectionView.allowsSelection = false
-        
-        setupTabBar()
-        
     }
     
     
@@ -86,7 +131,38 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         view.setGradientBackground(colorOne: colorIzquierda, colorTwo: colorDerecha)
 
     }
+}
+
+
+// MARK: - Actions -
+extension CollectionViewController {
     
+    class CustomTapGestureRecognizer: UITapGestureRecognizer {
+          var id: String?
+    }
+    
+    @objc func goProfile(sender: CustomTapGestureRecognizer) {
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
+        dvc.editable = false
+        
+        //NOS TRAEMOS EL USUARIO
+        
+        dvc.idUsuario = sender.id!
+        self.present(dvc, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func messages(_ sender: Any) {
+        performSegue(withIdentifier: "mensajes", sender: nil)
+    }
+    
+}
+
+
+// MARK: - Firebase -
+extension CollectionViewController {
     
     func getUsername(crushId: String){
         self.db.collection("users").document(crushId).getDocument{(result, err) in
@@ -105,11 +181,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         })
     }
     
-    let myGroup = DispatchGroup()
+    
     
     func fetchUsers(){
         
-//        myGroup.enter()
         db.collection("posts").addSnapshotListener{(postsRef, err) in
             guard let posts = postsRef?.documents else {
                 print("Error fetching posts")
@@ -138,30 +213,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 post.profilePic = documentPost["profilePic"] as? String
                 
                 //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
-                
-//                    let group = DispatchGroup()
-//                    group.enter()
-                
                 self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
                     if let document = document, document.exists {
                         if(anonymousRef==true){
                             post.usernameCreator = "Post Anónimo"
                             post.creatorID = "lM30eN2SozK6CzQ2M1S4"
                             post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
-                            //group.leave()
                         } else {
                             post.usernameCreator = document["username"] as? String
                             post.creatorProfilePic = document["profilePic"] as? String
-                           // group.leave()
                         }
                     } else {
                         print("Document does not exist")
-//                            group.leave()
-//                            self.myGroup.leave()
                     }
                 }
                 
-//                    group.notify(queue: .main) {
                     self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
                         if let document = document, document.exists {
                             post.username = document["username"] as? String
@@ -174,213 +240,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     
                     self.posts.append(post)
                     self.orderPostByDate()
-//                    }
-                
-                
             }
+            
             DispatchQueue.global(qos: .userInitiated).async {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
             }
-            print("testing")
-            
         }
-        
-//        db.collection("posts").getDocuments(){ [self] (posts, err) in
-//            if let err = err {
-//                print("Ocurrio un error", err)
-////                self.myGroup.leave()
-//            } else {
-//                for documentPost in posts!.documents {
-//                    let anonymousRef = documentPost["anonymous"] as? Bool
-//                    print("the anonymous is \(anonymousRef)")
-//                    let crushId = documentPost["crushID"] as? String
-//                    DispatchQueue.global(qos: .userInitiated).async {
-//                        DispatchQueue.main.async {
-//                            self.getUsername(crushId: crushId!)
-//                        }
-//                    }
-//
-//                    let post = Post()
-//                    let dataRef = documentPost["date"] as? Timestamp
-//                    let date = Date(timeIntervalSince1970: TimeInterval(dataRef!.seconds))
-//
-//                    post.date = date
-//                    post.creatorID = documentPost["creatorID"] as? String
-//                    post.descripcion = documentPost["description"] as? String
-//                    post.compatibility = documentPost["compatibility"] as? Int
-//                    post.comments = ["@andrea: Sii me parece lindísimo","@valeria: Sii guao me parece muy lindo", "@juancho: guao quien es esa jeva"]
-//                    post.profilePic = documentPost["profilePic"] as? String
-//
-//                    //NOS TRAEMOS EL NOMBRE DE USUARIO QUE PUBLICO EL POST
-//
-////                    let group = DispatchGroup()
-////                    group.enter()
-//
-//                    self.db.collection("users").document((documentPost["creatorID"] as? String)!).getDocument { (document, error) in
-//                        if let document = document, document.exists {
-//                            if(anonymousRef==true){
-//                                post.usernameCreator = "Post Anónimo"
-//                                post.creatorID = "lM30eN2SozK6CzQ2M1S4"
-//                                post.creatorProfilePic = "https://firebasestorage.googleapis.com/v0/b/metromatch-6771a.appspot.com/o/AnonymousPost.png?alt=media&token=18e5a740-17c3-437f-bf0f-1a40c3746c52"
-//                                //group.leave()
-//                            } else {
-//                                post.usernameCreator = document["username"] as? String
-//                                post.creatorProfilePic = document["profilePic"] as? String
-//                               // group.leave()
-//                            }
-//                        } else {
-//                            print("Document does not exist")
-////                            group.leave()
-////                            self.myGroup.leave()
-//                        }
-//                    }
-//
-////                    group.notify(queue: .main) {
-//                        self.db.collection("users").document((documentPost["crushID"] as? String)!).getDocument { (document, error) in
-//                            if let document = document, document.exists {
-//                                post.username = document["username"] as? String
-//                                post.profilePic = document["profilePic"] as? String
-//                                print("Document data: \(document["username"])")
-//                            } else {
-//                                print("Document does not exist")
-//                            }
-//                        }
-//
-//                        self.posts.append(post)
-//                        self.orderPostByDate()
-////                    }
-//
-//
-//                }
-//                DispatchQueue.global(qos: .userInitiated).async {
-//                    DispatchQueue.main.async {
-//                        self.collectionView.reloadData()
-//                    }
-//                }
-//                print("testing")
-//            }
-//        }
-        
-//        self.myGroup.leave()
     }
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-        return 1
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-                
-        return posts.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCell
-        
-//        self.myGroup.notify(queue: .main) {
-        
-        
-            cell.nombreUsuario.text = self.posts[indexPath.item].username
-            cell.nombreUsuario.text = self.posts[indexPath.item].username
-            
-//            if let imagenProfile = self.posts[indexPath.item].profilePic {
-//                cell.imagenGrande.downloaded(from: imagenProfile)
-//            }
-//
-//            if let imagenCreador = self.posts[indexPath.item].creatorProfilePic {
-//                SDWebImageManager.shared.loadImage(with: URL(string: imagenCreador), options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
-//                    cell.imagenPerfil.image = image
-//                }
-//            }
-            cell.imagenGrande.downloaded(from: self.posts[indexPath.item].profilePic!)
-        
-        if let imagen = self.posts[indexPath.item].creatorProfilePic {
-            cell.imagenPerfil.downloaded(from: imagen)
-        }
-            //cell.imagenPerfil.downloaded(from: self.posts[indexPath.item].creatorProfilePic!)
-            cell.nombreUsuario.text = self.posts[indexPath.item].usernameCreator
-            cell.usuarioLabel.text = self.posts[indexPath.item].username
-            cell.descripcion.text = self.posts[indexPath.item].descripcion
-        let usuario = self.posts[indexPath.item].creatorID ?? "alguito"
-            if let compatibilidad = self.posts[indexPath.item].compatibility {
-                cell.compatibilidadLabel.text = "Compatibilidad: \(compatibilidad)%"
-            }
-        
-            cell.boton.isHidden = true
-            
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goProfile(sender:<#Any#>, uid: usuario)))
-//            cell.imagenPerfil.addGestureRecognizer(tapGesture)
-        
-        let tapGestureCreator = CustomTapGestureRecognizer(target: self, action: #selector(goProfile(sender:)))
-                tapGestureCreator.id = posts[indexPath.item].creatorID
-                cell.imagenPerfil.addGestureRecognizer(tapGestureCreator)
-        
-//        }
-        
-       // cell.tableView.numberOfRows(inSection: posts[indexPath.item].comments.count)
-        //cell.tableView.cellForRow(at: indexPath)?.textLabel = posts[indexPath.item].comentarios[indexPath.item]
-        
-        return cell
-    }
-    
-    class CustomTapGestureRecognizer: UITapGestureRecognizer {
-          var id: String?
-      }
-    
-    @objc func goProfile(sender: CustomTapGestureRecognizer) {
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let dvc: DescriptionViewController = mainStoryboard.instantiateViewController(withIdentifier: "edit") as! DescriptionViewController
-        dvc.editable = false
-        
-        //NOS TRAEMOS EL USUARIO
-        
-        dvc.idUsuario = sender.id!
-        self.present(dvc, animated: true, completion: nil)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let size = CGSize(width: collectionView.frame.width, height: 500)
-        return size
-    }
-    
-    
-    @IBAction func messages(_ sender: Any) {
-        performSegue(withIdentifier: "mensajes", sender: nil)
-    }
-
-}
-
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.image = image
-            }
-        }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
-    
-    
-    
     
 }
-

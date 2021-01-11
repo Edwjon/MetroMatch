@@ -12,7 +12,6 @@ class ProfileCell: UITableViewCell {
     
     let miHistoria: UILabel = {
         let label = UILabel()
-        label.text = "Mi historia"
         return label
     }()
     
@@ -24,7 +23,6 @@ class ProfileCell: UITableViewCell {
     
     var descripcion: UITextView = {
         let tv = UITextView()
-        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false
         tv.isUserInteractionEnabled = false
         return tv
@@ -57,7 +55,6 @@ class ProfileCell2: UITableViewCell {
     
     let misHobbies: UILabel = {
         let label = UILabel()
-        label.text = "Mis hobbies"
         return label
     }()
     
@@ -69,7 +66,6 @@ class ProfileCell2: UITableViewCell {
     
     var hobbies: UITextView = {
         let tv = UITextView()
-        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false
         tv.isUserInteractionEnabled = false
         return tv
@@ -100,7 +96,6 @@ class ProfileCell3: UITableViewCell {
     
     let buscando: UILabel = {
         let label = UILabel()
-        label.text = "Que estoy buscando"
         return label
     }()
     
@@ -112,7 +107,6 @@ class ProfileCell3: UITableViewCell {
     
     var queBusco: UITextView = {
         let tv = UITextView()
-        tv.text = "Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui. Algo para poenr aqui."
         tv.isEditable = false
         tv.isUserInteractionEnabled = false
         return tv

@@ -9,28 +9,32 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
 
     var currentUser = User()
     let db = Firestore.firestore()
-    
     let user = Auth.auth().currentUser!
-    
     
     var user2Name: String?
     var user2ImgUrl: String?
     var user2UID: String?
     
     var anonimo: Bool?
-    
     private var docReference: DocumentReference?
-    
     var messages: [Message] = []
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //user2Name="Shawn Mendes"
-        //user2ImgUrl="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iheartradio.ca%2Fnews%2Flisten-shawn-mendes-debuts-in-my-blood-1.3704464&psig=AOvVaw2KfEWaLkWYP4qW7frPMi1R&ust=1606795705395000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjfss2yqe0CFQAAAAAdAAAAABAD"
-        //user2UID="6U8L705uYUYll7ErEF4ByDNZARB3"
-        //user2UID="3pzblgRpwZQTAooKEjgIQVvWcgA3"
-        
+        setupUser()
+        setupInterface()
+        loadChat()
+    }
+    
+}
+
+
+// MARK: - Setup -
+extension ChatViewController {
+    
+    func setupUser() {
         if user != nil {
             self.db.collection("users").document(user.uid).getDocument(source: .cache) { (document, error) in
                 if let document = document {
@@ -45,24 +49,22 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         } else {
             currentUser.id=""
         }
+    }
+    
+    func setupInterface() {
         self.title = user2Name ?? "Chat"
-
         navigationItem.largeTitleDisplayMode = .never
         maintainPositionOnKeyboardFrameChanged = true
-        
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        
-        loadChat()
-        
-        print("hola")
-        print(user2UID)
     }
-    
-    // MARK: - Custom messages handlers
-    
+}
+
+
+// MARK: - Load and Create Chat -
+extension ChatViewController {
     func createNewChat() {
         let users = [self.currentUser.id, self.user2UID]
          let data: [String: Any] = [
@@ -144,7 +146,11 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
             }
         }
     }
-    
+}
+
+
+// MARK: - Configure Chat - 
+extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         
@@ -180,21 +186,19 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     // MARK: - InputBarAccessoryViewDelegate
     
-            func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
 
-                let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUser.id!, senderName: currentUser.firstName!)
+        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUser.id!, senderName: currentUser.firstName!)
                 
-                  //messages.append(message)
-                  insertNewMessage(message)
-                  save(message)
+        insertNewMessage(message)
+        save(message)
     
-                  inputBar.inputTextView.text = ""
-                  messagesCollectionView.reloadData()
-                  messagesCollectionView.scrollToBottom(animated: true)
-            }
+        inputBar.inputTextView.text = ""
+        messagesCollectionView.reloadData()
+        messagesCollectionView.scrollToBottom(animated: true)
+    }
     
     
-    // MARK: - MessagesDataSource
     func currentSender() -> SenderType {
         
         if let user = Auth.auth().currentUser?.uid {
@@ -222,13 +226,10 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     }
     
     
-    // MARK: - MessagesLayoutDelegate
-    
     func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return .zero
     }
     
-    // MARK: - MessagesDisplayDelegate
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .systemPink: .lightGray
     }
@@ -250,7 +251,5 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
 
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight: .bottomLeft
         return .bubbleTail(corner, .curved)
-
     }
-    
 }
